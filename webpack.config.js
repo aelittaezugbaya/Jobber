@@ -17,7 +17,8 @@ const commonConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Webpack demo',
+      title: 'Jobber',
+      template: path.join(PATHS.frontend, 'template.html')
     }),
   ],
   module: {
