@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -5,10 +6,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
+
 const routes_index = require('./routes/routes_index');
 const routes_api = require('./routes/routes_api');
 
-var app = express();
+const app = express();
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
