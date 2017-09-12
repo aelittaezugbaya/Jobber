@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/font-awesome/css/font-awesome.css';
 import './index.css';
 
+import MainView from './MainView'
+
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <MainView/>,
   document.getElementById('root')
 );
