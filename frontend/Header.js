@@ -6,7 +6,11 @@ export default class Header extends React.Component{
             <div className="container-fluid header-container">
                 <div className="navbar navbar-default header">
                     <div className="container-fluid">
-                        <i className="fa fa-bars fa-lg" aria-hidden="true"></i>
+                        <div className="navbar-header">
+                            <a className="navbar-brand" href="#">
+                                <i className="fa fa-bars fa-lg" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

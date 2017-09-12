@@ -16,5 +16,7 @@ body{
 }
 .fa-bars{
     cursor: pointer;
-    padding-top: 15px;
+}
+.navbar-brand{
+    color: #F9F9F9 !important;
 }
