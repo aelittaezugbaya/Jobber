@@ -57,7 +57,8 @@ router.put('/user/:id', function(req, res, next) {
     Status: req.body.Status
   }, function(err, user){
     if (err) throw err;
-    res.json(user);
+
+    res.send(user);
   });
 });
 
@@ -77,6 +78,11 @@ router.post('/user', function(req, res, next) {
   newUser.save();
   // TODO: Return something useful after insert
   res.send('Ran');
+});
+
+router.get('service', function(req, res, next) {
+ // TODO Service GET
+  //models.Feedback.find()
 });
 
 module.exports = router;
