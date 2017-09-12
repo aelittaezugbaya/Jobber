@@ -22,10 +22,10 @@ router.get('/feedback/:id', function(req, res, next) {
 router.post('/feedback', function(req, res, next) {
   // TODO: Get data from post body
   var newFeedback = models.Feedback({
-    UserSourceID: "SendersID",
-    UserReceiverID: "TargetID",
-    Comment: "I dont like this guy, boohoo.",
-    Rating: 2
+    UserSourceID: req.body.UserSourceID,
+    UserReceiverID: req.body.UserReceiverID,
+    Comment: req.body.Comment,
+    Rating: req.body.Rating
   });
   newFeedback.save();
   // TODO: Return something useful after insert
@@ -35,7 +35,7 @@ router.post('/feedback', function(req, res, next) {
 // -- User - Get - ID
 router.get('/user/:id', function(req, res, next) {
   models.User.find({ _id: req.params.id }, function (err, feedback) {
-    if (err) return handleError(err);
+    //if (err) return handleError(err);
     res.send(feedback);
   })
 });
@@ -46,7 +46,7 @@ router.put('/user/:id', function(req, res, next) {
     _id: req.params.Email
   },
   {
-    Rating: req.body.rating,
+    Rating: req.body.Rating,
     FullName: req.body.FullName,
     Email: req.body.Email,
     // TODO: Password Encryption
@@ -61,10 +61,11 @@ router.put('/user/:id', function(req, res, next) {
     res.json(user);
   });
 });
+
 // -- User - Post
 router.post('/user', function(req, res, next) {
   var newUser = models.User({
-    Rating: req.body.rating,
+    Rating: req.body.Rating,
     FullName: req.body.FullName,
     Email: req.body.Email,
     // TODO: Password Encryption
@@ -74,6 +75,9 @@ router.post('/user', function(req, res, next) {
     Description: req.body.Description,
     Status: req.body.Status
   });
+  newUser.save();
+  // TODO: Return something useful after insert
+  res.send('Ran');
 });
 
 module.exports = router;
