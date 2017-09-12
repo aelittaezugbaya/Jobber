@@ -6,8 +6,8 @@ const models = require('../mongooseModels');
 /*
  API List
  - Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
- - User     |  Post                     | ID: Get - Put    |
- - Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
+ * User     |  Post                     | ID: Get - Put    |
+ * Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
 // -- Feedback - Get - ReceiverID
@@ -43,7 +43,7 @@ router.get('/user/:id', function(req, res, next) {
 // -- User - Put - ID
 router.put('/user/:id', function(req, res, next) {
   models.User.update({
-    _id: req.params.Email
+    _id: req.params.id
   },
   {
     Rating: req.body.Rating,
@@ -57,7 +57,6 @@ router.put('/user/:id', function(req, res, next) {
     Status: req.body.Status
   }, function(err, user){
     if (err) throw err;
-
     res.json(user);
   });
 });
