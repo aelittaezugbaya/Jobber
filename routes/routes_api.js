@@ -61,6 +61,7 @@ router.put('/user/:id', function(req, res, next) {
     res.json(user);
   });
 });
+
 // -- User - Post
 router.post('/user', function(req, res, next) {
   var newUser = models.User({
