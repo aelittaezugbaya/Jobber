@@ -76,7 +76,3 @@ module.exports.Feedback = mongoose.model('Feedback',
       Rating: Number
     }),
     'Feedback');
-
-module.exports.TestModel = mongoose.model('Test',
-    new mongoose.Schema({ name: String }),
-    'Test');
