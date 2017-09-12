@@ -32,4 +32,48 @@ router.post('/feedback', function(req, res, next) {
   res.send('Ran');
 });
 
+// -- User - Get - ID
+router.get('/user/:id', function(req, res, next) {
+  models.User.find({ _id: req.params.id }, function (err, feedback) {
+    if (err) return handleError(err);
+    res.send(feedback);
+  })
+});
+
+// -- User - Put - ID
+router.put('/user/:id', function(req, res, next) {
+  models.User.update({
+    _id: req.params.Email
+  },
+  {
+    Rating: req.body.rating,
+    FullName: req.body.FullName,
+    Email: req.body.Email,
+    // TODO: Password Encryption
+    Password: req.body.Password,
+    DateOfBirth: req.body.DateOfBirth,
+    Gender: req.body.Gender,
+    Description: req.body.Description,
+    Status: req.body.Status
+  }, function(err, user){
+    if (err) throw err;
+
+    res.json(user);
+  });
+});
+// -- User - Post
+router.post('/user', function(req, res, next) {
+  var newUser = models.User({
+    Rating: req.body.rating,
+    FullName: req.body.FullName,
+    Email: req.body.Email,
+    // TODO: Password Encryption
+    Password: req.body.Password,
+    DateOfBirth: req.body.DateOfBirth,
+    Gender: req.body.Gender,
+    Description: req.body.Description,
+    Status: req.body.Status
+  });
+});
+
 module.exports = router;
