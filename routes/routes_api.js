@@ -6,8 +6,8 @@ const models = require('../mongooseModels');
 /*
  API List
  - Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
- - User     |  Post                     | ID: Get - Put    |
- - Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
+ * User     |  Post                     | ID: Get - Put    |
+ * Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
 // -- Feedback - Get - ReceiverID
@@ -20,14 +20,28 @@ router.get('/feedback/:id', function(req, res, next) {
 
 // -- Feedback - Post
 router.post('/feedback', function(req, res, next) {
-  // TODO: Get data from post body
   var newFeedback = models.Feedback({
     UserSourceID: req.body.UserSourceID,
     UserReceiverID: req.body.UserReceiverID,
     Comment: req.body.Comment,
     Rating: req.body.Rating
   });
-  newFeedback.save();
+  newFeedback.save(function(){
+    // -- Set receiver user rating cache
+    models.Feedback.find({ UserReceiverID: req.body.UserReceiverID}, function (err, feedback) {
+      let total = 0;
+      feedback.forEach(function(item, index){
+        total += item.Rating;
+      });
+      let ave = total / feedback.length;
+      console.log("Updating User Rating cache:");
+      console.log("\tFeedback Count: " + feedback.length);
+      console.log("\tFeedback Average: " + ave);
+      models.User.findOneAndUpdate({ _id: req.body.UserReceiverID }, { $set: { Rating: ave }}, function(){
+        console.log("User rating cache updated.");
+      })
+    })
+  });
   // TODO: Return something useful after insert
   res.send('Ran');
 });
@@ -35,14 +49,15 @@ router.post('/feedback', function(req, res, next) {
 // -- User - Get - ID
 router.get('/user/:id', function(req, res, next) {
   models.User.find({ _id: req.params.id }, function (err, feedback) {
-    //if (err) return handleError(err);
     res.send(feedback);
   })
 });
 
 // -- User - Put - ID
 router.put('/user/:id', function(req, res, next) {
-  models.User.update({ _id: req.params.id },
+  models.User.update({
+    _id: req.params.id
+  },
   {
     Rating: req.body.Rating,
     FullName: req.body.FullName,
