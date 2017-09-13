@@ -1,18 +1,22 @@
 import React from 'react';
+import Tabs from './Tabs'
 
 export default class Header extends React.Component{
     render(){
         return(
             <div className="container-fluid header-container">
-                <div className="navbar navbar-default header">
+                <div className="navbar navbar-default header row">
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <a className="navbar-brand" href="#">
                                 <i className="fa fa-bars fa-lg" aria-hidden="true"></i>
                             </a>
                         </div>
+                        <Tabs className="tabs-style"/>
                     </div>
+
                 </div>
+
             </div>
         )
     }

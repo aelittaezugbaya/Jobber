@@ -17,6 +17,7 @@
     "font-awesome": "^4.7.0",
     "jade": "~1.11.0",
     "material-ui": "^0.19.1",
+    "materialize-css": "^0.100.2",
     "morgan": "~1.8.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

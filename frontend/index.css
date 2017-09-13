@@ -20,3 +20,19 @@ body{
 .navbar-brand{
     color: #F9F9F9 !important;
 }
+/*.tabs{*/
+    /*background-color: #B0BEC5;*/
+/*}*/
+.tabs-style{
+    background-color: #B0BEC5;
+}
+
+.tabs-style .tab a{
+    color: white;
+}
+.tabs-style .tab a.active, .tabs-style .tab a:hover{
+    color: white;
+}
+.tabs-style .indicator {
+    background-color: #F9F9F9;
+}
