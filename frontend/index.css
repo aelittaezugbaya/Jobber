@@ -16,9 +16,11 @@ body{
 }
 .fa-bars{
     cursor: pointer;
+    padding-top: 20px;
+    padding-left: 10px;
 }
 .navbar-brand{
-    color: #F9F9F9 !important;
+    color: white !important;
 }
 /*.tabs{*/
     /*background-color: #B0BEC5;*/
@@ -35,4 +37,21 @@ body{
 }
 .tabs-style .indicator {
     background-color: #F9F9F9;
+}
+a{
+    text-decoration: none !important;
+}
+.row{
+    margin-bottom: 10px;
+}
+
+.text-field input{
+    border-bottom: 1px solid white !important;
+}
+input[type=text]:not(.browser-default):focus:not([readonly]){
+    box-shadow: 0 1px 0 0 white;
+}
+.padding{
+    padding-left: 10px;
+    padding-top: 10px;
 }

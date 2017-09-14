@@ -9,10 +9,10 @@ export default class Tabs extends React.Component{
     }
     render(){
         return(
-            <div className="row">
+            <div className="">
                 <ul className={`tabs ${this.props.className}`}>
-                    <li className="tab col s3 "><a href="#test1">Test 1</a></li>
-                    <li className="tab col s3"><a className="active" href="#test2">Test 2</a></li>
+                    <li className="tab col s6 "><a href="#test1">Test 1</a></li>
+                    <li className="tab col s6"><a className="active" href="#test2">Test 2</a></li>
                 </ul>
 
             </div>
