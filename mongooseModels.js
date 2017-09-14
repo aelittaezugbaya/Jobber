@@ -36,20 +36,17 @@ Object List
    Rating
 
 */
-
 var serviceSchema = new mongoose.Schema({
   UserOwnerID: String,
   IsRequest: Boolean,
   Subject: String,
   Category: String,
-  Location: {
-    type: { type: String },
-    coordinates: []
-  },
+  Location: { type: { type: String }, coordinates: [Number]},
   Gender: String,
   Description: String,
   Status: String
-})
+});
+
 serviceSchema.index({ Location: '2dsphere' });
 module.exports.Service = mongoose.model('Service',
     serviceSchema,

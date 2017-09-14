@@ -5,7 +5,7 @@ const models = require('../mongooseModels');
 
 /*
  API List
- - Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
+ * Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
  * User     |  Post                     | ID: Get - Put    |
  * Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
@@ -133,18 +133,33 @@ router.post('/service', function(req, res, next) {
     Subject: req.body.Subject,
     Category: req.body.Category,
     Location: {
-      type: { type: "Point" },
+      type: "Point",
       coordinates: [ req.body.Lon, req.body.Lat ]
     },
     Gender: req.body.Gender,
     Description: req.body.Description,
     Status: req.body.Status
   })
-  newService.save(funtion(err){
+  newService.save(function(err){
     console.log(err);
   });
   // TODO: Return something useful after insert
   res.send('Ran');
+});
+
+router.get('/service/:lat/:lon/:radius', function(req, res, next) {
+ models.Service.find({Location: {
+  $near: {
+    $geometry: {
+       type: "Point" ,
+       coordinates: [ req.params.lon ,req.params.lat ]
+    },
+    $maxDistance: req.params.radius,
+    $minDistance: 0
+  }
+}}, function (err, service) {
+  res.send(service);
+  })
 });
 
 module.exports = router;
