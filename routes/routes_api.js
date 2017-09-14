@@ -93,9 +93,56 @@ router.post('/user', function(req, res, next) {
   res.send('Ran');
 });
 
-router.get('service', function(req, res, next) {
+// -- Service - Get
+router.get('service(:id', function(req, res, next) {
   // TODO Service GET
-  //models.Feedback.find()
+  models.Service.find({ _id: req.params.id }, function (err, service) {
+    res.send(service);
+  })
+});
+
+// -- Service - Put
+router.put('/service/:id', function(req, res, next) {
+  models.Service.update({
+    _id: req.params.id
+  },
+  {
+    UserOwnerID: req.body.UserOwnerID,
+    IsRequest: req.body.IsRequest,
+    Subject: req.body.Subject,
+    Category: req.body.Category,
+    Location: {
+      type: { type: "Point" },
+      coordinates: [ req.body.lon, req.body.lat ]
+    },
+    Gender: req.body.Gender,
+    Description: req.body.Description,
+    Status: req.body.Status
+  }, function(err, service){
+    if (err) throw err;
+
+    res.send(service);
+  });
+});
+
+// -- Service - Post
+router.post('/service', function(req, res, next) {
+  var newService = models.Service({
+    UserOwnerID: req.body.UserOwnerID,
+    IsRequest: req.body.IsRequest,
+    Subject: req.body.Subject,
+    Category: req.body.Category,
+    Location: {
+      type: { type: "Point" },
+      coordinates: [ req.body.lon, req.body.lat ]
+    },
+    Gender: req.body.Gender,
+    Description: req.body.Description,
+    Status: req.body.Status
+  })
+  newService.save();
+  // TODO: Return something useful after insert
+  res.send('Ran');
 });
 
 module.exports = router;
