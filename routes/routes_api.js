@@ -53,6 +53,16 @@ router.get('/user/:id', function(req, res, next) {
   })
 });
 
+router.get('/user', function(req, res, next) {
+  new Promise(function(resolve, reject) {
+    models.User.find({}, function (err, feedback) {
+      resolve();
+    })
+  }).then(function(resolve, reject){
+    res.send(feedback);
+  });
+});
+
 // -- User - Put - ID
 router.put('/user/:id', function(req, res, next) {
   models.User.update({
@@ -95,7 +105,6 @@ router.post('/user', function(req, res, next) {
 
 // -- Service - Get
 router.get('/service/:id', function(req, res, next) {
-  // TODO Service GET
   models.Service.find({ _id: req.params.id }, function (err, service) {
     res.send(service);
   })
@@ -140,7 +149,7 @@ router.post('/service', function(req, res, next) {
     Description: req.body.Description,
     Status: req.body.Status
   })
-  newService.save(funtion(err){
+  newService.save(function(err){
     console.log(err);
   });
   // TODO: Return something useful after insert
