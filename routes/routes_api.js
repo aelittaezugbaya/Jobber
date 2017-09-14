@@ -111,9 +111,19 @@ router.post('/user', function(req, res, next) {
 
 // -- Service - Get
 router.get('/service/:id', function(req, res, next) {
-  models.Service.find({ _id: req.params.id }, function (err, service) {
+  new Promise(function(resolve, reject) {
+    models.Service.find({}, function (err, service) {
+      if(err)
+        return reject("Error finding service.");
+      return resolve(service);
+    })
+  }).then(function(service){
     res.send(service);
-  })
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.send(reason);
+  });
 });
 
 // -- Service - Put
