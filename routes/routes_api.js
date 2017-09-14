@@ -56,10 +56,16 @@ router.get('/user/:id', function(req, res, next) {
 router.get('/user', function(req, res, next) {
   new Promise(function(resolve, reject) {
     models.User.find({}, function (err, feedback) {
-      resolve();
+      if(true)
+        return reject("Error finding all users.");
+      return resolve(feedback);
     })
-  }).then(function(resolve, reject){
+  }).then(function(feedback){
     res.send(feedback);
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.send(reason);
   });
 });
 
