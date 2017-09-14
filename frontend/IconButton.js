@@ -7,12 +7,13 @@ export default class IconButton extends React.Component{
     constructor(props){
         super(props);
 
+
     }
 
 
     render(){
         return(
-            <a className={`${this.props.classNameA}`} onClick={this.onClick} href="#">
+            <a className={`${this.props.classNameA}`}  href="#" data-activates="slide-out">
                 <i className ={`fa ${this.props.classNameI}`} aria-hidden="true"></i>
             </a>
         )

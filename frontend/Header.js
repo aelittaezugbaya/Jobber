@@ -6,8 +6,12 @@ import IconButton from './IconButton'
 
 
 export default class Header extends React.Component{
-    onClickMenu(ev){
-
+    componentDidMount(){
+        $(document).ready(function(){
+            $('.button-collapse').sideNav({
+                closeOnClick: true
+            });
+        });
     }
     render(){
         return(
@@ -15,10 +19,12 @@ export default class Header extends React.Component{
                 <div className="navbar nav-wrapper header ">
                     <div className="row">
                         <div className="col s1">
-                            <IconButton classNameA="navbar-brand button-collapse" classNameI="fa-bars fa-lg" />
+                            <MenuSide/>
+                            <IconButton classNameA="navbar-brand button-collapse" classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         </div>
                         <Tabs className="tabs-style col s3"/>
                         <Input className="col s4 push-s1"/>
+
                     </div>
 
                 </div>
