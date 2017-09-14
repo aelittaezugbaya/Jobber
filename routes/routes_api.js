@@ -140,7 +140,9 @@ router.post('/service', function(req, res, next) {
     Description: req.body.Description,
     Status: req.body.Status
   })
-  newService.save();
+  newService.save(funtion(err){
+    console.log(err);
+  });
   // TODO: Return something useful after insert
   res.send('Ran');
 });
