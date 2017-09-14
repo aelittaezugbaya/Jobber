@@ -94,7 +94,7 @@ router.post('/user', function(req, res, next) {
 });
 
 // -- Service - Get
-router.get('service(:id', function(req, res, next) {
+router.get('/service/:id', function(req, res, next) {
   // TODO Service GET
   models.Service.find({ _id: req.params.id }, function (err, service) {
     res.send(service);
@@ -134,7 +134,7 @@ router.post('/service', function(req, res, next) {
     Category: req.body.Category,
     Location: {
       type: { type: "Point" },
-      coordinates: [ req.body.lon, req.body.lat ]
+      coordinates: [ req.body.Lon, req.body.Lat ]
     },
     Gender: req.body.Gender,
     Description: req.body.Description,
