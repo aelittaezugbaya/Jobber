@@ -8,11 +8,11 @@ body{
 }
 
 .header{
-    background-color: #B0BEC5;
+    background-color: #FFC107;
     border-radius: 0;
     border: none;
     color: #F9F9F9;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .fa-bars{
     cursor: pointer;
@@ -26,7 +26,7 @@ body{
     /*background-color: #B0BEC5;*/
 /*}*/
 .tabs-style{
-    background-color: #B0BEC5;
+    background-color: #FFC107;
 }
 
 .tabs-style .tab a{
@@ -47,6 +47,7 @@ a{
 
 .text-field input{
     border-bottom: 1px solid white !important;
+    color: white;
 }
 input[type=text]:not(.browser-default):focus:not([readonly]){
     box-shadow: 0 1px 0 0 white;
@@ -54,4 +55,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]){
 .padding{
     padding-left: 10px;
     padding-top: 10px;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
 }

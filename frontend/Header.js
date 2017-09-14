@@ -9,7 +9,7 @@ export default class Header extends React.Component{
     componentDidMount(){
         $(document).ready(function(){
             $('.button-collapse').sideNav({
-                closeOnClick: true
+
             });
         });
     }
