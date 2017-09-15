@@ -103,3 +103,18 @@ input[type=text]:not(.browser-default):focus:not([readonly]){
     padding-left: 1.5rem;
     padding-left: 1.5rem;
 }
+#list_menu, #filter_menu {
+    top:66px;
+}
+header, main, footer {
+    padding-right: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-right: 0;
+    }
+}
+#sidenav-overlay{
+    background:none;
+}

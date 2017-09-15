@@ -9,8 +9,14 @@ import Loggo from './Logo';
 export default class Header extends React.Component{
     componentDidMount(){
         $(document).ready(function(){
-            $('.button-collapse').sideNav({
-
+            $('.main_menu_button').sideNav({
+                edge: 'left',
+            });
+            $('.list_button').sideNav({
+                edge: 'right',
+            });
+            $('.filter_button').sideNav({
+                edge: 'right',
             });
         });
     }
@@ -19,8 +25,8 @@ export default class Header extends React.Component{
             <div className="header-container ">
                 <div className="navbar nav-wrapper header">
                     <div className="header__menu-button">
-                        <MenuSide/>
-                        <IconButton classNameA="navbar-brand button-collapse" classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
+                        <MenuSide id="main_menu"/>
+                        <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu='main_menu' classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         <div className="header__tabs">
                             <Tabs className="tabs-style tabs-fixed-width"/>
                         </div>
@@ -29,8 +35,10 @@ export default class Header extends React.Component{
                         <Input className="header__search__input"/>
                     </div>
                     <div className="header__action-buttons">
-                        <IconButton classNameI="fa-filter fa-lg" color={{color:'white'}}/>
-                        <IconButton classNameI="fa-list fa-lg" color={{color:'white'}}/>
+                        <MenuSide id='filter_menu'/>
+                        <IconButton classNameA="filter_button" classNameI="fa-filter fa-lg" menu="filter_menu" color={{color:'white'}}/>
+                        <MenuSide id='list_menu'/>
+                        <IconButton classNameA="list_button" classNameI="fa-list fa-lg" menu='list_menu' color={{color:'white'}}/>
                         <IconButton classNameI="fa-plus fa-lg" color={{color:'white'}}/>
                     </div>
 
