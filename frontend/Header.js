@@ -33,6 +33,7 @@ export default class Header extends React.Component{
                         <IconButton classNameI="fa-list fa-lg" color={{color:'white'}}/>
                         <IconButton classNameI="fa-plus fa-lg" color={{color:'white'}}/>
                     </div>
+
                     <div  className="header__logo">
                         <Loggo name="Jobber"/>
                     </div>
