@@ -17,21 +17,27 @@ export default class Header extends React.Component{
     render(){
         return(
             <div className="header-container ">
-                <div className="navbar nav-wrapper header ">
-                    <div className="row">
-                        <div className="col s1">
-                            <MenuSide/>
-                            <IconButton classNameA="navbar-brand button-collapse" classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
+                <div className="navbar nav-wrapper header">
+                    <div className="header__menu-button">
+                        <MenuSide/>
+                        <IconButton classNameA="navbar-brand button-collapse" classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
+                        <div className="header__tabs">
+                            <Tabs className="tabs-style tabs-fixed-width"/>
                         </div>
-                        <Tabs className="tabs-style col s3"/>
-                        <Input className="col s3 push-s1"/>
-                        <div  className="col s3 push-s4">
-                            <Loggo name="Jobber"/>
-                        </div>
+                    </div>
+                    <div className="header__search">
+                        <Input className="header__search__input"/>
+                    </div>
+                    <div className="header__action-buttons">
+                        <IconButton classNameI="fa-filter fa-lg" color={{color:'white'}}/>
+                        <IconButton classNameI="fa-list fa-lg" color={{color:'white'}}/>
+                        <IconButton classNameI="fa-plus fa-lg" color={{color:'white'}}/>
+                    </div>
+                    <div  className="header__logo">
+                        <Loggo name="Jobber"/>
                     </div>
 
                 </div>
-
             </div>
         )
     }
