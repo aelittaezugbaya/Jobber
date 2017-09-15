@@ -7,15 +7,20 @@ export default class Tabs extends React.Component{
     constructor(props){
         super(props)
     }
+    renderTabs(){
+        let tabs=[];
+        for(let tab of this.props.tabs){
+            tabs.push(
+                <li className="tab"><a href="#test1">{tab}</a></li>
+            )
+        }
+        return tabs;
+    }
     render(){
         return(
-            <div className="">
-                <ul className={`tabs ${this.props.className}`}>
-                    <li className="tab"><a href="#test1">Test 1</a></li>
-                    <li className="tab"><a className="active" href="#test2">Test 2</a></li>
-                </ul>
-
-            </div>
+            <ul className={`tabs ${this.props.className}`}>
+                {this.renderTabs()}
+            </ul>
         )
     }
 }
