@@ -2,8 +2,28 @@
  * Created by aelittaezugbaa on 14/09/2017.
  */
 import React from 'react';
+import InputRange from 'react-input-range';
+
+const filterLiStyle={
+    category: {height: '190px'},
+    gender:{height: '115px'},
+    raiting:{height: '190px'}
+};
+
+const RangeStyle={
+
+}
 
 export default class MenuSide extends React.Component{
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: { min: 0, max: 50 },
+        };
+    }
+
     renderMainMenu(){
         let content=[];
         content.push(<div>
@@ -43,12 +63,89 @@ export default class MenuSide extends React.Component{
     renderFilters(){
         let filters=[]
         filters.push(
-            <div>
-                <li><a>Category</a></li><hr/>
-                <div className="categories">
+            <form action="#">
+                <li style={filterLiStyle.category}><a>Category</a><hr/>
+                    <div className="left checkLeft">
+                        <p>
+                            <input type="checkbox" className="filled-in" id="pet_care" />
+                            <label htmlFor="pet_care">Pet Care</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="house_repair" />
+                            <label htmlFor="house_repair">House repair</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="children_care" />
+                            <label htmlFor="children_care">Children care</label>
+                        </p>
+                    </div>
+                    <div className="right checkRight">
+                        <p>
+                            <input type="checkbox" className="filled-in" id="beauty" />
+                            <label htmlFor="beauty">Beauty</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="cleaning" />
+                            <label htmlFor="cleaning">Cleaning</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="other" />
+                            <label htmlFor="other">Other</label>
+                        </p>
+                    </div>
+                </li>
+                <li style={filterLiStyle.gender}><a>Gender</a><hr/>
+                    <p className="checkLeft left">
+                        <input type="checkbox" className="filled-in " id="male" />
+                        <label htmlFor="male">Male</label>
+                    </p>
+                    <p className="checkRight right">
+                        <input type="checkbox" className="filled-in " id="female" />
+                        <label htmlFor="female">Female</label>
+                    </p>
+                </li>
+                <li style={filterLiStyle.raiting}><a>Raiting</a><hr/>
+                    <div className="left checkLeft">
+                        <p>
+                            <input type="checkbox" className="filled-in" id="five" />
+                            <label htmlFor="five">5</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="four" />
+                            <label htmlFor="four">4</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="three" />
+                            <label htmlFor="three">3</label>
+                        </p>
+                    </div>
+                    <div className="right checkRight">
+                        <p>
+                            <input type="checkbox" className="filled-in" id="two" />
+                            <label htmlFor="two">2</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="one" />
+                            <label htmlFor="one">1</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" className="filled-in" id="none" />
+                            <label htmlFor="none">None</label>
+                        </p>
+                    </div>
+                </li>
+                <li><a>Price Range</a><hr/>
+                    <InputRange
+                        formatLabel={value => `${value}€`}
+                        name={'Till'}
+                        maxValue={50}
+                        minValue={0}
+                        value={this.state.value}
+                        onChange={value => this.setState({ value })} />
+                </li>
 
-                </div>
-            </div>
+
+            </form>
         )
         return filters;
     }

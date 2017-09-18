@@ -118,3 +118,50 @@ header, main, footer {
 #sidenav-overlay{
     background:none;
 }
+
+.checkLeft{
+    padding-left: 1rem;
+
+}
+.checkRight{
+    padding-right: 1rem;
+}
+
+[type="checkbox"].filled-in:checked+label:after{
+    border: 2px solid #FFC107;
+    background-color: #FFC107;
+
+}
+[type="checkbox"].filled-in:not(:checked)+label:after{
+    border: 2px solid #FFB300;
+}
+label{
+    color:black;
+}
+
+.side-nav li{
+    line-height: 0px;
+}
+
+.input-range {
+    width: 80% !important;
+    margin:auto;
+    top: 3rem;
+}
+
+.input-range__track {
+    background: #BDBDBD !important;
+}
+
+.input-range__track--active{
+    background: #FFB300 !important;
+}
+
+.input-range__slider{
+    border: 1px solid #FFB300 !important;
+    background: #FFB300 !important;
+}
+
+span{
+    color: black;
+}
