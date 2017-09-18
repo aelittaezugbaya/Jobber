@@ -94,7 +94,7 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
 ### User Object
 *GET* /api/user/:id
   
-*PUT* /api/service/:id
+*PUT* /api/user/:id
   - FullName
   - DateOfBirth
   - Gender
