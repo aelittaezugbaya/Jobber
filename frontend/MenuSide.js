@@ -42,6 +42,8 @@ export default class MenuSide extends React.Component{
             <li><div className="divider"></div></li>
             <li><a className="waves-effect" href="#!">Saved Request/Offers</a></li>
             <li><div className="divider"></div></li>
+            <li className="log_out"><a className="waves-effect" href="#!">Log out</a><div className="divider"></div></li>
+
         </div>)
         return content;
     }
