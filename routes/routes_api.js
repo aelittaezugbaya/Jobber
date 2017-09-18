@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const models = require('../mongooseModels');
 
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+
 /*
  API List
  * Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
@@ -10,11 +13,99 @@ const models = require('../mongooseModels');
  * Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
+router.all(/^(?!.*\/auth).*/, function(req, res, next) {
+  console.log("API requested");
+
+  let decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+  console.log(decoded);
+ 
+  next();
+})
+
+// -- User - Registration
+router.post('/auth/register', function(req, res, next) {
+  new Promise(function(resolve, reject) {
+    let salt = crypto.randomBytes(16).toString('hex');
+    let hash = crypto.pbkdf2Sync(req.body.Password, salt, 1000, 64, 'sha1').toString('hex');
+    console.log(hash);
+    // TODO User name check in FRONTEND!
+
+    var newUser = models.User({
+      Rating: 0,
+      FullName: req.body.FullName,
+      Email: req.body.Email,
+      Hash: hash,
+      Salt: salt,
+      DateOfBirth: req.body.DateOfBirth,
+      Gender: req.body.Gender,
+      Description: req.body.Description,
+      Status: "Active"
+    });
+    console.log(newUser);
+    newUser.save();
+
+    return resolve(newUser);
+  }).then(function(newUser){
+    res.send("Ran");
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.status(reason);
+  })
+});
+
+// -- User - Login
+router.post('/auth/login', function(req, res, next) {
+  new Promise(function(resolve, reject) {
+    models.User.find({ Email: req.body.Email}, function(err, user) {
+      if(err)
+        return reject("Error finding User with Email " + req.params.Email + ".");
+      return resolve(user);
+    })
+  }).then(function(user){
+    let hash = crypto.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');        
+    if(hash !== user[0].Hash) {
+      console.log("Authentication error");
+
+      res.status("Authentication error");
+      res.status(401);
+      res.send();
+      return;
+    }
+
+    let expiry = new Date();
+    // TODO increase expiration
+    expiry.setMinutes(expiry.getMinutes() + 1);
+
+    let jwttoken = jwt.sign({
+      _id: user[0]._id,
+      Email: user[0].Email,
+      FullName: user[0].FullName,
+      exp: parseInt(expiry.getTime() / 1000)
+    }, process.env.JWT_SECRET);
+
+    res.send(jwttoken);
+  }).catch(function(reason) {
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.status(reason);
+  })
+})
+
 // -- Feedback - Get - ReceiverID
 router.get('/feedback/:id', function(req, res, next) {
-  models.Feedback.find({ UserReceiverID: req.params.id }, function (err, feedback) {
-    if (err) return handleError(err);
-    res.send(feedback);
+  new Promise(function(resolve, reject) {
+    models.Feedback.find({ UserReceiverID: req.params.id }, function (err, feedback) {
+      if (err)
+        return reject("Error finding Feedback with UserReceiverID " + req.params.id + ".");
+      return resolve(feedback);
+    })
+  }).then(function(feedback){
+      res.send(feedback);
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.status(reason);
   })
 });
 
@@ -48,25 +139,19 @@ router.post('/feedback', function(req, res, next) {
 
 // -- User - Get - ID
 router.get('/user/:id', function(req, res, next) {
-  models.User.find({ _id: req.params.id }, function (err, feedback) {
-    res.send(feedback);
-  })
-});
-
-router.get('/user', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.User.find({}, function (err, feedback) {
-      if(true)
-        return reject("Error finding all users.");
-      return resolve(feedback);
+    models.User.find({ _id: req.params.id }, function (err, user) {
+      if(err)
+        return reject("Error finding User with ID " + req.params.id + ".");
+      return resolve(user);
     })
-  }).then(function(feedback){
-    res.send(feedback);
+  }).then(function(user){
+    res.send(user);
   }).catch(function(reason){
     console.log("Server error: " + reason);
     res.status(500);
     res.send(reason);
-  });
+  })
 });
 
 // -- User - Put - ID
@@ -112,9 +197,9 @@ router.post('/user', function(req, res, next) {
 // -- Service - Get
 router.get('/service/:id', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.Service.find({}, function (err, service) {
+    models.Service.find({ _id: req.params.id }, function (err, service) {
       if(err)
-        return reject("Error finding service.");
+        return reject("Error finding Service with ID " + req.params.id + ".");
       return resolve(service);
     })
   }).then(function(service){
@@ -140,6 +225,7 @@ router.put('/service/:id', function(req, res, next) {
       type: { type: "Point" },
       coordinates: [ req.body.lon, req.body.lat ]
     },
+    //TODO safe delete gender
     Gender: req.body.Gender,
     Description: req.body.Description,
     Status: req.body.Status
@@ -173,17 +259,27 @@ router.post('/service', function(req, res, next) {
 });
 
 router.get('/service/:lat/:lon/:radius', function(req, res, next) {
- models.Service.find({Location: {
-  $near: {
-    $geometry: {
-       type: "Point" ,
-       coordinates: [ req.params.lon ,req.params.lat ]
-    },
-    $maxDistance: req.params.radius,
-    $minDistance: 0
-  }
-}}, function (err, service) {
-  res.send(service);
+  new Promise(function(resolve, reject) {
+    models.Service.find({Location: {
+      $near: {
+        $geometry: {
+           type: "Point" ,
+           coordinates: [ req.params.lon ,req.params.lat ]
+        },
+        $maxDistance: req.params.radius,
+        $minDistance: 0
+      }
+    }}, function (err, service) {
+      if(err)
+        return reject("Error finding coordinate.");
+      return resolve(service);
+    })
+  }).then(function(service) {
+    res.send(service);
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.send(reason);
   })
 });
 
