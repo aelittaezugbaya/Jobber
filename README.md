@@ -42,3 +42,59 @@ If you run `npm run backend` or `npm run backend-dev` then back-end will run on 
 
 ###Proxy
 If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests to `http://localhost:8080/api` will redirected to `http://localhost:3000/api`. 
+
+## API Reference
+### Authentication (JWT Not Required)
+*POST* /api/auth/login
+  - Email
+  - Password
+
+*POST* /api/auth/register
+  - FullName
+  - Email
+  - DateOfBirth
+  - Gender
+  
+### Feedback Object
+*GET* /api/feedback/:ReceiverId
+
+*POST* /api/feedback
+  - UserSourceID
+  - UserReceiverID
+  - Comment
+  - Rating
+  
+### Service Object
+*GET* /api/service/:id
+
+*GET* /api/service/:lat/:lon/:radius
+
+*POST* /api/service
+  - UserOwnerID
+  - IsRequest
+  - Subject
+  - Category
+  - Lon
+  - Lat
+  - Gender
+  - Description
+  - Price
+  
+*PUT* /api/service/:id
+  - UserOwnerID
+  - IsRequest
+  - Subject
+  - Category
+  - Lon
+  - Lat
+  - Gender
+  - Description
+  - Price
+  
+### User Object
+*GET* /api/user/:id
+  
+*PUT* /api/service/:id
+  - FullName
+  - DateOfBirth
+  - Gender
