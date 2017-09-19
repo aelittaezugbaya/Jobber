@@ -6,6 +6,8 @@ const models = require('../mongooseModels');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+const ml = require('../ml/ml_cluster');
+
 /*
  API List
  * Middleware
@@ -16,13 +18,18 @@ const jwt = require('jsonwebtoken');
  * Feedback          |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
+// -- Dummy Get Category ML
+router.get('/auth/ml', function(req, res, next) {
+  ml.Calculate();
+  res.send();
+});
 
 // -- Middleware (token check)
 router.all(/^(?!.*\/auth).*/, function(req, res, next) {
   console.log("API requested");
 
   let decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
- 
+
   next();
 })
 
@@ -64,7 +71,7 @@ router.post('/auth/login', function(req, res, next) {
       return resolve(user);
     })
   }).then(function(user){
-    let hash = crypto.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');        
+    let hash = crypto.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');
     if(hash !== user[0].Hash) {
       console.log("Authentication error");
 
