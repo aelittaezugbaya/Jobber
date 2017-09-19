@@ -4,20 +4,24 @@ import Input from './Input';
 import MenuSide from './MenuSide';
 import IconButton from './IconButton';
 import Loggo from './Logo';
-
+import AddForm from './AddForm'
 
 export default class Header extends React.Component{
     componentDidMount(){
         $(document).ready(function(){
             $('.main_menu_button').sideNav({
                 edge: 'left',
+                draggable: true,
             });
             $('.list_button').sideNav({
                 edge: 'right',
+                draggable: true,
             });
             $('.filter_button').sideNav({
                 edge: 'right',
+                draggable: true,
             });
+            $('.modal').modal();
         });
     }
     render(){
@@ -40,8 +44,11 @@ export default class Header extends React.Component{
                         <IconButton classNameA="filter_button" classNameI="fa-filter fa-lg" menu="filter_menu" color={{color:'white'}}/>
 
                         <IconButton classNameA="list_button" classNameI="fa-list fa-lg" menu='list_menu' color={{color:'white'}}/>
-                        <IconButton classNameI="fa-plus fa-lg" color={{color:'white'}}/>
+
+                        <IconButton classNameI="fa-plus fa-lg" classNameA="modal-trigger" href="#form" color={{color:'white'}}/>
+                        <AddForm id="form" purpose="Buying"/>
                     </div>
+
 
                     <div  className="header__logo">
                         <Loggo name="Jobber"/>

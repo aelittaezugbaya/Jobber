@@ -174,3 +174,32 @@ span{
 #main_menu{
     min-height: 500px;
 }
+
+.modal h4,h5{
+    color: #FF8F00;
+}
+
+.category{
+    width: 30%;
+}
+.other{
+    width: 70%;
+}
+.modal input[type=text]:not(.browser-default), textarea[type=text]:not(.browser-default){
+    color: #FF8F00;
+}
+
+.modal input[type=text]:not(.browser-default):focus:not([readonly]), textarea[type=text]:not(.browser-default):focus:not([readonly]){
+    border-bottom:1px solid #FFA000;
+}
+
+.modal input[type=text]:not(.browser-default):focus:not([readonly])+label,textarea[type=text]:not(.browser-default):focus:not([readonly])+label {
+    color: #FFA000!important;
+}
+
+.modal textarea.materialize-textarea:focus:not([readonly]) {
+    box-shadow:0 1px 0 0 #FFA000;
+}
+.modal .divider{
+    margin-bottom: 10px;
+}
