@@ -8,26 +8,29 @@ const jwt = require('jsonwebtoken');
 
 /*
  API List
- * Service  |  Post                     | ID: Get - Put    | Location, Radius: Get
- * User     |  Post                     | ID: Get - Put    |
- * Feedback |  Post (Cache Update Hook) | ReceiverID: Get  |
+ * Middleware
+ * Register          |  Post
+ * Login             |  Post
+ * Service           |  Post                     | ID: Get - Put    | Location, Radius: Get
+ * User              |  Post                     | ID: Get - Put    |
+ * Feedback          |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
+
+// -- Middleware (token check)
 router.all(/^(?!.*\/auth).*/, function(req, res, next) {
   console.log("API requested");
 
   let decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-  console.log(decoded);
  
   next();
 })
 
-// -- User - Registration
+// -- User - Post - Registration
 router.post('/auth/register', function(req, res, next) {
   new Promise(function(resolve, reject) {
     let salt = crypto.randomBytes(16).toString('hex');
     let hash = crypto.pbkdf2Sync(req.body.Password, salt, 1000, 64, 'sha1').toString('hex');
-    console.log(hash);
     // TODO User name check in FRONTEND!
 
     var newUser = models.User({
@@ -38,10 +41,8 @@ router.post('/auth/register', function(req, res, next) {
       Salt: salt,
       DateOfBirth: req.body.DateOfBirth,
       Gender: req.body.Gender,
-      Description: req.body.Description,
       Status: "Active"
     });
-    console.log(newUser);
     newUser.save();
 
     return resolve(newUser);
@@ -54,7 +55,7 @@ router.post('/auth/register', function(req, res, next) {
   })
 });
 
-// -- User - Login
+// -- User - Post - Login
 router.post('/auth/login', function(req, res, next) {
   new Promise(function(resolve, reject) {
     models.User.find({ Email: req.body.Email}, function(err, user) {
@@ -92,12 +93,12 @@ router.post('/auth/login', function(req, res, next) {
   })
 })
 
-// -- Feedback - Get - ReceiverID
-router.get('/feedback/:id', function(req, res, next) {
+// -- Feedback - Get - UserReceiverID
+router.get('/feedback/:UserReceiverID', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.Feedback.find({ UserReceiverID: req.params.id }, function (err, feedback) {
+    models.Feedback.find({ UserReceiverID: req.params.UserReceiverID }, function (err, feedback) {
       if (err)
-        return reject("Error finding Feedback with UserReceiverID " + req.params.id + ".");
+        return reject("Error finding Feedback with UserReceiverID " + req.params.UserReceiverID + ".");
       return resolve(feedback);
     })
   }).then(function(feedback){
@@ -160,38 +161,14 @@ router.put('/user/:id', function(req, res, next) {
     _id: req.params.id
   },
   {
-    Rating: req.body.Rating,
     FullName: req.body.FullName,
-    Email: req.body.Email,
-    // TODO: Password Encryption
-    Password: req.body.Password,
     DateOfBirth: req.body.DateOfBirth,
-    Gender: req.body.Gender,
-    Description: req.body.Description,
-    Status: req.body.Status
+    Gender: req.body.Gender
   }, function(err, user){
     if (err) throw err;
 
     res.send(user);
   });
-});
-
-// -- User - Post
-router.post('/user', function(req, res, next) {
-  var newUser = models.User({
-    Rating: req.body.Rating,
-    FullName: req.body.FullName,
-    Email: req.body.Email,
-    // TODO: Password Encryption
-    Password: req.body.Password,
-    DateOfBirth: req.body.DateOfBirth,
-    Gender: req.body.Gender,
-    Description: req.body.Description,
-    Status: req.body.Status
-  });
-  newUser.save();
-  // TODO: Return something useful after insert
-  res.send('Ran');
 });
 
 // -- Service - Get
@@ -211,7 +188,7 @@ router.get('/service/:id', function(req, res, next) {
   });
 });
 
-// -- Service - Put
+// -- Service - Put - ID
 router.put('/service/:id', function(req, res, next) {
   models.Service.update({
     _id: req.params.id
@@ -222,13 +199,12 @@ router.put('/service/:id', function(req, res, next) {
     Subject: req.body.Subject,
     Category: req.body.Category,
     Location: {
-      type: { type: "Point" },
-      coordinates: [ req.body.lon, req.body.lat ]
+      type: "Point",
+      coordinates: [ req.body.Lon, req.body.Lat ]
     },
-    //TODO safe delete gender
     Gender: req.body.Gender,
     Description: req.body.Description,
-    Status: req.body.Status
+    Price: req.body.Price
   }, function(err, service){
     if (err) throw err;
 
@@ -249,7 +225,9 @@ router.post('/service', function(req, res, next) {
     },
     Gender: req.body.Gender,
     Description: req.body.Description,
-    Status: req.body.Status
+    Price: req.body.Price,
+    Status: "Open",
+    DateCreated: new Date()
   })
   newService.save(function(err){
     console.log(err);
@@ -258,6 +236,7 @@ router.post('/service', function(req, res, next) {
   res.send('Ran');
 });
 
+// -- Service - get radius services
 router.get('/service/:lat/:lon/:radius', function(req, res, next) {
   new Promise(function(resolve, reject) {
     models.Service.find({Location: {

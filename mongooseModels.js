@@ -11,9 +11,7 @@ Object List
    Category
    Location
    Status -> Open, Closed
-   -
    Price
-   -
    DateCreated
    Description
 
@@ -25,7 +23,6 @@ Object List
    Password
    DateOfBirth
    Gender
-   Description
    Status -> Active, Blocked, Deleted
 
  - Feedback
@@ -36,6 +33,8 @@ Object List
    Rating
 
 */
+
+// -- Service Object
 var serviceSchema = new mongoose.Schema({
   UserOwnerID: String,
   IsRequest: Boolean,
@@ -44,7 +43,9 @@ var serviceSchema = new mongoose.Schema({
   Location: { type: { type: String }, coordinates: [Number]},
   Gender: String,
   Description: String,
-  Status: String
+  Price: Number,
+  Status: String,
+  DateCreated: Date
 });
 
 serviceSchema.index({ Location: '2dsphere' });
@@ -52,6 +53,7 @@ module.exports.Service = mongoose.model('Service',
     serviceSchema,
     'Service');
 
+// -- User Object
 module.exports.User = mongoose.model('User',
     new mongoose.Schema({
       Rating: Number,
@@ -61,11 +63,11 @@ module.exports.User = mongoose.model('User',
       Salt: String,
       DateOfBirth: Date,
       Gender: String,
-      Description: String,
       Status: String
     }),
     'User');
 
+// -- Feedback Object
 module.exports.Feedback = mongoose.model('Feedback',
     new mongoose.Schema({
       UserSourceID: String,

@@ -57,6 +57,10 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   
 ### Feedback Object
 *GET* /api/feedback/:ReceiverId
+  - UserSourceID
+  - UserReceiverID
+  - Comment
+  - Rating
 
 *POST* /api/feedback
   - UserSourceID
@@ -66,8 +70,24 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   
 ### Service Object
 *GET* /api/service/:id
+  - UserOwnerID
+  - IsRequest
+  - Subject
+  - Category
+  - Location
+    - type
+      - type
+    - coordinates
+      - Lon
+      - Lat
+  - Gender
+  - Description
+  - Price
+  - Status
+  - DateCreated
 
 *GET* /api/service/:lat/:lon/:radius
+ - all service objects within the radius
 
 *POST* /api/service
   - UserOwnerID
@@ -93,7 +113,15 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   
 ### User Object
 *GET* /api/user/:id
-  
+  - Rating
+  - FullName
+  - Email
+  - Hash
+  - Salt
+  - DateOfBirth
+  - Gender
+  - Status
+
 *PUT* /api/user/:id
   - FullName
   - DateOfBirth
