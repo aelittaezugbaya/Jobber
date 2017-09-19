@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/materialize-css/dist/css/materialize.min.css'
+import '../node_modules/font-awesome/css/font-awesome.css';
 import './index.css';
+import '../node_modules/react-input-range/lib/css/index.css'
+import '../node_modules/jquery/dist/jquery.min';
+import '../node_modules/materialize-css/dist/js/materialize.min';
+
+
+import MainView from './MainView'
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <MainView/>,
   document.getElementById('root')
 );
