@@ -29,8 +29,8 @@ export default class Header extends React.Component{
             <div className="header-container ">
                 <div className="navbar nav-wrapper header">
                     <div className="header__menu-button">
-                        <MenuSide id="main_menu"/>
-                        <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu='main_menu' classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
+                        <MenuSide id="log_in"/>
+                        <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu='log_in' classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         <div className="header__tabs">
                             <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying','Selling']}/>
                         </div>

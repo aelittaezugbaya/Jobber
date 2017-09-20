@@ -24,6 +24,32 @@ export default class MenuSide extends React.Component{
         };
     }
 
+    renderLoginWindow(){
+        let content=[];
+        content.push(
+            <div>
+                <h4 className="center">Log in</h4>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <i className="material-icons prefix">account_circle</i>
+                        <input id="user_name" type="text" className="validate"/>
+                        <label htmlFor="user_name">Username</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <i className="material-icons prefix">lock</i>
+                        <input id="password" type="text" className="validate"/>
+                        <label htmlFor="password">Password</label>
+                    </div>
+                </div>
+                <p className="center">If you don't have an account,<br/> please <a>register</a></p>
+            </div>
+
+        )
+        return content;
+    }
+
     renderMainMenu(){
         let content=[];
         content.push(<div>
@@ -159,8 +185,11 @@ export default class MenuSide extends React.Component{
         }else if(this.props.id==="list_menu"){
             content=this.renderList()
         }
-        else{
+        else if(this.props.id=='filter_menu'){
             content=this.renderFilters();
+        }
+        else{
+            content=this.renderLoginWindow()
         }
         return(<ul id={this.props.id} className={`side-nav ${this.props.id==='filter_menu' ?'right-aligned':''}`}>{
                 content
