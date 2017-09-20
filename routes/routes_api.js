@@ -20,7 +20,27 @@ const ml = require('../ml/ml_cluster');
 
 // -- Dummy Get Category ML
 router.get('/auth/ml', function(req, res, next) {
-  ml.Calculate();
+
+  // -- Example Data TODO: Get correct data from DB
+  let newObject = { parameters: [12, 1, 50, 27] }
+  let otherObjects = [
+    // age , gender, lat, lon
+    { parameters: [18, 0, 49, 26], category: "HouseWork" },
+    { parameters: [11, 0, 49, 23], category: "HouseWork" },
+    { parameters: [32, 1, 56, 26], category: "Beauty" },
+    { parameters: [23, 1, -34, 129], category: "Beauty" }
+  ]
+  let limits = [
+    [10, 80], [0, 1], [-90, 90], [-180, 180]
+  ]
+  let weights = [
+    1, 0.5, 10, 10
+  ]
+  let categories = [
+    "HouseWork", "Beauty", "AnimalCare"
+  ]
+
+  ml.Calculate(newObject, otherObjects, limits, weights, categories);
   res.send();
 });
 

@@ -5,6 +5,7 @@ module.exports = function()
   console.log("Getting ML Library");
   return {
 
+    // -- Returns string of most suitable category
     Calculate : function (newObject, otherObjects, limits, weights, categories) {
       console.log("Calculating");
 
@@ -27,6 +28,7 @@ module.exports = function()
       */
 
       // -- Example Data (Usually passed as parameters)
+      /*
       newObject = { parameters: [22, 1, 50, 27] }
       otherObjects = [
         // age , gender, lat, lon
@@ -44,6 +46,7 @@ module.exports = function()
       categories = [
         "HouseWork", "Beauty", "AnimalCare"
       ]
+      */
 
       // -- Get normalized parameter values of newObject
       let newObjectNormalizedParameters = [newObject.parameters.length];
@@ -74,6 +77,16 @@ module.exports = function()
         for (let p = 0; p < normalizedParameters.length; p++)
         {
           let difference = (newObjectNormalizedParameters[p] - normalizedParameters[p]) * weights[p];
+          if (difference > 1)
+          {
+            difference = 1;
+            //console.log("Parameter difference clamped");
+          }
+          if (difference < -1)
+          {
+            difference = -1;
+            //console.log("Parameter difference clamped");
+          }
           let square = difference * difference;
           squareDistance += square;
           debugAxisDifference[p] = difference;
@@ -82,20 +95,19 @@ module.exports = function()
 
         // - Add score to relevant category
         let index = categories.indexOf(object.category);
-        if (distance > 1)
-        {
-          distance = 1;
-          console.log("Distance clamped");
-        }
-        scores[index] += (1 - distance);
+        let score = (Math.sqrt(normalizedParameters.length) - distance);
+        scores[index] += score;
 
         // - Debug print
-        let debugStr = "Distance: " + distance + " :: ";
+        console.log("------------------------------------------");
+        console.log("Score: " + parseFloat(score).toFixed(4));
+        let debugStr = "Distance: " + parseFloat(distance).toFixed(4) + " :: ";
         for (let p = 0; p < debugAxisDifference.length; p++)
         {
-          debugStr += "[" + p + "] = " + parseFloat(debugAxisDifference[p]).toFixed(2) + " ";
+          debugStr += "[" + parseFloat(debugAxisDifference[p]).toFixed(4) + "] ";
         }
         console.log(debugStr);
+        console.log("------------------------------------------");
       }
 
       let winnerIndex = 0;
@@ -107,6 +119,8 @@ module.exports = function()
       }
 
       console.log("Winner: " + categories[winnerIndex]);
+
+      return categories[winnerIndex];
     }
 
   }
