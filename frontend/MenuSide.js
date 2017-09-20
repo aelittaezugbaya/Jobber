@@ -4,6 +4,7 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 
+
 const filterLiStyle={
     category: {height: '190px'},
     gender:{height: '115px'},
@@ -24,10 +25,20 @@ export default class MenuSide extends React.Component{
         };
     }
 
+    componentDidMount(){
+        $(document).ready(function(){
+
+            $('.modal').modal();
+        });
+    }
+
+
+
+
     renderLoginWindow(){
         let content=[];
         content.push(
-            <div>
+            <form>
                 <h4 className="center">Log in</h4>
                 <div className="row">
                     <div className="input-field col s12">
@@ -43,8 +54,8 @@ export default class MenuSide extends React.Component{
                         <label htmlFor="password">Password</label>
                     </div>
                 </div>
-                <p className="center">If you don't have an account,<br/> please <a>register</a></p>
-            </div>
+                <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
+            </form>
 
         )
         return content;
@@ -188,9 +199,10 @@ export default class MenuSide extends React.Component{
         else if(this.props.id=='filter_menu'){
             content=this.renderFilters();
         }
-        else{
+        else if(this.props.id=='log_in'){
             content=this.renderLoginWindow()
         }
+
         return(<ul id={this.props.id} className={`side-nav ${this.props.id==='filter_menu' ?'right-aligned':''}`}>{
                 content
             }</ul>

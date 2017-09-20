@@ -186,7 +186,7 @@ span{
     width: 70%;
 }
 .modal input[type=text]:not(.browser-default), textarea[type=text]:not(.browser-default){
-    color: #FF8F00;
+    color: black;
 }
 
 .modal input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -220,7 +220,8 @@ textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
     color: #FFA000;
 }
 
-#log_in .input-field .prefix.active{
+#log_in .input-field .prefix.active,
+.modal .input-field .prefix.active{
     color: #FFA000;
 }
 
@@ -228,4 +229,15 @@ textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
     .side-nav a {
         padding: 0 1px;
     }
+}
+.dropdown-content li > a, .dropdown-content li > span :not(.disabled){
+    color: #FFA000 !important;
+}
+
+.modal [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #FFA000;
+}
+
+.modal [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
+    border: 2px solid #FFA000;
 }

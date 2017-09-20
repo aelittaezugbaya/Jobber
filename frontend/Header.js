@@ -5,6 +5,7 @@ import MenuSide from './MenuSide';
 import IconButton from './IconButton';
 import Loggo from './Logo';
 import AddForm from './AddForm'
+import RegistrationModal from './RegistrationModal';
 
 export default class Header extends React.Component{
     componentDidMount(){
@@ -22,6 +23,7 @@ export default class Header extends React.Component{
                 draggable: true,
             });
             $('.modal').modal();
+
         });
     }
     render(){
@@ -29,6 +31,7 @@ export default class Header extends React.Component{
             <div className="header-container ">
                 <div className="navbar nav-wrapper header">
                     <div className="header__menu-button">
+                        <RegistrationModal/>
                         <MenuSide id="log_in"/>
                         <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu='log_in' classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         <div className="header__tabs">
