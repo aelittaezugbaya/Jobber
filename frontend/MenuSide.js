@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import InputRange from 'react-input-range';
+import Checkbox from "./Checkbox";
 
 const filterLiStyle={
     category: {height: '190px'},
@@ -112,6 +113,7 @@ export default class MenuSide extends React.Component{
                             <input type="checkbox" className="filled-in" id="five" />
                             <label htmlFor="five">5</label>
                         </p>
+
                         <p>
                             <input type="checkbox" className="filled-in" id="four" />
                             <label htmlFor="four">4</label>
@@ -122,10 +124,14 @@ export default class MenuSide extends React.Component{
                         </p>
                     </div>
                     <div className="right checkRight">
+                      {/*
                         <p>
                             <input type="checkbox" className="filled-in" id="two" />
                             <label htmlFor="two">2</label>
                         </p>
+                        */}
+
+                        <Checkbox id="two"/>
                         <p>
                             <input type="checkbox" className="filled-in" id="one" />
                             <label htmlFor="one">1</label>
