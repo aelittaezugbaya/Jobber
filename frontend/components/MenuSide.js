@@ -28,6 +28,7 @@ class MenuSide extends React.Component{
             value: { min: 0, max: 50 },
             user: null
         };
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount(){
@@ -54,12 +55,19 @@ class MenuSide extends React.Component{
                 // let base64 = base64Url.replace('-', '+').replace('_', '/');
                 // console.log(JSON.parse(window.atob(base64)))
                 const user = jwt_decode(data);
+                console.log(user.FullName);
+                window.sessionStorage.accessToken = data;
                 this.props.onSuccessfulLogin(user);
             })
             .catch(err => console.log(err));
 
     }
 
+    logout(){
+        delete window.sessionStorage.accessToken;
+        this.props.onLogout();
+    }
+;
 
 
     renderLoginWindow(){
@@ -101,8 +109,8 @@ class MenuSide extends React.Component{
                     <img src="http://thewallpaper.co/wp-content/uploads/2016/03/colorful-triangles-background-high-resolution-images-free-stock-photos-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-hd-digital-5000x3750-300x200.jpg"/>
                 </div>
                 <a href="#!user"><img className="circle" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/></a>
-                <a href="#!name"><span className="white-text name">John Doe</span></a>
-                <a href="#!email"><span className="white-text email">jdandturk@gmail.com</span></a>
+                <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
+                <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
 
             <li><a className="waves-effect" href="#!">Add new offer</a></li>
@@ -111,7 +119,7 @@ class MenuSide extends React.Component{
             <li><div className="divider"></div></li>
             <li><a className="waves-effect" href="#!">Saved Request/Offers</a></li>
             <li><div className="divider"></div></li>
-            <li className="log_out"><a className="waves-effect" onClick={this.props.onLogout} href="#!">Log out</a><div className="divider"></div></li>
+            <li className="log_out"><a className="waves-effect" onClick={this.logout} href="#!">Log out</a><div className="divider"></div></li>
 
         </div>)
         return content;

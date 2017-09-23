@@ -25,12 +25,13 @@ class Header extends React.Component{
         $('.modal').modal();
     }
     render(){
+        let user = this.props.currentUser;
         return(
             <div className="header-container ">
                 <div className="navbar nav-wrapper header">
                     <div className="header__menu-button">
                         <RegistrationModal/>
-                        <MenuSide id={this.props.currentUser ? 'main_menu':'log_in'}/>
+                        <MenuSide id={this.props.currentUser ? 'main_menu':'log_in'} name={this.props.currentUser ? user.FullName : ''} email={this.props.currentUser ? user.Email : ''}/>
                         <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu={this.props.currentUser!=null ? 'main_menu':'log_in'} classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         <div className="header__tabs">
                             <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying','Selling']}/>
