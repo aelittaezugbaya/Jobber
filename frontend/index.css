@@ -187,14 +187,18 @@ span{
     width: 70%;
 }
 .modal input[type=text]:not(.browser-default), textarea[type=text]:not(.browser-default){
-    color: #FF8F00;
+    color: black;
 }
 
-.modal input[type=text]:not(.browser-default):focus:not([readonly]), textarea[type=text]:not(.browser-default):focus:not([readonly]){
+.modal input[type=text]:not(.browser-default):focus:not([readonly]),
+textarea[type=text]:not(.browser-default):focus:not([readonly]),
+#log_in input[type=text]:not(.browser-default):focus:not([readonly]){
     border-bottom:1px solid #FFA000;
 }
 
-.modal input[type=text]:not(.browser-default):focus:not([readonly])+label,textarea[type=text]:not(.browser-default):focus:not([readonly])+label {
+.modal input[type=text]:not(.browser-default):focus:not([readonly])+label,
+textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
+#log_in input[type=text]:not(.browser-default):focus:not([readonly])+label{
     color: #FFA000!important;
 }
 
@@ -203,4 +207,42 @@ span{
 }
 .modal .divider{
     margin-bottom: 10px;
+}
+
+.side-nav h1,h2,h3,h4,h5,h6,p{
+    color: black;
+}
+
+#log_in input,i:not(.fa-bars ){
+    color: black;
+}
+
+#log_in a{
+    color: #FFA000;
+}
+
+#log_in .input-field .prefix.active,
+.modal .input-field .prefix.active{
+    color: #FFA000;
+}
+
+@media only screen and (max-width: 992px) {
+    .side-nav a {
+        padding: 0 1px;
+    }
+}
+.dropdown-content li > a, .dropdown-content li > span :not(.disabled){
+    color: #FFA000 !important;
+}
+
+.modal [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #FFA000;
+}
+
+.modal [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
+    border: 2px solid #FFA000;
+}
+.btn{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }

@@ -3,6 +3,8 @@
  */
 import React from 'react';
 import InputRange from 'react-input-range';
+import Button from './Button'
+
 
 const filterLiStyle={
     category: {height: '190px'},
@@ -22,6 +24,47 @@ export default class MenuSide extends React.Component{
         this.state = {
             value: { min: 0, max: 50 },
         };
+    }
+
+    componentDidMount(){
+        $(document).ready(function(){
+
+            $('.modal').modal();
+        });
+    }
+
+
+
+
+    renderLoginWindow(){
+        let content=[];
+        content.push(
+            <form>
+                <h4 className="center">Log in</h4>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <i className="material-icons prefix">account_circle</i>
+                        <input id="user_name" type="text" className="validate"/>
+                        <label htmlFor="user_name">Username</label>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <i className="material-icons prefix">lock</i>
+                        <input id="password" type="text" className="validate"/>
+                        <label htmlFor="password">Password</label>
+                    </div>
+                </div>
+                <div className="center">
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light amber darken-1" type="submit" name="action">Log In</Button>
+
+                </div>
+                <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
+            </form>
+
+        )
+        return content;
     }
 
     renderMainMenu(){
@@ -159,9 +202,13 @@ export default class MenuSide extends React.Component{
         }else if(this.props.id==="list_menu"){
             content=this.renderList()
         }
-        else{
+        else if(this.props.id=='filter_menu'){
             content=this.renderFilters();
         }
+        else if(this.props.id=='log_in'){
+            content=this.renderLoginWindow()
+        }
+
         return(<ul id={this.props.id} className={`side-nav ${this.props.id==='filter_menu' ?'right-aligned':''}`}>{
                 content
             }</ul>
