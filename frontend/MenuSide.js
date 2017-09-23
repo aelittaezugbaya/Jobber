@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import InputRange from 'react-input-range';
+import Button from './Button'
 
 
 const filterLiStyle={
@@ -53,6 +54,11 @@ export default class MenuSide extends React.Component{
                         <input id="password" type="text" className="validate"/>
                         <label htmlFor="password">Password</label>
                     </div>
+                </div>
+                <div className="center">
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light amber darken-1" type="submit" name="action">Log In</Button>
+
                 </div>
                 <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
             </form>

@@ -241,3 +241,7 @@ textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
 .modal [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{
     border: 2px solid #FFA000;
 }
+.btn{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}

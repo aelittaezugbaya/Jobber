@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class RegistrationMadal extends React.Component{
+export default class RegistrationModal extends React.Component{
     componentDidMount(){
         $(document).ready(function(){
 
