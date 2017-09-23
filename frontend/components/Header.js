@@ -6,25 +6,23 @@ import IconButton from './IconButton';
 import Loggo from './Logo';
 import AddForm from './AddForm'
 import RegistrationModal from './RegistrationModal';
+import {connect} from 'react-redux';
 
-export default class Header extends React.Component{
+class Header extends React.Component{
     componentDidMount(){
-        $(document).ready(function(){
-            $('.main_menu_button').sideNav({
-                edge: 'left',
-                draggable: true,
-            });
-            $('.list_button').sideNav({
-                edge: 'right',
-                draggable: true,
-            });
-            $('.filter_button').sideNav({
-                edge: 'right',
-                draggable: true,
-            });
-            $('.modal').modal();
-
+        $('.main_menu_button').sideNav({
+            edge: 'left',
+            draggable: true,
         });
+        $('.list_button').sideNav({
+            edge: 'right',
+            draggable: true,
+        });
+        $('.filter_button').sideNav({
+            edge: 'right',
+            draggable: true,
+        });
+        $('.modal').modal();
     }
     render(){
         return(
@@ -49,7 +47,7 @@ export default class Header extends React.Component{
                         <IconButton classNameA="list_button" classNameI="fa-list fa-lg" menu='list_menu' color={{color:'white'}}/>
 
                         <IconButton classNameI="fa-plus fa-lg" classNameA="modal-trigger" href="#form" color={{color:'white'}}/>
-                        <AddForm id="form" purpose="Buying"/>
+                        <AddForm id="form" purpose={this.props.openTab}/>
                     </div>
 
 
@@ -62,3 +60,20 @@ export default class Header extends React.Component{
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+    openTab: state.openTab
+  }
+};
+
+
+export default connect(
+  mapStateToProps,
+)(Header);

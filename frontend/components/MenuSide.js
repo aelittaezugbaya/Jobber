@@ -36,6 +36,8 @@ export default class MenuSide extends React.Component{
 
 
 
+
+
     renderLoginWindow(){
         let content=[];
         content.push(
