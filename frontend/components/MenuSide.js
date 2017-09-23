@@ -56,7 +56,7 @@ class MenuSide extends React.Component{
                 // console.log(JSON.parse(window.atob(base64)))
                 const user = jwt_decode(data);
                 console.log(user.FullName);
-                window.sessionStorage.accessToken = data;
+                window.localStorage.accessToken = data;
                 this.props.onSuccessfulLogin(user);
             })
             .catch(err => console.log(err));
@@ -64,7 +64,7 @@ class MenuSide extends React.Component{
     }
 
     logout(){
-        delete window.sessionStorage.accessToken;
+        delete window.localStorage.accessToken;
         this.props.onLogout();
     }
 ;
