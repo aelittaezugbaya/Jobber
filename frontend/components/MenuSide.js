@@ -82,7 +82,7 @@ class MenuSide extends React.Component{
                     </div>
                 </div>
                 <div className="center">
-                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" onClick={this.props.onLogout} name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text"  name="action">Cancel</Button>
                     <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
@@ -111,7 +111,7 @@ class MenuSide extends React.Component{
             <li><div className="divider"></div></li>
             <li><a className="waves-effect" href="#!">Saved Request/Offers</a></li>
             <li><div className="divider"></div></li>
-            <li className="log_out"><a className="waves-effect" href="#!">Log out</a><div className="divider"></div></li>
+            <li className="log_out"><a className="waves-effect" onClick={this.props.onLogout} href="#!">Log out</a><div className="divider"></div></li>
 
         </div>)
         return content;
