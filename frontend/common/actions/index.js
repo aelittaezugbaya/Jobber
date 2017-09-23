@@ -7,7 +7,26 @@ const changeTab = (openTab) => {
   }
 };
 
+const addCurrentUser = (user)=>{
+  return {
+    type:'ADD_CURRENT_USER',
+    payload:{
+      user
+    }
+  }
+};
+
+const logout = ()=>{
+  return {
+    type:'LOGOUT',
+    payload:{
+      user: null
+    }
+  }
+};
 
 export default {
-  changeTab
+  changeTab,
+  addCurrentUser,
+  logout
 };

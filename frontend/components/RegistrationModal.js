@@ -30,9 +30,7 @@ export default class RegistrationModal extends React.Component{
                 body: data
             })
             .then(data => data.text())
-            .then(data => {
-                console.log(data)
-            })
+            .then(data => console.log(jwt_decode(data)))
             .catch(err => console.log(err));
     }
 

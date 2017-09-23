@@ -30,8 +30,8 @@ class Header extends React.Component{
                 <div className="navbar nav-wrapper header">
                     <div className="header__menu-button">
                         <RegistrationModal/>
-                        <MenuSide id="log_in"/>
-                        <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu='log_in' classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
+                        <MenuSide id={this.props.currentUser ? 'main_menu':'log_in'}/>
+                        <IconButton classNameA="navbar-brand button-collapse main_menu_button show-on-large" menu={this.props.currentUser!=null ? 'main_menu':'log_in'} classNameI="fa-bars fa-lg" onClick={this.onClickMenu} />
                         <div className="header__tabs">
                             <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying','Selling']}/>
                         </div>
@@ -69,7 +69,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    openTab: state.openTab
+    openTab: state.openTab,
+    currentUser: state.user,
   }
 };
 

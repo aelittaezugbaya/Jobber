@@ -4,6 +4,9 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 import Button from './Button'
+import jwt_decode from 'jwt-decode';
+import Actions from '../common/actions';
+import { connect } from 'react-redux';
 
 
 const filterLiStyle={
@@ -16,13 +19,14 @@ const RangeStyle={
 
 }
 
-export default class MenuSide extends React.Component{
+class MenuSide extends React.Component{
 
     constructor(props) {
         super(props);
 
         this.state = {
             value: { min: 0, max: 50 },
+            user: null
         };
     }
 
@@ -36,8 +40,6 @@ export default class MenuSide extends React.Component{
     loginAPI(email,password){
         let data = 'Email=' + encodeURIComponent(email) +
             '&Password=' + encodeURIComponent(password);
-
-        console.log(window)
         window.fetch('/api/auth/login',
             {
                 method:'POST',
@@ -48,7 +50,11 @@ export default class MenuSide extends React.Component{
             })
             .then(data => data.text())
             .then(data => {
-                console.log(data)
+                // let base64Url = data.split('.')[1];
+                // let base64 = base64Url.replace('-', '+').replace('_', '/');
+                // console.log(JSON.parse(window.atob(base64)))
+                const user = jwt_decode(data);
+                this.props.onSuccessfulLogin(user);
             })
             .catch(err => console.log(err));
 
@@ -76,7 +82,7 @@ export default class MenuSide extends React.Component{
                     </div>
                 </div>
                 <div className="center">
-                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" onClick={this.props.onLogout} name="action">Cancel</Button>
                     <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
@@ -235,3 +241,26 @@ export default class MenuSide extends React.Component{
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSuccessfulLogin: (user) => {
+            dispatch(Actions.addCurrentUser(user));
+        },
+        onLogout: () => {
+            dispatch(Actions.logout())
+        }
+    }
+};
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser
+    }
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MenuSide);

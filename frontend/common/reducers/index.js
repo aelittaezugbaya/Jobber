@@ -13,6 +13,20 @@ function jobber(state = initialState, action) {
         action.payload
       );
       break;
+    case 'ADD_CURRENT_USER':
+      return Object.assign(
+          {},
+          state,
+          action.payload
+      );
+      break;
+    case 'LOGOUT':
+      return Object.assign(
+          {},
+          state,
+          action.payload
+      );
+      break;
     default:
       return state;
   }
