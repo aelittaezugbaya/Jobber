@@ -33,8 +33,26 @@ export default class MenuSide extends React.Component{
         });
     }
 
+    loginAPI(email,password){
+        let data = 'Email=' + encodeURIComponent(email) +
+            '&Password=' + encodeURIComponent(password);
 
+        console.log(window)
+        window.fetch('/api/auth/login',
+            {
+                method:'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: data
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => console.log(err));
 
+    }
 
 
 
@@ -59,7 +77,7 @@ export default class MenuSide extends React.Component{
                 </div>
                 <div className="center">
                     <Button className="btn waves-effect waves-light grey lighten-4 black-text" name="action">Cancel</Button>
-                    <Button className="btn waves-effect waves-light amber darken-1" type="submit" name="action">Log In</Button>
+                    <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
                 <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>

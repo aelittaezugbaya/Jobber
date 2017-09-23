@@ -14,6 +14,28 @@ export default class RegistrationModal extends React.Component{
             });
         });
     }
+
+    registerApi(fullName,email,password,dateOfBirth,gender){
+        let data = 'FullName=' + encodeURIComponent(fullName)
+            +'&Email=' + encodeURIComponent(email)
+            +'&Password=' + encodeURIComponent(password)
+            +'&DateOfBirth=' + encodeURIComponent(dateOfBirth)
+            +'&Gender=' + encodeURIComponent(gender)
+        fetch('/api/auth/register',
+            {
+                method:'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: data
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => console.log(err));
+    }
+
     render(){
         return(
             <div id="registration" className="modal modal-fixed-footer">
@@ -43,11 +65,11 @@ export default class RegistrationModal extends React.Component{
                     <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
                     <div className="row">
                         <p className="col m6">
-                            <input name="group1" type="radio" id="male"/>
+                            <input name="gender" type="radio" id="male"/>
                             <label htmlFor="male">Male</label>
                         </p>
                         <p className="col m6 ">
-                            <input name="group1" type="radio" id="female" />
+                            <input name="gender" type="radio" id="female" />
                             <label htmlFor="female">Female</label>
                         </p>
                     </div>
@@ -55,7 +77,14 @@ export default class RegistrationModal extends React.Component{
                 </div>
                 <div className="modal-footer">
                     <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Register</a>
+                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat"
+                       onClick={()=>this.registerApi(
+                           document.getElementById('FullName').value,
+                           document.getElementById('Email').value,
+                           document.getElementById('Password').value,
+                           document.getElementById('DateOfBirth').value,
+                           document.getElementById('male').checked ? 'male': 'female'
+                       )}>Register</a>
                 </div>
             </div>
         )
