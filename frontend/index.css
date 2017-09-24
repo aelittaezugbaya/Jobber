@@ -192,13 +192,16 @@ span{
 
 .modal input[type=text]:not(.browser-default):focus:not([readonly]),
 textarea[type=text]:not(.browser-default):focus:not([readonly]),
-#log_in input[type=text]:not(.browser-default):focus:not([readonly]){
+#log_in input[type=text]:not(.browser-default):focus:not([readonly]),
+#log_in input[type=password]:not(.browser-default):focus:not([readonly]){
     border-bottom:1px solid #FFA000;
+    box-shadow: none;
 }
 
 .modal input[type=text]:not(.browser-default):focus:not([readonly])+label,
 textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
-#log_in input[type=text]:not(.browser-default):focus:not([readonly])+label{
+#log_in input[type=text]:not(.browser-default):focus:not([readonly])+label,
+#log_in input[type=password]:not(.browser-default):focus:not([readonly])+label{
     color: #FFA000!important;
 }
 

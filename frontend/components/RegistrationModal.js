@@ -74,7 +74,7 @@ export default class RegistrationModal extends React.Component{
 
                 </div>
                 <div className="modal-footer">
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
+                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat " type="reset">Cancel</a>
                     <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat"
                        onClick={()=>this.registerApi(
                            document.getElementById('FullName').value,

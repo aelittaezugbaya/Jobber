@@ -85,12 +85,12 @@ class MenuSide extends React.Component{
                 <div className="row">
                     <div className="input-field col s12">
                         <i className="material-icons prefix">lock</i>
-                        <input id="password" type="text" className="validate"/>
+                        <input id="password" type="password" className="validate"/>
                         <label htmlFor="password">Password</label>
                     </div>
                 </div>
                 <div className="center">
-                    <Button className="btn waves-effect waves-light grey lighten-4 black-text"  name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" type="reset" name="action">Cancel</Button>
                     <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
