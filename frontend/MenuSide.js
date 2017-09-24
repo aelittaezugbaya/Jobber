@@ -69,77 +69,30 @@ export default class MenuSide extends React.Component{
             <form action="#">
                 <li style={filterLiStyle.category}><a>Category</a><hr/>
                     <div className="left checkLeft">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="pet_care" />
-                            <label htmlFor="pet_care">Pet Care</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="house_repair" />
-                            <label htmlFor="house_repair">House repair</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="children_care" />
-                            <label htmlFor="children_care">Children care</label>
-                        </p>
+                        <Checkbox id="pet_care" text="Pet care"/>
+                        <Checkbox id="house_repair" text="House repair"/>
+                        <Checkbox id="children_care" text="Children care"/>
                     </div>
                     <div className="right checkRight">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="beauty" />
-                            <label htmlFor="beauty">Beauty</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="cleaning" />
-                            <label htmlFor="cleaning">Cleaning</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="other" />
-                            <label htmlFor="other">Other</label>
-                        </p>
+                        <Checkbox id="beauty" text="Beauty"/>
+                        <Checkbox id="cleaning" text="Cleaning"/>
+                        <Checkbox id="other" text="Other"/>
                     </div>
                 </li>
                 <li style={filterLiStyle.gender}><a>Gender</a><hr/>
-                    <p className="checkLeft left">
-                        <input type="checkbox" className="filled-in " id="male" />
-                        <label htmlFor="male">Male</label>
-                    </p>
-                    <p className="checkRight right">
-                        <input type="checkbox" className="filled-in " id="female" />
-                        <label htmlFor="female">Female</label>
-                    </p>
+                    <Checkbox id="male" text="Male" className="checkLeft left"/>
+                    <Checkbox id="female" text="Female" className="checkRight right"/>
                 </li>
                 <li style={filterLiStyle.raiting}><a>Raiting</a><hr/>
                     <div className="left checkLeft">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="five" />
-                            <label htmlFor="five">5</label>
-                        </p>
-
-                        <p>
-                            <input type="checkbox" className="filled-in" id="four" />
-                            <label htmlFor="four">4</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="three" />
-                            <label htmlFor="three">3</label>
-                        </p>
+                        <Checkbox id="five" text="5"/>
+                        <Checkbox id="four" text="4"/>
+                        <Checkbox id="three" text="3"/>
                     </div>
                     <div className="right checkRight">
-                      {/*
-                        <p>
-                            <input type="checkbox" className="filled-in" id="two" />
-                            <label htmlFor="two">2</label>
-                        </p>
-                        */}
-
-                        <Checkbox id="two"/>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="one" />
-                            <label htmlFor="one">1</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="none" />
-                            <label htmlFor="none">None</label>
-                        </p>
+                        <Checkbox id="two" text="2"/>
+                        <Checkbox id="one" text="1"/>
+                        <Checkbox id="none" text="none"/>
                     </div>
                 </li>
                 <li><a>Price Range</a><hr/>
@@ -151,8 +104,6 @@ export default class MenuSide extends React.Component{
                         value={this.state.value}
                         onChange={value => this.setState({ value })} />
                 </li>
-
-
             </form>
         )
         return filters;
