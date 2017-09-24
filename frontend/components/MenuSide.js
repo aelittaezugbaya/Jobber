@@ -4,6 +4,9 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 import Button from './Button'
+import jwt_decode from 'jwt-decode';
+import Actions from '../common/actions';
+import { connect } from 'react-redux';
 
 
 const filterLiStyle={
@@ -16,14 +19,16 @@ const RangeStyle={
 
 }
 
-export default class MenuSide extends React.Component{
+class MenuSide extends React.Component{
 
     constructor(props) {
         super(props);
 
         this.state = {
             value: { min: 0, max: 50 },
+            user: null
         };
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount(){
@@ -33,9 +38,36 @@ export default class MenuSide extends React.Component{
         });
     }
 
+    loginAPI(email,password){
+        let data = 'Email=' + encodeURIComponent(email) +
+            '&Password=' + encodeURIComponent(password);
+        window.fetch('/api/auth/login',
+            {
+                method:'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: data
+            })
+            .then(data => data.text())
+            .then(data => {
+                // let base64Url = data.split('.')[1];
+                // let base64 = base64Url.replace('-', '+').replace('_', '/');
+                // console.log(JSON.parse(window.atob(base64)))
+                const user = jwt_decode(data);
+                console.log(user.FullName);
+                window.localStorage.accessToken = data;
+                this.props.onSuccessfulLogin(user);
+            })
+            .catch(err => console.log(err));
 
+    }
 
-
+    logout(){
+        delete window.localStorage.accessToken;
+        this.props.onLogout();
+    }
+;
 
 
     renderLoginWindow(){
@@ -53,13 +85,13 @@ export default class MenuSide extends React.Component{
                 <div className="row">
                     <div className="input-field col s12">
                         <i className="material-icons prefix">lock</i>
-                        <input id="password" type="text" className="validate"/>
+                        <input id="password" type="password" className="validate"/>
                         <label htmlFor="password">Password</label>
                     </div>
                 </div>
                 <div className="center">
-                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" name="action">Cancel</Button>
-                    <Button className="btn waves-effect waves-light amber darken-1" type="submit" name="action">Log In</Button>
+                    <Button className="btn waves-effect waves-light grey lighten-4 black-text" type="reset" name="action">Cancel</Button>
+                    <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
                 <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
@@ -77,8 +109,8 @@ export default class MenuSide extends React.Component{
                     <img src="http://thewallpaper.co/wp-content/uploads/2016/03/colorful-triangles-background-high-resolution-images-free-stock-photos-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-hd-digital-5000x3750-300x200.jpg"/>
                 </div>
                 <a href="#!user"><img className="circle" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/></a>
-                <a href="#!name"><span className="white-text name">John Doe</span></a>
-                <a href="#!email"><span className="white-text email">jdandturk@gmail.com</span></a>
+                <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
+                <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
 
             <li><a className="waves-effect" href="#!">Add new offer</a></li>
@@ -87,7 +119,7 @@ export default class MenuSide extends React.Component{
             <li><div className="divider"></div></li>
             <li><a className="waves-effect" href="#!">Saved Request/Offers</a></li>
             <li><div className="divider"></div></li>
-            <li className="log_out"><a className="waves-effect" href="#!">Log out</a><div className="divider"></div></li>
+            <li className="log_out"><a className="waves-effect" onClick={this.logout} href="#!">Log out</a><div className="divider"></div></li>
 
         </div>)
         return content;
@@ -217,3 +249,26 @@ export default class MenuSide extends React.Component{
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSuccessfulLogin: (user) => {
+            dispatch(Actions.addCurrentUser(user));
+        },
+        onLogout: () => {
+            dispatch(Actions.logout())
+        }
+    }
+};
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser
+    }
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MenuSide);
