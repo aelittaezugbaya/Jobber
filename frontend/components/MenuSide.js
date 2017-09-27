@@ -108,9 +108,9 @@ class MenuSide extends React.Component{
         content.push(<div>
             <li><div className="user-view">
                 <div className="background">
-                    <img src="http://thewallpaper.co/wp-content/uploads/2016/03/colorful-triangles-background-high-resolution-images-free-stock-photos-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-hd-digital-5000x3750-300x200.jpg"/>
+                    <img src="../img/background.jpg"/>
                 </div>
-                <a href="#!user"><img className="circle" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/></a>
+                <a href="#!user"><img className="circle" src="../img/avatar.jpg"/></a>
                 <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
                 <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
