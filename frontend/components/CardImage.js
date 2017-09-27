@@ -13,7 +13,7 @@ export default class CardImage extends React.Component{
         <img src={this.props.src}/>
           <span className="card-title">{this.props.title}</span>
       </div>
-    )
+    );
   }
 }
 
