@@ -4,6 +4,9 @@
 import React from 'react';
 
 export default class UserPageContent extends React.Component{
+    componentWillMount(){
+
+    }
     render(){
         return(
             <div className="row">
@@ -58,10 +61,16 @@ export default class UserPageContent extends React.Component{
                                 <li className="collection-item avatar">
                                     <img src="http://rs600.pbsrc.com/albums/tt82/roadstar166/1-SquidooImages/Tired-Profile-Picture-Cartoon-Portrait-Avatars-are-Hot-SoyCandleMaker-Lover-Simpson.png~c200" alt="" className="circle"/>
                                     <span className="title">Leave your feedback</span>
-                                    <p><strong>Comment:</strong><br/>
-
-                                    </p>
-
+                                    <form>
+                                        <div className="input-field col s12">
+                                            <input id="comment" type="text" className="validate "/>
+                                            <label htmlFor="comment">Comment</label>
+                                        </div>
+                                        <div className="row right">
+                                            <button className="btn-flat " type="reset" href="#">Cancel</button>
+                                            <button className="btn-flat amber white-text" type="submit" href="#">Submit</button>
+                                        </div>
+                                    </form>
                                 </li>
                             </ul>
                         </div>
