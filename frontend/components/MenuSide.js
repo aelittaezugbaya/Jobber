@@ -145,7 +145,7 @@ class MenuSide extends React.Component{
         let filters=[]
         filters.push(
             <form action="#">
-                <li style={filterLiStyle.category}><a>Category</a><hr/>
+                <li style={filterLiStyle.category}><a>Category</a>
                     <div className="left checkLeft">
                         <Checkbox id="pet_care" text="Pet care"/>
                         <Checkbox id="house_repair" text="House repair"/>
@@ -157,11 +157,13 @@ class MenuSide extends React.Component{
                         <Checkbox id="other" text="Other"/>
                     </div>
                 </li>
-                <li style={filterLiStyle.gender}><a>Gender</a><hr/>
+                <hr/>
+                <li style={filterLiStyle.gender}><a>Gender</a>
                     <Checkbox id="male" text="Male" className="checkLeft left"/>
                     <Checkbox id="female" text="Female" className="checkRight right"/>
                 </li>
-                <li style={filterLiStyle.raiting}><a>Raiting</a><hr/>
+                <hr/>
+                <li style={filterLiStyle.raiting}><a>Raiting</a>
                     <div className="left checkLeft">
                         <Checkbox id="five" text="5"/>
                         <Checkbox id="four" text="4"/>
@@ -173,7 +175,8 @@ class MenuSide extends React.Component{
                         <Checkbox id="none" text="none"/>
                     </div>
                 </li>
-                <li><a>Price Range</a><hr/>
+                <hr/>
+                <li><a>Price Range</a>
                     <InputRange
                         formatLabel={value => `${value}€`}
                         name={'Till'}
