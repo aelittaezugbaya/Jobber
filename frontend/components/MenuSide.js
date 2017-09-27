@@ -17,10 +17,6 @@ const filterLiStyle={
     raiting:{height: '190px'}
 };
 
-const RangeStyle={
-
-}
-
 class MenuSide extends React.Component{
 
     constructor(props) {
@@ -108,9 +104,9 @@ class MenuSide extends React.Component{
         content.push(<div>
             <li><div className="user-view">
                 <div className="background">
-                    <img src="../img/background.jpg"/>
+                    <img src="/assets/img/background.jpg"/>
                 </div>
-                <a href="#!user"><img className="circle" src="../img/avatar.jpg"/></a>
+                <a href="#!user"><img className="circle" src="/assets/img/avatar.jpg"/></a>
                 <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
                 <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
