@@ -3,14 +3,14 @@
  */
 import React from 'react';
 
-export default class Loggo extends React.Component{
-    constructor(props){
-        super(props);
-    }
+export default class Loggo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    render(){
-        return(
-            <a href="#" className="logo">{this.props.name}</a>
-        )
-    }
+  render() {
+    return (
+      <a href="#" className="logo">{this.props.name}</a>
+    )
+  }
 }

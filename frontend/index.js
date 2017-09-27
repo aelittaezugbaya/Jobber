@@ -28,7 +28,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainView}/>
-        <Route path="/user/" component={UserPage}/>
+        <Route path="/user/:userId" component={UserPage}/>
       </Switch>
     </BrowserRouter>
 

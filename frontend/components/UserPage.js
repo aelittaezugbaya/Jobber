@@ -5,6 +5,7 @@ import React from 'react';
 
 export default class UserPage extends React.Component{
   render(){
+    console.log(this.props)
     return(
         <div className="row">
           <div className="col s12 m4">

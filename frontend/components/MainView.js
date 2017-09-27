@@ -8,7 +8,6 @@ import {connect } from 'react-redux';
 class MainView extends React.Component{
     componentWillMount(){
         if(window.localStorage.accessToken !== undefined) {
-            console.log(window.localStorage.accessToken)
             this.props.initUser(window.localStorage.accessToken)
         }
     }
