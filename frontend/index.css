@@ -249,3 +249,7 @@ textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
+
+.card .material-icons{
+    color: #FFA000;
+}
