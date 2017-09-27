@@ -2,6 +2,7 @@
  * Created by aelit on 24-Sep-17.
  */
 import React from 'react';
+import CardImage from './CardImage';
 
 export default class UserPage extends React.Component{
   render(){
@@ -9,10 +10,7 @@ export default class UserPage extends React.Component{
         <div className="row">
           <div className="col s12 m4">
             <div className="card">
-              <div className="card-image">
-                <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/>
-                  <span className="card-title">Aelitta Ezugbaya</span>
-              </div>
+              <CardImage title="Aelitta Ezugbaya" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/>
               <div className="card-content">
                 <ul>
                   <li><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i></li>
