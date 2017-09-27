@@ -7,12 +7,13 @@ import UserPageContent from './UserPageContent';
 
 export default class UserPage extends React.Component{
   render(){
-    console.log(this.props)
+    console.log(this.props.match)
     return(
-        <div>
-          <Header/>
-          <UserPageContent/>
-        </div>
+      <div>
+        <Header/>
+        <UserPageContent id={this.props.match.id} />
+      </div>
+
     )
   }
 }

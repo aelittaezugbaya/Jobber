@@ -15,7 +15,7 @@ const commonConfig = {
   output: {
     path: PATHS.build,
     filename: '[name].js',
-    publicPath:'/'
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
