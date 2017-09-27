@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { BrowserRouter,Switch, Route, Link } from 'react-router-dom';
 import jobber from './common/reducers';
-import UserPage from './components/UserPage'
+import UserPage from './components/UserPage';
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/materialize-css/dist/css/materialize.min.css'
+import '../node_modules/materialize-css/dist/css/materialize.min.css';
 import '../node_modules/font-awesome/css/font-awesome.css';
 import './index.css';
 import '../node_modules/react-input-range/lib/css/index.css'
@@ -22,12 +22,13 @@ let store = createStore(
 
 import MainView from './components/MainView'
 
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={MainView}/>
-        <Route path="/user/:userId" component={UserPage}/>
+        <Route path="/user/" component={UserPage}/>
       </Switch>
     </BrowserRouter>
 
