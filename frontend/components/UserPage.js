@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Card from './Card';
+import AvatarList from './AvatarList';
 
 export default class UserPage extends React.Component{
   render(){
@@ -23,36 +24,26 @@ export default class UserPage extends React.Component{
               <div className="card-content">
                 <span className="card-title">Feedback</span>
                 <ul className="collection">
-                  <li className="collection-item avatar">
-                    <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="" className="circle"/>
-                      <span className="title">Full Name of User</span>
-                      <p><strong>Comment:</strong><br/>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur congue suscipit nisl quis suscipit. Nulla.
-                      </p>
-                      <a href="#!" className="secondary-content"><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i></a>
-                  </li>
-                  <li className="collection-item avatar">
-                    <img src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg" alt="" className="circle"/>
-                    <span className="title">User Name 1</span>
-                    <p><strong>Comment:</strong><br/>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in ornare quam. Cras aliquet magna et ornare dapibus. Nam fermentum elit a tortor suscipit, eget molestie risus mollis.                    </p>
-                    <a href="#!" className="secondary-content"><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i></a>
-                  </li>
-                  <li className="collection-item avatar">
-                    <img src="https://media.cackle.me/7/28/c79b935831fa311bf83174b159103287.jpg" alt="" className="circle"/>
-                    <span className="title">User Name 2</span>
-                    <p><strong>Comment:</strong><br/>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in ornare quam. Cras aliquet magna et ornare dapibus. Nam fermentum elit a tortor suscipit, eget molestie risus mollis.                    </p>
-                    <a href="#!" className="secondary-content"><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i></a>
-                  </li>
-                  <li className="collection-item avatar">
-                    <img src="http://rs600.pbsrc.com/albums/tt82/roadstar166/1-SquidooImages/Tired-Profile-Picture-Cartoon-Portrait-Avatars-are-Hot-SoyCandleMaker-Lover-Simpson.png~c200" alt="" className="circle"/>
-                    <span className="title">Leave your feedback</span>
-                    <p><strong>Comment:</strong><br/>
-
-                    </p>
-
-                  </li>
+                  <AvatarList
+                  name="John Doe"
+                  comment="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur congue suscipit nisl quis suscipit. Nulla."
+                  src="https://www.w3schools.com/w3css/img_avatar3.png"
+                  />
+                  <AvatarList
+                  name="Jane Austen"
+                  comment="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in ornare quam. Cras aliquet magna et ornare dapibus. Nam fermentum elit a tortor suscipit, eget molestie risus mollis."
+                  src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg"
+                  />
+                  <AvatarList
+                  name="Justin Case"
+                  comment="Lorem ipsum hubba dolor sit amet, consectetur adipiscing elit. Praesent in ornare quam. Cras aliquet magna et ornare dapibus. Nam fermentum elit a tortor suscipit, eget molestie risus mollis."
+                  src="https://media.cackle.me/7/28/c79b935831fa311bf83174b159103287.jpg"
+                  />
+                  <AvatarList
+                  name="Leave your feedback"
+                  comment=""
+                  src="http://rs600.pbsrc.com/albums/tt82/roadstar166/1-SquidooImages/Tired-Profile-Picture-Cartoon-Portrait-Avatars-are-Hot-SoyCandleMaker-Lover-Simpson.png~c200"
+                  />
                 </ul>
               </div>
             </div>
