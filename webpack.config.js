@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
   frontend: path.join(__dirname, 'frontend'),
@@ -20,6 +21,11 @@ const commonConfig = {
       title: 'Jobber',
       template: path.join(PATHS.frontend, 'template.html')
     }),
+
+    new CopyWebpackPlugin([{
+      from: path.join(PATHS.frontend, 'img'),
+      to: 'assets/img'
+    }])
   ],
   module: {
     rules: [
@@ -73,7 +79,7 @@ const developmentConfig = () => {
       host: process.env.HOST, // Defaults to `localhost`
       port: process.env.PORT, // Defaults to 8080
       proxy: {
-        '/api/**': "http://localhost:3000/"
+        '/api/**': "http://192.168.0.101:3000/"
       }
     },
   };
