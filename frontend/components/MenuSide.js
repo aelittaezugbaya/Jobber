@@ -17,10 +17,6 @@ const filterLiStyle={
     raiting:{height: '190px'}
 };
 
-const RangeStyle={
-
-}
-
 class MenuSide extends React.Component{
 
     constructor(props) {
@@ -28,7 +24,7 @@ class MenuSide extends React.Component{
 
         this.state = {
             value: { min: 0, max: 50 },
-            user: null
+            user: jwt_decode( window.localStorage.accessToken)
         };
         this.logout = this.logout.bind(this);
     }
@@ -108,9 +104,9 @@ class MenuSide extends React.Component{
         content.push(<div>
             <li><div className="user-view">
                 <div className="background">
-                    <img src="../img/background.jpg"/>
+                    <img src="/assets/img/background.jpg"/>
                 </div>
-                <a href="#!user"><img className="circle" src="../img/avatar.jpg"/></a>
+                <a href={`user/${this.state.user._id}`}><img className="circle" src="/assets/img/avatar.jpg"/></a>
                 <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
                 <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
@@ -145,7 +141,7 @@ class MenuSide extends React.Component{
         let filters=[]
         filters.push(
             <form action="#">
-                <li style={filterLiStyle.category}><a>Category</a><hr/>
+                <li style={filterLiStyle.category}><a>Category</a>
                     <div className="left checkLeft">
                         <Checkbox id="pet_care" text="Pet care"/>
                         <Checkbox id="house_repair" text="House repair"/>
@@ -157,11 +153,13 @@ class MenuSide extends React.Component{
                         <Checkbox id="other" text="Other"/>
                     </div>
                 </li>
-                <li style={filterLiStyle.gender}><a>Gender</a><hr/>
+                <hr/>
+                <li style={filterLiStyle.gender}><a>Gender</a>
                     <Checkbox id="male" text="Male" className="checkLeft left"/>
                     <Checkbox id="female" text="Female" className="checkRight right"/>
                 </li>
-                <li style={filterLiStyle.raiting}><a>Raiting</a><hr/>
+                <hr/>
+                <li style={filterLiStyle.raiting}><a>Raiting</a>
                     <div className="left checkLeft">
                         <Checkbox id="five" text="5"/>
                         <Checkbox id="four" text="4"/>
@@ -173,7 +171,8 @@ class MenuSide extends React.Component{
                         <Checkbox id="none" text="none"/>
                     </div>
                 </li>
-                <li><a>Price Range</a><hr/>
+                <hr/>
+                <li><a>Price Range</a>
                     <InputRange
                         formatLabel={value => `${value}€`}
                         name={'Till'}

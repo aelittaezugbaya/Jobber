@@ -1,17 +1,17 @@
 import React from 'react';
 
-export default class Input extends React.Component{
-    constructor(props){
-        super(props)
-    }
+export default class Input extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-    render(){
-        return(
-            <div className={`text-field ${this.props.className} `}>
+  render() {
+    return (
+      <div className={`text-field ${this.props.className} `}>
 
-                <input placeholder="Search" id="search" type="text" className="validate"/>
+        <input placeholder="Search" id="search" type="text" className="validate"/>
 
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }

@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
   frontend: path.join(__dirname, 'frontend'),
@@ -14,12 +15,18 @@ const commonConfig = {
   output: {
     path: PATHS.build,
     filename: '[name].js',
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Jobber',
       template: path.join(PATHS.frontend, 'template.html')
     }),
+
+    new CopyWebpackPlugin([{
+      from: path.join(PATHS.frontend, 'img'),
+      to: 'assets/img'
+    }])
   ],
   module: {
     rules: [
