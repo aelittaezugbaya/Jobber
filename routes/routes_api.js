@@ -103,7 +103,7 @@ router.post('/auth/login', function(req, res, next) {
 
     let expiry = new Date();
     // TODO increase expiration
-    expiry.setMinutes(expiry.getMinutes() + 1);
+    expiry.setMinutes(expiry.getMinutes() + 30);
 
     let jwttoken = jwt.sign({
       _id: user[0]._id,
