@@ -92,7 +92,7 @@ class MenuSide extends React.Component{
                     <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
-                <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
+                <p className="center">If you don"\'"t have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
             </form>
 
         )

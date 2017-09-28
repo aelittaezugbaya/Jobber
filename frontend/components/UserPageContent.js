@@ -7,12 +7,20 @@ export default class UserPageContent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user:{}
+      feedbacks:[],
+      user:{
+        id: null,
+        fullName:null,
+        email:null,
+        dateOfBirth:null,
+        gender:null,
+        rating: null
+      }
 
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     window.fetch(`/api/user/${this.props.id}`,
       {
         method: 'GET',
@@ -21,13 +29,96 @@ export default class UserPageContent extends React.Component {
           'Authorization':window.localStorage.accessToken
         }
       })
-      .then(res=>res.text())
+      .then(res=>res.json())
+      .then(data=>data[0])
       .then(data=>{
-        console.log(data)
+        this.setState({
+          user:{id:this.props.id,
+              fullName: data.FullName,
+              email: data.Email,
+              dateOfBirth: data.DateOfBirth.split('T')[0],
+              gender: data.Gender,
+              rating:data.Rating},
+              description: data.Description
+        })
+      })
 
+    window.fetch(`/api/feedback/${this.props.id}`,
+      {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        this.setState({
+          feedbacks:data
+        })
+
+      })
+  }
+
+  getUser(id){
+
+    let  user = { name:'' }
+    let fname;
+
+    let prom=window.fetch(`/api/user/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>data[0])
+      .then(data=>{
+        this.setState({
+          id:data.FullName
+        })
       })
 
 
+
+  }
+
+
+
+  renderStars(rating){
+    const stars=[];
+
+    for(let i = 0; i<rating; i++){
+      stars.push(<i className="material-icons">star</i>)
+    }
+    const rest=5-rating;
+
+    for(let n = 0; n<rest; n++){
+      stars.push(<i className="material-icons">star_border</i>)
+    }
+    return stars;
+  }
+
+  renderFeedbacks(){
+    let feedbacks=[]
+    for(let feedback of this.state.feedbacks){
+    this.getUser(feedback.UserSourceID);
+      let id=feedback.UserSourceID
+      feedbacks.push(
+        <li className="collection-item avatar">
+          <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="" className="circle"/>
+          <span className="title">{this.state.id}</span>
+          <p><strong>Comment:</strong><br/>{feedback.Comment}
+          </p>
+            <a href="#!" className="secondary-content">
+              {this.renderStars(feedback.Rating)}
+            </a>
+        </li>
+      )
+    }
+    return feedbacks;
   }
 
   render() {
@@ -38,20 +129,15 @@ export default class UserPageContent extends React.Component {
             <div className="card-image">
               <img
                 src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/>
-              <span className="card-title">Aelitta Ezugbaya</span>
+              <span className="card-title">{this.state.user.fullName}</span>
             </div>
             <div className="card-content">
               <ul>
-                <li><i className="material-icons">star</i><i className="material-icons">star</i><i
-                  className="material-icons">star</i></li>
-                <li><strong>Email:</strong></li>
-                <li><strong>Age:</strong>20</li>
-                <li><strong>Gender:</strong> Female</li>
-                <li><strong>Additional information:</strong> Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Duis consectetur in nisi laoreet pharetra. Fusce gravida
-                  efficitur imperdiet. Maecenas ultrices blandit malesuada. Phasellus malesuada,
-                  velit ut ultrices pretium, ex lorem tristique magna, quis sodales mauris lectus
-                  id velit. Integer pulvinar
+                <li>{this.renderStars(this.state.user.rating)}</li>
+                <li><strong>Email: </strong>{this.state.user.email}</li>
+                <li><strong>Date Of Birth: </strong>{this.state.user.dateOfBirth}</li>
+                <li><strong>Gender: </strong>{this.state.user.gender}</li>
+                <li><strong>Additional information:</strong> {this.state.user.description}
                 </li>
               </ul>
             </div>
@@ -62,17 +148,7 @@ export default class UserPageContent extends React.Component {
             <div className="card-content">
               <span className="card-title">Feedback</span>
               <ul className="collection">
-                <li className="collection-item avatar">
-                  <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="" className="circle"/>
-                  <span className="title">Full Name of User</span>
-                  <p><strong>Comment:</strong><br/>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur congue suscipit nisl quis
-                    suscipit. Nulla.
-                  </p>
-                  <a href="#!" className="secondary-content"><i className="material-icons">star</i><i
-                    className="material-icons">star</i><i className="material-icons">star</i><i
-                    className="material-icons">star</i></a>
-                </li>
+                {this.renderFeedbacks()}
                 <li className="collection-item avatar">
                   <img
                     src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg"

@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route exact path="/" component={MainView}/>
-        <Route path="/user/:id" component={UserPage}/>
+        <Route exact path="/user/:id" component={UserPage}/>
       </Switch>
     )
   }
