@@ -7,11 +7,11 @@ import UserPageContent from './UserPageContent';
 
 export default class UserPage extends React.Component{
   render(){
-    console.log(this.props.match)
+
     return(
       <div>
         <Header/>
-        <UserPageContent id={this.props.match.id} />
+        <UserPageContent id={this.props.match.params.id} />
       </div>
 
     )

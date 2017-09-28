@@ -6,7 +6,28 @@ import React from 'react';
 export default class UserPageContent extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      user:{}
+
+    }
+  }
+
+  componentDidMount(){
+    window.fetch(`/api/user/${this.props.id}`,
+      {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken
+        }
+      })
+      .then(res=>res.text())
+      .then(data=>{
+        console.log(data)
+
+      })
+
+
   }
 
   render() {

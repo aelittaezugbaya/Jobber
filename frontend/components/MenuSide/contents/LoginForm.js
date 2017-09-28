@@ -31,7 +31,6 @@ class LoginForm extends React.Component {
         // let base64 = base64Url.replace('-', '+').replace('_', '/');
         // console.log(JSON.parse(window.atob(base64)))
         const user = jwt_decode(data);
-        console.log(user.FullName);
         window.localStorage.accessToken = data;
         if (this.props.onSuccessfulLogin)
           this.props.onSuccessfulLogin(user);

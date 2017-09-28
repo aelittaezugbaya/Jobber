@@ -17,10 +17,11 @@ class UserView extends React.Component {
 
   render() {
     const {
-      name,
-      email
-    } = this.props;
-
+      FullName,
+      Email,
+      _id
+    } = this.props.currentUser;
+    console.log(this.props)
     return(
       <div>
         <li>
@@ -28,9 +29,9 @@ class UserView extends React.Component {
             <div className="background">
               <img src="/assets/img/background.jpg"/>
             </div>
-            <a href="#!user" onClick={() => this.props.history.push('/user/kek')}><img className="circle" src="/assets/img/avatar.jpg"/></a>
-            <a href="#!name"><span className="white-text name">{name}</span></a>
-            <a href="#!email"><span className="white-text email">{email}</span></a>
+            <a href="" onClick={() => this.props.history.push(`/user/${_id}`)}><img className="circle" src="/assets/img/avatar.jpg"/></a>
+            <a href="#!name"><span className="white-text name">{FullName}</span></a>
+            <a href="#!email"><span className="white-text email">{Email}</span></a>
           </div>
         </li>
 
@@ -54,7 +55,13 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.user
+  }
+};
+
 export default withRouter(connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(UserView));
