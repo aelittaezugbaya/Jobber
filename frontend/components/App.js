@@ -2,7 +2,7 @@ import React from 'react';
 import Actions from '../common/actions';
 import jwt_decode from 'jwt-decode';
 import {connect } from 'react-redux';
-import UserPage from './UserPage';
+import UserPage from './UserPage/UserPage';
 import MainView from './MainView';
 import { Switch, Route } from 'react-router-dom';
 
