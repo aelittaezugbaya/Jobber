@@ -12,18 +12,10 @@ class MainView extends React.Component{
 
 
     render() {
-
-      // -- This is placeholder images for the map
-      let image = "/assets/img/map_selling.png";
-
-      if(this.props.openTab === 'Buying'){
-        image = "/assets/img/map_buying.png";
-      }
-
       return(
         <div>
           <Header/>
-          <img src={image} style={background}></img>
+
         </div>
       )
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import Actions from '../common/actions';
 import jwt_decode from 'jwt-decode';
 import {connect } from 'react-redux';
-import UserPage from './UserPage';
+import UserPage from './UserPage/UserPage';
 import MainView from './MainView';
 import { Switch, Route } from 'react-router-dom';
 
@@ -23,11 +23,14 @@ class App extends React.Component {
   }
 }
 
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
     initUser: (token) => {
       let user = jwt_decode(token);
       dispatch(Actions.addCurrentUser(user));
+
     }
   }
 };
