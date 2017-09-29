@@ -64,6 +64,7 @@ router.post('/auth/register', function(req, res, next) {
       Rating: 0,
       FullName: req.body.FullName,
       Email: req.body.Email,
+      Description: "Hello, I am " + req.body.FullName + ".",
       Hash: hash,
       Salt: salt,
       DateOfBirth: req.body.DateOfBirth,
@@ -190,7 +191,8 @@ router.put('/user/:id', function(req, res, next) {
   {
     FullName: req.body.FullName,
     DateOfBirth: req.body.DateOfBirth,
-    Gender: req.body.Gender
+    Gender: req.body.Gender,
+    Description: req.body.Description
   }, function(err, user){
     if (err) throw err;
 
