@@ -1,5 +1,6 @@
 import React from 'react';
 import RadioButton from './RadioButton';
+import InputLogin from './InputLogin';
 
 export default class RegistrationModal extends React.Component{
     componentDidMount(){
@@ -40,27 +41,10 @@ export default class RegistrationModal extends React.Component{
             <div id="registration" className="modal modal-fixed-footer">
                 <div className="modal-content">
                     <h4>Registration</h4>
-                    <div className="input-field">
-                        <i className="material-icons prefix">face</i>
-                        <input id="FullName" type="text" className="validate  "/>
-                        <label htmlFor="FullName" className="">Full Name</label>
-                    </div>
-                    <div className="input-field ">
-                        <i className="material-icons prefix">email</i>
-                        <input id="Email" type="text" className="validate "/>
-                        <label htmlFor="Email" className="">Email</label>
-                    </div>
-                    <div className="input-field ">
-                        <i className="material-icons prefix">lock</i>
-                        <input id="Password" type="text" className="validate "/>
-                        <label htmlFor="Password" className="">Password</label>
-                    </div>
-                    <div className="input-field ">
-                        <i className="material-icons prefix">date_range</i>
-                        <input type="text" className="datepicker" id="DateOfBirth"/>
-                        <label htmlFor="DateOfBirth" className="">Date Of Birth</label>
-                    </div>
-
+                    <InputLogin className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
+                    <InputLogin className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
+                    <InputLogin className="input-field" icon="lock" id="Password" type="text" inputClass="validate" text="Password" />
+                    <InputLogin className="input-field" icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
                     <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
                     <div className="row">
                         <RadioButton id="male" text="Male" />

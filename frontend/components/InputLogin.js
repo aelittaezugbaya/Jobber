@@ -8,9 +8,9 @@ export default class InputLogin extends React.Component{
   render(){
     const props = this.props;
     return(
-      <div className="input-field col s12">
-          <i className="material-icons prefix">account_circle</i>
-          <input id={this.props.id} type={this.props.type} className="validate"/>
+      <div className={this.props.className}>
+          <i className="material-icons prefix">{this.props.icon}</i>
+          <input id={this.props.id} type={this.props.type} className={this.props.inputClass}/>
           <label htmlFor={this.props.id}>{this.props.text}</label>
       </div>
     );
@@ -18,6 +18,9 @@ export default class InputLogin extends React.Component{
 }
 
 InputLogin.propTypes = {
+  className: PropTypes.string,
+  inputClass: PropTypes.string,
+  icon: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string,
   text: PropTypes.string,

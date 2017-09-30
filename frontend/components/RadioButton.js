@@ -8,7 +8,7 @@ export default class RadioButton extends React.Component{
   render(){
     const props = this.props;
     return(
-      <p className="col m6 ">
+      <p className="col m6">
           <input name="gender" type="radio" id={this.props.id} />
           <label htmlFor={this.props.id}>{this.props.text}</label>
       </p>

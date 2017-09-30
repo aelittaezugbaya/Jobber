@@ -78,10 +78,10 @@ class MenuSide extends React.Component{
             <form>
                 <h4 className="center">Log in</h4>
                 <div className="row">
-                    <InputLogin id="user_name" type="text" text="Username" />
+                    <InputLogin className="input-field col s12" icon="account_circle" id="user_name" type="text" inputClass="validate" text="Username" />
                 </div>
                 <div className="row">
-                    <InputLogin id="password" type="password" text="Password" />
+                    <InputLogin className="input-field col s12" icon="account_circle" id="password" type="password" inputClass="validate" text="Password" />
                 </div>
                 <div className="center">
                     <Button className="btn waves-effect waves-light grey lighten-4 black-text" type="reset" name="action">Cancel</Button>
