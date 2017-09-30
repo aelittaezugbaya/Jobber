@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 import Actions from '../common/actions';
 import { connect } from 'react-redux';
 import Checkbox from './Checkbox';
-import InputLogin from './InputLogin';
+import InputField from './InputField';
 
 const filterLiStyle={
     category: {height: '190px'},
@@ -78,10 +78,10 @@ class MenuSide extends React.Component{
             <form>
                 <h4 className="center">Log in</h4>
                 <div className="row">
-                    <InputLogin className="input-field col s12" icon="account_circle" id="user_name" type="text" inputClass="validate" text="Username" />
+                    <InputField className="input-field col s12" icon="account_circle" id="user_name" type="text" inputClass="validate" text="Username" />
                 </div>
                 <div className="row">
-                    <InputLogin className="input-field col s12" icon="account_circle" id="password" type="password" inputClass="validate" text="Password" />
+                    <InputField className="input-field col s12" icon="account_circle" id="password" type="password" inputClass="validate" text="Password" />
                 </div>
                 <div className="center">
                     <Button className="btn waves-effect waves-light grey lighten-4 black-text" type="reset" name="action">Cancel</Button>

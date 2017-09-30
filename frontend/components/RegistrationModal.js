@@ -1,6 +1,6 @@
 import React from 'react';
 import RadioButton from './RadioButton';
-import InputLogin from './InputLogin';
+import InputField from './InputField';
 
 export default class RegistrationModal extends React.Component{
     componentDidMount(){
@@ -41,10 +41,10 @@ export default class RegistrationModal extends React.Component{
             <div id="registration" className="modal modal-fixed-footer">
                 <div className="modal-content">
                     <h4>Registration</h4>
-                    <InputLogin className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
-                    <InputLogin className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
-                    <InputLogin className="input-field" icon="lock" id="Password" type="text" inputClass="validate" text="Password" />
-                    <InputLogin className="input-field" icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
+                    <InputField className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
+                    <InputField className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
+                    <InputField className="input-field" icon="lock" id="Password" type="text" inputClass="validate" text="Password" />
+                    <InputField className="input-field" icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
                     <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
                     <div className="row">
                         <RadioButton id="male" text="Male" />

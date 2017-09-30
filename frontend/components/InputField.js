@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class InputLogin extends React.Component{
+export default class InputField extends React.Component{
   constructor(props){
     super(props);
   }
@@ -17,7 +17,7 @@ export default class InputLogin extends React.Component{
   }
 }
 
-InputLogin.propTypes = {
+InputField.propTypes = {
   className: PropTypes.string,
   inputClass: PropTypes.string,
   icon: PropTypes.string,
