@@ -1,4 +1,5 @@
 import React from 'react';
+import RadioButton from './RadioButton';
 
 export default class RegistrationModal extends React.Component{
     componentDidMount(){
@@ -62,14 +63,8 @@ export default class RegistrationModal extends React.Component{
 
                     <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
                     <div className="row">
-                        <p className="col m6">
-                            <input name="gender" type="radio" id="male"/>
-                            <label htmlFor="male">Male</label>
-                        </p>
-                        <p className="col m6 ">
-                            <input name="gender" type="radio" id="female" />
-                            <label htmlFor="female">Female</label>
-                        </p>
+                        <RadioButton id="male" text="Male" />
+                        <RadioButton id="female" text="Female" />
                     </div>
 
                 </div>
