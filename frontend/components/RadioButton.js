@@ -21,10 +21,3 @@ RadioButton.propTypes = {
   text: PropTypes.string,
 
 };
-
-
-
-<p className="col m6 ">
-    <input name="gender" type="radio" id="female" />
-    <label htmlFor="female">Female</label>
-</p>
