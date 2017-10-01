@@ -32,6 +32,12 @@ export default class UserPageContent extends React.Component {
     this.fetchUserData();
   }
 
+  componentWillReceiveProps(props) {
+    console.log(props)
+    this.fetchUserData();
+
+  }
+
   fetchUserData() {
     window.fetch(`/api/user/${this.props.id}`,
       {

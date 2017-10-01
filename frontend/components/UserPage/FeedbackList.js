@@ -1,15 +1,18 @@
 import React from 'react';
 import FeedbackListItem from './FeedbackListItem';
 import Stars from './Stars';
-import jwt_decode from 'jwt-decode'
-import {connect} from 'react-redux'
+import jwt_decode from 'jwt-decode';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router'
+import Loading from '../Loading';
 
 class FeedbackList extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
       UserSourceID: jwt_decode(window.localStorage.accessToken)._id, // TODO: GET FROM REDUX
-      feedbacks: []
+      feedbacks: [],
+      loading: true
     }
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
@@ -19,9 +22,9 @@ class FeedbackList extends React.Component {
     setInterval(this.fetchFeedbacks.bind(this), 1000);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !(JSON.stringify(nextState) === JSON.stringify(this.state));
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return !(JSON.stringify(nextState) === JSON.stringify(this.state)) || !(JSON.stringify(nextProps) === JSON.stringify(this.props));
+  // }
 
   fetchFeedbacks() {
     window.fetch(`/api/feedback/${this.props.id}`,
@@ -35,8 +38,15 @@ class FeedbackList extends React.Component {
       .then(res=>res.json())
       .then(data=>{
         this.setState({
-          feedbacks:data
+          feedbacks:data,
         })
+      })
+  }
+
+  onFeedbackItemLoad(){
+    if(this.state.loading)
+      this.setState({
+        loading: false
       })
   }
 
@@ -69,9 +79,14 @@ class FeedbackList extends React.Component {
   }
 
   render() {
-    const {
-      feedbacks
+    let {
+      feedbacks,
+      loading
     } = this.state;
+
+    const feedbackItems = feedbacks.map(feedback => (
+      <FeedbackListItem feedback={feedback} key={feedback._id} onLoad={() => this.onFeedbackItemLoad()}/>
+    ));
 
     return (
       <div className="card">
@@ -79,10 +94,16 @@ class FeedbackList extends React.Component {
           <span className="card-title">Feedback</span>
           <ul className="collection">
             {
-              feedbacks.map(feedback => (
-                <FeedbackListItem feedback={feedback}/>
-              ))
+              loading &&
+                (
+                  <li className="collection-item">
+                    <Loading size="big"/>
+                  </li>
+                )
             }
+            <div className={loading && "loading-content"}>
+              {feedbackItems}
+            </div>
             <li className="collection-item avatar">
               <img
                 src="http://rs600.pbsrc.com/albums/tt82/roadstar166/1-SquidooImages/Tired-Profile-Picture-Cartoon-Portrait-Avatars-are-Hot-SoyCandleMaker-Lover-Simpson.png~c200"
@@ -117,6 +138,7 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(
+export default withRouter(
+  connect(
   mapStateToProps,
-)(FeedbackList);
+)(FeedbackList));

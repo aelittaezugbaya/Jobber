@@ -1,6 +1,7 @@
 import React from 'react';
 import Stars from './Stars';
 import { withRouter } from 'react-router';
+import Loading from '../Loading';
 
 class FeedbackListItem extends React.Component {
   constructor(props) {
@@ -14,6 +15,11 @@ class FeedbackListItem extends React.Component {
 
   componentWillMount() {
     this.getUserData();
+  }
+
+  componentDidMount() {
+    if(this.props.onLoad)
+      this.props.onLoad();
   }
 
   getUserData() {
@@ -33,13 +39,10 @@ class FeedbackListItem extends React.Component {
           name:data.FullName,
           loading: false
         })
-        console.log(this.state)
       })
   }
 
   render() {
-    console.log('topkek')
-
     const {
       feedback
     } = this.props;
@@ -51,12 +54,16 @@ class FeedbackListItem extends React.Component {
     } = this.state;
 
     if(loading)
-      return null;
+      return (
+        <li className="collection-item avatar">
+          <Loading size="big"/>
+        </li>
+      );
     else
       return (
 
         <li className="collection-item avatar">
-          <a href="" onClick={() => this.props.history.push(`/user/${_id}`)}>
+          <a href={`/user/${_id}`}>
             <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="" className="circle"/>
             <span className="title">{name}</span>
           </a>

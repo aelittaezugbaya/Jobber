@@ -3,14 +3,8 @@
  */
 import React from 'react';
 
-export default class Loggo extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <a href="#" className="logo">{this.props.name}</a>
-    )
-  }
+export default function Logo(props) {
+  return (
+    <a href={props.href} className="logo">{props.name}</a>
+  )
 }

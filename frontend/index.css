@@ -19,12 +19,13 @@ body{
 }
 .header__menu-button {
     display: flex;
-    width: 30%;
-    min-width: 30%;
+    width: 2%;
+    min-width: 2%;
 }
 .header__tabs {
     margin-left: 1rem;
-    width: 100%;
+    width: 25%;
+
 }
 
 .header__action-buttons {
@@ -100,9 +101,17 @@ input[type=text]:not(.browser-default):focus:not([readonly]){
 .icons{
 
 }
+.loading-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+.loading-content {
+    display: none;
+}
 .icon{
-    padding-left: 1.5rem;
-    padding-left: 1.5rem;
+    margin-left: 1.5rem;
     cursor: pointer;
 }
 #list_menu, #filter_menu {
