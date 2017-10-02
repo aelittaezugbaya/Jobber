@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const models = require('../mongooseModels');
+const EXPRESS = require('express');
+const ROUTER = EXPRESS.Router();
+const MONGOOSE = require('mongoose');
+const MODELS = require('../mongooseModels');
 
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+const CRYPTO = require('crypto');
+const JWT = require('jsonwebtoken');
 
-const ml = require('../ml/ml_cluster');
+const ML = require('../ml/ml_cluster');
 
 /*
  API List
@@ -19,7 +19,7 @@ const ml = require('../ml/ml_cluster');
 */
 
 // -- Dummy Get Category ML
-router.get('/auth/ml', function(req, res, next) {
+ROUTER.get('/auth/ml', function(req, res, next) {
 
   // -- Example Data TODO: Get correct data from DB
   let newObject = { parameters: [23, 1, 50, 27] }
@@ -40,27 +40,27 @@ router.get('/auth/ml', function(req, res, next) {
     "HouseWork", "Beauty", "AnimalCare"
   ]
 
-  ml.Calculate(newObject, otherObjects, limits, weights, categories);
+  ML.Calculate(newObject, otherObjects, limits, weights, categories);
   res.send();
 });
 
 // -- Middleware (token check)
-router.all(/^(?!.*\/auth).*/, function(req, res, next) {
+ROUTER.all(/^(?!.*\/auth).*/, function(req, res, next) {
   console.log("API requested");
 
-  let decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+  let decoded = JWT.verify(req.headers.authorization, process.env.JWT_SECRET);
 
   next();
 })
 
 // -- User - Post - Registration
-router.post('/auth/register', function(req, res, next) {
+ROUTER.post('/auth/register', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    let salt = crypto.randomBytes(16).toString('hex');
-    let hash = crypto.pbkdf2Sync(req.body.Password, salt, 1000, 64, 'sha1').toString('hex');
+    let salt = CRYPTO.randomBytes(16).toString('hex');
+    let hash = CRYPTO.pbkdf2Sync(req.body.Password, salt, 1000, 64, 'sha1').toString('hex');
     // TODO User name check in FRONTEND!
 
-    var newUser = models.User({
+    var newUser = MODELS.User({
       Rating: 0,
       FullName: req.body.FullName,
       Email: req.body.Email,
@@ -83,15 +83,15 @@ router.post('/auth/register', function(req, res, next) {
 });
 
 // -- User - Post - Login
-router.post('/auth/login', function(req, res, next) {
+ROUTER.post('/auth/login', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.User.find({ Email: req.body.Email}, function(err, user) {
+    MODELS.User.find({ Email: req.body.Email}, function(err, user) {
       if(err)
         return reject("Error finding User with Email " + req.params.Email + ".");
       return resolve(user);
     })
   }).then(function(user){
-    let hash = crypto.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');
+    let hash = CRYPTO.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');
     if(hash !== user[0].Hash) {
       console.log("Authentication error");
 
@@ -105,7 +105,7 @@ router.post('/auth/login', function(req, res, next) {
     // TODO increase expiration
     expiry.setMinutes(expiry.getMinutes() + 1);
 
-    let jwttoken = jwt.sign({
+    let jwttoken = JWT.sign({
       _id: user[0]._id,
       Email: user[0].Email,
       FullName: user[0].FullName,
@@ -121,9 +121,9 @@ router.post('/auth/login', function(req, res, next) {
 })
 
 // -- Feedback - Get - UserReceiverID
-router.get('/feedback/:UserReceiverID', function(req, res, next) {
+ROUTER.get('/feedback/:UserReceiverID', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.Feedback.find({ UserReceiverID: req.params.UserReceiverID }, function (err, feedback) {
+    MODELS.Feedback.find({ UserReceiverID: req.params.UserReceiverID }, function (err, feedback) {
       if (err)
         return reject("Error finding Feedback with UserReceiverID " + req.params.UserReceiverID + ".");
       return resolve(feedback);
@@ -138,8 +138,8 @@ router.get('/feedback/:UserReceiverID', function(req, res, next) {
 });
 
 // -- Feedback - Post
-router.post('/feedback', function(req, res, next) {
-  var newFeedback = models.Feedback({
+ROUTER.post('/feedback', function(req, res, next) {
+  var newFeedback = MODELS.Feedback({
     UserSourceID: req.body.UserSourceID,
     UserReceiverID: req.body.UserReceiverID,
     Comment: req.body.Comment,
@@ -147,7 +147,7 @@ router.post('/feedback', function(req, res, next) {
   });
   newFeedback.save(function(){
     // -- Set receiver user rating cache
-    models.Feedback.find({ UserReceiverID: req.body.UserReceiverID}, function (err, feedback) {
+    MODELS.Feedback.find({ UserReceiverID: req.body.UserReceiverID}, function (err, feedback) {
       let total = 0;
       feedback.forEach(function(item, index){
         total += item.Rating;
@@ -156,7 +156,7 @@ router.post('/feedback', function(req, res, next) {
       console.log("Updating User Rating cache:");
       console.log("\tFeedback Count: " + feedback.length);
       console.log("\tFeedback Average: " + ave);
-      models.User.findOneAndUpdate({ _id: req.body.UserReceiverID }, { $set: { Rating: ave }}, function(){
+      MODELS.User.findOneAndUpdate({ _id: req.body.UserReceiverID }, { $set: { Rating: ave }}, function(){
         console.log("User rating cache updated.");
       })
     })
@@ -166,9 +166,9 @@ router.post('/feedback', function(req, res, next) {
 });
 
 // -- User - Get - ID
-router.get('/user/:id', function(req, res, next) {
+ROUTER.get('/user/:id', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.User.find({ _id: req.params.id }, function (err, user) {
+    MDOELS.User.find({ _id: req.params.id }, function (err, user) {
       if(err)
         return reject("Error finding User with ID " + req.params.id + ".");
       return resolve(user);
@@ -183,8 +183,8 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 // -- User - Put - ID
-router.put('/user/:id', function(req, res, next) {
-  models.User.update({
+ROUTER.put('/user/:id', function(req, res, next) {
+  MODELS.User.update({
     _id: req.params.id
   },
   {
@@ -199,9 +199,9 @@ router.put('/user/:id', function(req, res, next) {
 });
 
 // -- Service - Get
-router.get('/service/:id', function(req, res, next) {
+ROUTER.get('/service/:id', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.Service.find({ _id: req.params.id }, function (err, service) {
+    MODELS.Service.find({ _id: req.params.id }, function (err, service) {
       if(err)
         return reject("Error finding Service with ID " + req.params.id + ".");
       return resolve(service);
@@ -216,8 +216,8 @@ router.get('/service/:id', function(req, res, next) {
 });
 
 // -- Service - Put - ID
-router.put('/service/:id', function(req, res, next) {
-  models.Service.update({
+ROUTER.put('/service/:id', function(req, res, next) {
+  MODELS.Service.update({
     _id: req.params.id
   },
   {
@@ -240,7 +240,7 @@ router.put('/service/:id', function(req, res, next) {
 });
 
 // -- Service - Post
-router.post('/service', function(req, res, next) {
+ROUTER.post('/service', function(req, res, next) {
   var newService = models.Service({
     UserOwnerID: req.body.UserOwnerID,
     IsRequest: req.body.IsRequest,
@@ -264,9 +264,9 @@ router.post('/service', function(req, res, next) {
 });
 
 // -- Service - get radius services
-router.get('/service/:lat/:lon/:radius', function(req, res, next) {
+ROUTER.get('/service/:lat/:lon/:radius', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    models.Service.find({Location: {
+    MODELS.Service.find({Location: {
       $near: {
         $geometry: {
            type: "Point" ,
@@ -289,4 +289,4 @@ router.get('/service/:lat/:lon/:radius', function(req, res, next) {
   })
 });
 
-module.exports = router;
+module.exports = ROUTER;
