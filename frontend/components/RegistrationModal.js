@@ -1,6 +1,7 @@
 import React from 'react';
 import RadioButton from './RadioButton';
 import InputField from './InputField';
+import HeaderText from './HeaderText';
 
 export default class RegistrationModal extends React.Component{
     componentDidMount(){
@@ -40,7 +41,8 @@ export default class RegistrationModal extends React.Component{
         return(
             <div id="registration" className="modal modal-fixed-footer">
                 <div className="modal-content">
-                    <h4>Registration</h4>
+                    <HeaderText text="Registration" />
+                    { /* }<h4>Registration</h4> */ }
                     <InputField className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
                     <InputField className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
                     <InputField className="input-field" icon="lock" id="Password" type="text" inputClass="validate" text="Password" />

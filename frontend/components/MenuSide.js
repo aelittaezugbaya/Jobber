@@ -10,6 +10,7 @@ import Actions from '../common/actions';
 import { connect } from 'react-redux';
 import Checkbox from './Checkbox';
 import InputField from './InputField';
+import HeaderText from './HeaderText';
 
 const filterLiStyle={
     category: {height: '190px'},
@@ -76,7 +77,8 @@ class MenuSide extends React.Component{
         let content=[];
         content.push(
             <form>
-                <h4 className="center">Log in</h4>
+                <HeaderText text="Log in" />
+                { /* <h4 className="center">Log in</h4> */ }
                 <div className="row">
                     <InputField className="input-field col s12" icon="account_circle" id="user_name" type="text" inputClass="validate" text="Username" />
                 </div>
