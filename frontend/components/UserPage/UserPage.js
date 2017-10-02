@@ -21,8 +21,8 @@ class UserPage extends React.Component{
       <div>
         <Header
           tabs={
-            <Button className="btn" onClick={()=> this.props.history.push('/')}>
-              Nahui
+            <Button className="btn-flat white-text back" onClick={()=> this.props.history.push('/')}>
+              Go back to main page
             </Button>
           }
         />
