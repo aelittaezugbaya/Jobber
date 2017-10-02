@@ -192,7 +192,7 @@ span{
 }
 
 .modal input[type=text]:not(.browser-default):focus:not([readonly]),
-textarea[type=text]:not(.browser-default):focus:not([readonly]),
+.modal textarea[type=text]:not(.browser-default):focus:not([readonly]),
 #log_in input[type=text]:not(.browser-default):focus:not([readonly]),
 #log_in input[type=password]:not(.browser-default):focus:not([readonly]){
     border-bottom:1px solid #FFA000;
@@ -200,7 +200,7 @@ textarea[type=text]:not(.browser-default):focus:not([readonly]),
 }
 
 .modal input[type=text]:not(.browser-default):focus:not([readonly])+label,
-textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
+.modal textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
 #log_in input[type=text]:not(.browser-default):focus:not([readonly])+label,
 #log_in input[type=password]:not(.browser-default):focus:not([readonly])+label{
     color: #FFA000!important;
@@ -253,4 +253,20 @@ textarea[type=text]:not(.browser-default):focus:not([readonly])+label ,
 
 .card .material-icons{
     color: #FFA000;
+}
+/*@media only screen and (max-width: 992px){*/
+    /*#editModal  {*/
+        /*height:400px;*/
+    /*}*/
+
+/*}*/
+/*textarea.materialize-textarea:focus:not([readonly])+label{*/
+    /*color: #FFA000;*/
+/*!*}*!*/
+/*#editModal{*/
+    /*height: -webkit-fill-available;*/
+/*}*/
+
+.modal{
+    height: 56%
 }

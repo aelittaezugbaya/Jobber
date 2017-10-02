@@ -33,7 +33,7 @@ class FeedbackListItem extends React.Component {
           name:data.FullName,
           loading: false
         })
-        console.log(this.state)
+
       })
   }
 

@@ -5,6 +5,7 @@ import React from 'react';
 
 import FeedbackList from './FeedbackList';
 import Stars from './Stars';
+import EditModal from './EditModal'
 
 export default class UserPageContent extends React.Component {
   constructor(props) {
@@ -21,6 +22,12 @@ export default class UserPageContent extends React.Component {
       }
 
     }
+  }
+
+  componentDidMount(){
+    $('.modal').modal({
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%'});
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -78,7 +85,6 @@ export default class UserPageContent extends React.Component {
       Rating,
       Description
     } = this.state.user;
-    console.log('topkek from userpage')
     return (
       <div className="row">
         <div className="col s12 m4">
@@ -89,8 +95,12 @@ export default class UserPageContent extends React.Component {
               <span className="card-title">{FullName}</span>
             </div>
             <div className="card-content">
+              <EditModal user = {this.state.user}/>
               <ul>
-                <li><Stars rating={Rating}/></li>
+                <li>
+                  <a href="#editModal" className="secondary-content modal-trigger"><i className="material-icons">create</i></a>
+                  <Stars rating={Rating}/>
+                </li>
                 <li><strong>Email: </strong>{Email}</li>
                 <li><strong>Date Of Birth: </strong>{DateOfBirth? DateOfBirth.toDateString() : null}</li>
                 <li><strong>Gender: </strong>{Gender}</li>
