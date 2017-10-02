@@ -25,6 +25,6 @@ describe('API_MachineLearning', function() {
 
     let result = ML.Calculate(newObject, otherObjects, limits, weights, categories);
 
-    expect(result).to.equal();
+    expect(result).to.equal("");
   });
 });
