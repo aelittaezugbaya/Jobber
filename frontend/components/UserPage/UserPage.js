@@ -6,6 +6,7 @@ import Header from '../Header';
 import UserPageContent from './UserPageContent';
 import {connect} from 'react-redux';
 import Actions from '../../common/actions';
+import Button from "../Button";
 
 
 class UserPage extends React.Component{
@@ -18,7 +19,13 @@ class UserPage extends React.Component{
 
     return(
       <div>
-        <Header/>
+        <Header
+          tabs={
+            <Button className="btn" onClick={()=> this.props.history.push('/')}>
+              Nahui
+            </Button>
+          }
+        />
         <UserPageContent id={this.props.match.params.id} />
       </div>
 

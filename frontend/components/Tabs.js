@@ -15,6 +15,10 @@ class Tabs extends React.Component {
     this.props.onTabClick(ev.target.textContent)
   }
 
+  componentDidMount() {
+    $('ul.tabs').tabs();
+  }
+
   renderTabs() {
     let tabs = [];
     for (let tab of this.props.tabs) {

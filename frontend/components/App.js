@@ -2,6 +2,8 @@ import React from 'react';
 import Actions from '../common/actions';
 import jwt_decode from 'jwt-decode';
 import {connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
 import UserPage from './UserPage/UserPage';
 import MainView from './MainView';
 import { Switch, Route } from 'react-router-dom';
@@ -35,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(
+export default withRouter(connect(
   null,
   mapDispatchToProps
-)(App);
+)(App));
