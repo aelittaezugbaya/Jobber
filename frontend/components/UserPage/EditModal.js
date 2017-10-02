@@ -2,7 +2,7 @@
  * Created by aelittaezugbaa on 29/09/2017.
  */
 import React from 'react';
-
+import Button from '../Button'
 
 export default class EditModal extends React.Component{
   constructor(props){
@@ -10,6 +10,7 @@ export default class EditModal extends React.Component{
 
     this.state={
       user:{
+        id:props.user._id,
         fullName:props.user.FullName,
         email:props.user.Email,
         dateOfBirth:props.user.DateOfBirth,
@@ -19,6 +20,8 @@ export default class EditModal extends React.Component{
     }
     this.inputOnChange=this.inputOnChange.bind(this)
   }
+
+
 
   componentWillMount(){
     $('.datepicker').pickadate({
@@ -32,21 +35,20 @@ export default class EditModal extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-    this.state={
+    this.setState({
       user:{
+        id:nextProps.user._id,
         fullName:nextProps.user.FullName,
         email:nextProps.user.Email,
         dateOfBirth:nextProps.user.DateOfBirth,
         gender:nextProps.user.Gender,
         editInfo:nextProps.user.Description
       }
-    }
+    })
   }
   inputOnChange(event){
     this.setState({
-     user:{
-       [event.target.id]: event.target.value
-     }
+     user:Object.assign({}, this.state.user, {[event.target.id]: event.target.value})
     })
   }
 
@@ -58,20 +60,42 @@ export default class EditModal extends React.Component{
       newGender='male'
     }
     this.setState({
-      user:{
-        gender: newGender
-      }
+      user:Object.assign({}, this.state.user, {gender: newGender})
+
     })
 
   }
 
+  onSubmitEdit(){
+    console.log(this.state)
+
+    let data ='FullName='+encodeURIComponent(this.state.user.fullName)
+      +'&Email='+encodeURIComponent(this.state.user.email)
+      +'&DateOfBirth='+encodeURIComponent(this.state.user.dateOfBirth)
+      +"&Gender="+encodeURIComponent(this.state.user.gender)
+      +'&Description='+encodeURIComponent(this.state.user.editInfo);
+
+
+    window.fetch(`/api/user/${this.state.user.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken
+        },
+        body:data
+      }).then(res=>res.text())
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err))
+  }
+
   render(){
-    console.log(this.state.user)
+
     return(
       <div id="editModal" className="modal  ">
-        <div className="modal-content">
-          <h4>Edit personal information</h4>
-          <form className="col s12">
+        <form className="col s12" onSubmit={()=>this.onSubmitEdit()}>
+          <div className="modal-content">
+            <h4>Edit personal information</h4>
             <div className="row">
               <div className="input-field col s12 m6">
                 <i className="material-icons prefix ">face</i>
@@ -105,12 +129,12 @@ export default class EditModal extends React.Component{
                 </div>
               </div>
             </div>
-          </form>
-        </div>
-        <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Save</a>
-        </div>
+          </div>
+          <div className="modal-footer">
+            <Button href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" type="reset">Cancel</Button>
+            <Button href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" type="submit" name="action" >Save</Button>
+          </div>
+        </form>
       </div>
     )
   }
