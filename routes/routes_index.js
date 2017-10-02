@@ -1,5 +1,5 @@
 const EXPRESS = require('express');
-const ROUTER = express.Router();
+const ROUTER = EXPRESS.Router();
 
 /* GET home page. */
 ROUTER.get('/', function(req, res, next) {
