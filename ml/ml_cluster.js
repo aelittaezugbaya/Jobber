@@ -134,12 +134,10 @@ var Calculate = function (newObject, otherObjects, limits, weights, categories) 
       if (difference > 1)
       {
         difference = 1;
-        //console.log("Parameter difference clamped");
       }
       if (difference < -1)
       {
         difference = -1;
-        //console.log("Parameter difference clamped");
       }
       let square = difference * difference;
       squareDistance += square;
