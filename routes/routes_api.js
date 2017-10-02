@@ -190,6 +190,7 @@ ROUTER.put('/user/:id', function(req, res, next) {
   },
   {
     FullName: req.body.FullName,
+    Email:req.body.Email,
     DateOfBirth: req.body.DateOfBirth,
     Gender: req.body.Gender,
     Description: req.body.Description
