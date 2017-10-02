@@ -22,11 +22,37 @@ export default class Map extends React.Component{
   }
 
   renderMap(){
-    const coords = { lat: 41.375885, lng: 2.177813 };
+    const coords = { lat: 60.221061, lng: 24.805008 };
+    let map, infoWindow;
     // create map instance
-    new google.maps.Map(this.refs.mapContainer, {
+    map=new google.maps.Map(this.refs.mapContainer, {
       zoom: 16,
       center: coords
+    });
+    infoWindow = new google.maps.InfoWindow;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position)=> {
+        let pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('I am here');
+        infoWindow.open(map);
+        map.setCenter(pos);
+      }, ()=> {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    new google.maps.Marker({
+      position: coords,
+      map: map
     });
   }
 
