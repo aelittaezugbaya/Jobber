@@ -7,7 +7,7 @@ module.exports = function()
 {
   console.log("Getting ML Library");
   return {
-    GetDataML : function(id, lat, lon) {
+    GetDataML : function(id, lat, lon, callback) {
       // -- Get Data from DB
 
       // -- Get User Object
@@ -38,18 +38,13 @@ module.exports = function()
               });
             },
             function(err) {   
-              console.log(otherObjects[0]);
-              console.log(otherObjects[1]);
-              console.log(otherObjects[2]);
-              
               let limits = [
                 [10, 80], [0, 1], [-90, 90], [-180, 180]
               ]
               let weights = [
                 1, 0.5, 10, 10
               ]
-          
-              Calculate(newObject, otherObjects, limits, weights, categories);
+              callback(null, Calculate(newObject, otherObjects, limits, weights, categories));
             }
           );
         });
@@ -171,7 +166,6 @@ var Calculate = function (newObject, otherObjects, limits, weights, categories) 
   }
 
   console.log("Calculated Category: " + categories[winnerIndex]);
-
   return categories[winnerIndex];
 }
 

@@ -101,12 +101,15 @@ ROUTER.post('/auth/register', function(req, res, next) {
       DateOfBirth: req.body.DateOfBirth,
       Gender: req.body.Gender,
       Status: "Active",
+      PreferredCategory: ""
     });
     newUser.save(function(err, user) {
-      let n = ML.GetDataML(user._id, req.body.lat, req.body.lon);
-      console.log("CAT:" + n);
-      newUser.set({ PreferredCategory: n});
-      newUser.save();
+      let result = ML.GetDataML(user._id, req.body.lat, req.body.lon, function(err, category){
+        console.log(category);
+        newUser.set({ PreferredCategory: category });
+        newUser.save();
+      });
+      
     });
 
     return resolve(newUser);
