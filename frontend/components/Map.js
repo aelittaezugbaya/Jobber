@@ -38,9 +38,12 @@ export default class Map extends React.Component{
           lng: position.coords.longitude
         };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('I am here');
-        infoWindow.open(map);
+        new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon:'http://i.stack.imgur.com/orZ4x.png'
+        });
+
         map.setCenter(pos);
       }, ()=> {
         handleLocationError(true, infoWindow, map.getCenter());
