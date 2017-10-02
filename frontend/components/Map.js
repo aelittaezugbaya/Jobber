@@ -36,7 +36,7 @@ export default class Map extends React.Component{
 
   render(){
     return(
-      <div className="card map-holder">
+      <div className="map-holder">
         <div className="" id = 'map' ref="mapContainer" />
       </div>
     );
