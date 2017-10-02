@@ -1,6 +1,8 @@
-body{
+html,body{
     font-family: 'Roboto', sans-serif;
     background-color: #FFFFFB;
+    height: 100%;
+    margin: 0;
 }
 
 .header-container{
@@ -286,8 +288,20 @@ span{
 #map{
     height: 100%;
     width: 100%;
+    position: relative;
+    display: flex;
 }
 
+#root{
+    height: 100%;
+    margin: 0;
+
+}
+.main-view{
+    height: 100%;
+    margin: 0;
+
+}
 .map-holder {
-    height: 500px;
+  height: 90%;
 }

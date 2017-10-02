@@ -17,7 +17,7 @@ class MainView extends React.Component{
 
     render() {
       return(
-        <div>
+        <div className="main-view">
           <Header
             tabs={
               <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying', 'Selling']}/>
