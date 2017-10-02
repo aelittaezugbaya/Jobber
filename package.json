@@ -6,7 +6,8 @@
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "backend-dev": "nodemon -x npm run backend --ignore ./frontend",
     "backend": "node ./bin/www",
-    "build": "webpack --env production"
+    "build": "webpack --env production",
+    "test": "mocha tests"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

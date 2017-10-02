@@ -1,5 +1,5 @@
 const CHAI = require('chai');
-const EXPECT = chai.expect;
+const EXPECT = CHAI.expect;
 const ML = require('../ml/ml_cluster');
 
 describe('API_MachineLearning', function() {
@@ -25,6 +25,6 @@ describe('API_MachineLearning', function() {
 
     let result = ML.Calculate(newObject, otherObjects, limits, weights, categories);
 
-    expect(result).to.equal("");
+    EXPECT(result).to.equal("mustchange");
   });
 });
