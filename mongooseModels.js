@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const MONGOOSE = require('mongoose');
 
 /*
 
@@ -35,7 +35,7 @@ Object List
 */
 
 // -- Service Object
-var serviceSchema = new mongoose.Schema({
+var serviceSchema = new MONGOOSE.Schema({
   UserOwnerID: String,
   IsRequest: Boolean,
   Subject: String,
@@ -49,17 +49,16 @@ var serviceSchema = new mongoose.Schema({
 });
 
 serviceSchema.index({ Location: '2dsphere' });
-module.exports.Service = mongoose.model('Service',
+module.exports.Service = MONGOOSE.model('Service',
     serviceSchema,
     'Service');
 
 // -- User Object
-module.exports.User = mongoose.model('User',
+module.exports.User = MONGOOSE.model('User',
     new mongoose.Schema({
       Rating: Number,
       FullName: String,
       Email: String,
-      Description: String,
       Hash: String,
       Salt: String,
       DateOfBirth: Date,
@@ -69,7 +68,7 @@ module.exports.User = mongoose.model('User',
     'User');
 
 // -- Feedback Object
-module.exports.Feedback = mongoose.model('Feedback',
+module.exports.Feedback = MONGOOSE.model('Feedback',
     new mongoose.Schema({
       UserSourceID: String,
       UserReceiverID: String,
