@@ -41,7 +41,7 @@ If you run `npm start` then front-end will run on `http://localhost:8080`
 If you run `npm run backend` or `npm run backend-dev` then back-end will run on `http://localhost:3000`. Built front-end from folder `public` also is hosted on this port.
 
 ###Proxy
-If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests to `http://localhost:8080/api` will redirected to `http://localhost:3000/api`. 
+If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests to `http://localhost:8080/api` will redirected to `http://localhost:3000/api`.
 
 ## API Reference
 ### Authentication (JWT Not Required)
@@ -54,7 +54,7 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - Email
   - DateOfBirth
   - Gender
-  
+
 ### Feedback Object
 *GET* /api/feedback/:ReceiverId
   - UserSourceID
@@ -67,7 +67,7 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - UserReceiverID
   - Comment
   - Rating
-  
+
 ### Service Object
 *GET* /api/service/:id
   - UserOwnerID
@@ -99,7 +99,7 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - Gender
   - Description
   - Price
-  
+
 *PUT* /api/service/:id
   - UserOwnerID
   - IsRequest
@@ -110,12 +110,13 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - Gender
   - Description
   - Price
-  
+
 ### User Object
 *GET* /api/user/:id
   - Rating
   - FullName
   - Email
+  - Description (User description defaults to 'Hello, I am <FullName>.' upon registration)
   - Hash
   - Salt
   - DateOfBirth
@@ -126,3 +127,4 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - FullName
   - DateOfBirth
   - Gender
+  - Description

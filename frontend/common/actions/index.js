@@ -25,8 +25,18 @@ const logout = ()=>{
   }
 };
 
+const saveReceiverUser=(receiver)=>{
+  return{
+    type:'SAVE_RECEIVER_USER',
+    payload:{
+      receiver
+    }
+  }
+}
+
 export default {
   changeTab,
   addCurrentUser,
-  logout
+  logout,
+  saveReceiverUser
 };

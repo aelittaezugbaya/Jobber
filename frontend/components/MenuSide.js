@@ -3,21 +3,19 @@
  */
 import React from 'react';
 import InputRange from 'react-input-range';
+
 import Button from './Button'
 import jwt_decode from 'jwt-decode';
 import Actions from '../common/actions';
 import { connect } from 'react-redux';
 
+import Checkbox from './Checkbox';
 
 const filterLiStyle={
     category: {height: '190px'},
     gender:{height: '115px'},
     raiting:{height: '190px'}
 };
-
-const RangeStyle={
-
-}
 
 class MenuSide extends React.Component{
 
@@ -26,7 +24,7 @@ class MenuSide extends React.Component{
 
         this.state = {
             value: { min: 0, max: 50 },
-            user: null
+            user: jwt_decode( window.localStorage.accessToken)
         };
         this.logout = this.logout.bind(this);
     }
@@ -94,7 +92,7 @@ class MenuSide extends React.Component{
                     <Button className="btn waves-effect waves-light amber darken-1" type="button" onClick={() => this.loginAPI(document.getElementById('user_name').value, document.getElementById('password').value)} name="action">Log In</Button>
 
                 </div>
-                <p className="center">If you don't have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
+                <p className="center">If you don"\'"t have an account,<br/> please <a className=" modal-trigger" href="#registration">register</a></p>
             </form>
 
         )
@@ -106,9 +104,9 @@ class MenuSide extends React.Component{
         content.push(<div>
             <li><div className="user-view">
                 <div className="background">
-                    <img src="http://thewallpaper.co/wp-content/uploads/2016/03/colorful-triangles-background-high-resolution-images-free-stock-photos-samsung-wallpaper-desktop-images-for-mac-windows-wallpaper-amazing-hd-digital-5000x3750-300x200.jpg"/>
+                    <img src="/assets/img/background.jpg"/>
                 </div>
-                <a href="#!user"><img className="circle" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAYtAAAAJGY0MDE1YWVhLTA4NWYtNGE2MS04Mzc3LWVjNmU1MzFiNjhkMg.jpg"/></a>
+                <a href={`/user/${this.state.user._id}`}><img className="circle" src="/assets/img/avatar.jpg"/></a>
                 <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
                 <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div></li>
@@ -143,77 +141,38 @@ class MenuSide extends React.Component{
         let filters=[]
         filters.push(
             <form action="#">
-                <li style={filterLiStyle.category}><a>Category</a><hr/>
+                <li style={filterLiStyle.category}><a>Category</a>
                     <div className="left checkLeft">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="pet_care" />
-                            <label htmlFor="pet_care">Pet Care</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="house_repair" />
-                            <label htmlFor="house_repair">House repair</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="children_care" />
-                            <label htmlFor="children_care">Children care</label>
-                        </p>
+                        <Checkbox id="pet_care" text="Pet care"/>
+                        <Checkbox id="house_repair" text="House repair"/>
+                        <Checkbox id="children_care" text="Children care"/>
                     </div>
                     <div className="right checkRight">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="beauty" />
-                            <label htmlFor="beauty">Beauty</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="cleaning" />
-                            <label htmlFor="cleaning">Cleaning</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="other" />
-                            <label htmlFor="other">Other</label>
-                        </p>
+                        <Checkbox id="beauty" text="Beauty"/>
+                        <Checkbox id="cleaning" text="Cleaning"/>
+                        <Checkbox id="other" text="Other"/>
                     </div>
                 </li>
-                <li style={filterLiStyle.gender}><a>Gender</a><hr/>
-                    <p className="checkLeft left">
-                        <input type="checkbox" className="filled-in " id="male" />
-                        <label htmlFor="male">Male</label>
-                    </p>
-                    <p className="checkRight right">
-                        <input type="checkbox" className="filled-in " id="female" />
-                        <label htmlFor="female">Female</label>
-                    </p>
+                <hr/>
+                <li style={filterLiStyle.gender}><a>Gender</a>
+                    <Checkbox id="male" text="Male" className="checkLeft left"/>
+                    <Checkbox id="female" text="Female" className="checkRight right"/>
                 </li>
-                <li style={filterLiStyle.raiting}><a>Raiting</a><hr/>
+                <hr/>
+                <li style={filterLiStyle.raiting}><a>Raiting</a>
                     <div className="left checkLeft">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="five" />
-                            <label htmlFor="five">5</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="four" />
-                            <label htmlFor="four">4</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="three" />
-                            <label htmlFor="three">3</label>
-                        </p>
+                        <Checkbox id="five" text="5"/>
+                        <Checkbox id="four" text="4"/>
+                        <Checkbox id="three" text="3"/>
                     </div>
                     <div className="right checkRight">
-                        <p>
-                            <input type="checkbox" className="filled-in" id="two" />
-                            <label htmlFor="two">2</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="one" />
-                            <label htmlFor="one">1</label>
-                        </p>
-                        <p>
-                            <input type="checkbox" className="filled-in" id="none" />
-                            <label htmlFor="none">None</label>
-                        </p>
+                        <Checkbox id="two" text="2"/>
+                        <Checkbox id="one" text="1"/>
+                        <Checkbox id="none" text="none"/>
                     </div>
                 </li>
-                <li><a>Price Range</a><hr/>
+                <hr/>
+                <li><a>Price Range</a>
                     <InputRange
                         formatLabel={value => `${value}€`}
                         name={'Till'}
@@ -222,8 +181,6 @@ class MenuSide extends React.Component{
                         value={this.state.value}
                         onChange={value => this.setState({ value })} />
                 </li>
-
-
             </form>
         )
         return filters;

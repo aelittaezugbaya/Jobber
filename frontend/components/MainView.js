@@ -1,43 +1,43 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import Header from './Header'
-import Actions from '../common/actions';
-import jwt_decode from 'jwt-decode';
-import {connect } from 'react-redux';
+import Tabs from './Tabs';
+import FilterButtons from './FilterButtons';
 
 
-class MainView extends React.Component{
-    componentWillMount(){
-        if(window.localStorage.accessToken !== undefined) {
-            console.log(window.localStorage.accessToken)
-            this.props.initUser(window.localStorage.accessToken)
-        }
-    }
-
-    render() {
-        return (
-            <Header/>
-        )
-    }
-
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        initUser: (token) => {
-            let user = jwt_decode(token);
-            dispatch(Actions.addCurrentUser(user));
-        }
-    }
+const background ={
+  position: 'fixed',
+  width: '100%',
+  zIndex: '-1'
 };
 
-// const mapStateToProps = (state) => {
-//     return {
-//
-//     }
-// };
+class MainView extends React.Component{
 
+
+    render() {
+      return(
+        <div>
+          <Header
+            tabs={
+              <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying', 'Selling']}/>
+            }
+            actionButtons={
+              <FilterButtons/>
+            }
+          />
+
+        </div>
+      )
+    }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    openTab: state.openTab,
+    currentUser: state.user,
+  }
+};
 
 export default connect(
-    null,
-    mapDispatchToProps
+  mapStateToProps,
 )(MainView);

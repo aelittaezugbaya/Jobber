@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 const BUTTON_STYLES = {
@@ -11,32 +11,33 @@ const BUTTON_STYLES = {
   link: 'btn-link',
 };
 
-export default class Button extends Component{
-  constructor(props){
+export default class Button extends Component {
+  constructor(props) {
     super(props);
 
     this.onClick = this.onClick.bind(this);
   }
-  onClick(ev) {
-    console.log('button', this.props)
-    this.props.onClick(ev);
 
+  onClick(ev) {
+    if (this.props.onClick)
+      this.props.onClick(ev);
   }
-  getStyle(){
+
+  getStyle() {
     const style = this.props.style;
 
-    if(style && style !== '')
+    if (style && style !== '')
       return `btn ${BUTTON_STYLES[style]}`;
   }
-  render(){
+
+  render() {
     const props = this.props;
-    return(
-      <button className={`${props.className} ${this.getStyle()}`} onClick={this.onClick} type={props.type}>{props.children}</button>
+    return (
+      <button className={`${props.className} ${this.getStyle()}`} onClick={this.onClick}
+              type={props.type}>{props.children}</button>
     );
   }
 }
-
-
 
 
 Button.propTypes = {
@@ -47,5 +48,5 @@ Button.propTypes = {
   onHover: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  type:PropTypes.string,
+  type: PropTypes.string,
 };

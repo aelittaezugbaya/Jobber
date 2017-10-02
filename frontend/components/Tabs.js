@@ -3,49 +3,53 @@
  */
 import React from 'react';
 import Actions from '../common/actions';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-class Tabs extends React.Component{
-    constructor(props){
-        super(props);
-        console.log(props)
-      this.onClick = this.onClick.bind(this);
-    }
+class Tabs extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
 
-    onClick(ev) {
-        this.props.onTabClick(ev.target.textContent)
-    }
+  onClick(ev) {
+    this.props.onTabClick(ev.target.textContent)
+  }
 
-    renderTabs(){
-        let tabs=[];
-        for(let tab of this.props.tabs){
-            tabs.push(
-                <li className="tab" onClick={this.onClick} ><a href="#test1">{tab}</a></li>
-            )
-        }
-        return tabs;
+  componentDidMount() {
+    $('ul.tabs').tabs();
+  }
+
+  renderTabs() {
+    let tabs = [];
+    for (let tab of this.props.tabs) {
+      tabs.push(
+        <li className="tab" onClick={this.onClick} key={tab}><a href="#test1">{tab}</a></li>
+      )
     }
-    render(){
-        return(
-            <ul className={`tabs ${this.props.className}`}>
-                {this.renderTabs()}
-            </ul>
-        )
-    }
+    return tabs;
+  }
+
+  render() {
+    return (
+      <ul className={`tabs ${this.props.className}`}>
+        {this.renderTabs()}
+      </ul>
+    )
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        onTabClick: (clickedTab) => {
-            dispatch(Actions.changeTab(clickedTab));
-        }
+  return {
+    onTabClick: (clickedTab) => {
+      dispatch(Actions.changeTab(clickedTab));
     }
+  }
 };
 
 const mapStateToProps = (state) => {
-    return {
-        openTab: state.openTab
-    }
+  return {
+    openTab: state.openTab
+  }
 };
 
 export default connect(

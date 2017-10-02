@@ -27,6 +27,13 @@ function jobber(state = initialState, action) {
           action.payload
       );
       break;
+    case 'SAVE_RECEIVER_USER':
+      return Object.assign(
+        {},
+        state,
+        action.payload
+      );
+      break;
     default:
       return state;
   }

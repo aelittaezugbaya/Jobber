@@ -2,17 +2,14 @@ import React from 'react';
 
 export default class RegistrationModal extends React.Component{
     componentDidMount(){
-        $(document).ready(function(){
-
-            $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 100, // Creates a dropdown of 15 years to control year,
-                today: 'Today',
-                clear: 'Clear',
-                close: 'Ok',
-                closeOnSelect: false // Close upon selecting a date,
-            });
-        });
+      $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 100, // Creates a dropdown of 15 years to control year,
+          today: 'Today',
+          clear: 'Clear',
+          close: 'Ok',
+          closeOnSelect: false // Close upon selecting a date,
+      });
     }
 
     registerApi(fullName,email,password,dateOfBirth,gender){
@@ -30,7 +27,6 @@ export default class RegistrationModal extends React.Component{
                 body: data
             })
             .then(data => data.text())
-            .then(data => console.log(jwt_decode(data)))
             .catch(err => console.log(err));
     }
 
@@ -60,7 +56,7 @@ export default class RegistrationModal extends React.Component{
                         <label htmlFor="DateOfBirth" className="">Date Of Birth</label>
                     </div>
 
-                    <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
+                    <p><i className="material-icons prefix">wc</i> Gender</p>
                     <div className="row">
                         <p className="col m6">
                             <input name="gender" type="radio" id="male"/>
