@@ -12,10 +12,10 @@ MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo
 const ROUTES_INDEX = require('./routes/routes_index');
 const ROUTES_API = require('./routes/routes_api');
 
-const APP = express();
+const APP = EXPRESS();
 
 //app.use(FAVICON(PATH.join(__dirname, 'public', 'favicon.ico')));
-APP.use(logger('dev'));
+APP.use(LOGGER('dev'));
 APP.use(BODY_PARSER.json());
 APP.use(BODY_PARSER.urlencoded({ extended: false }));
 APP.use(COOKIE_PARSER());

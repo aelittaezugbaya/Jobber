@@ -282,3 +282,12 @@ span{
 .back{
     margin-top: 0.6rem;
 }
+
+#map{
+    height: 100%;
+    width: 100%;
+}
+
+.map-holder {
+    height: 500px;
+}

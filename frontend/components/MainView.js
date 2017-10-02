@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Header from './Header'
 import Tabs from './Tabs';
 import FilterButtons from './FilterButtons';
+import Map from './Map'
 
 
 const background ={
@@ -25,6 +26,7 @@ class MainView extends React.Component{
               <FilterButtons/>
             }
           />
+          <Map/>
 
         </div>
       )

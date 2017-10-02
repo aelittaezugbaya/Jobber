@@ -55,7 +55,7 @@ module.exports.Service = MONGOOSE.model('Service',
 
 // -- User Object
 module.exports.User = MONGOOSE.model('User',
-    new mongoose.Schema({
+    new MONGOOSE.Schema({
       Rating: Number,
       FullName: String,
       Email: String,
@@ -69,7 +69,7 @@ module.exports.User = MONGOOSE.model('User',
 
 // -- Feedback Object
 module.exports.Feedback = MONGOOSE.model('Feedback',
-    new mongoose.Schema({
+    new MONGOOSE.Schema({
       UserSourceID: String,
       UserReceiverID: String,
       Comment: String,

@@ -1,4 +1,4 @@
-const EXPRESS = require('express');
+const express = require('express');
 const ROUTER = express.Router();
 
 /* GET home page. */
