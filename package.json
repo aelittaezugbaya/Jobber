@@ -7,7 +7,7 @@
     "backend-dev": "nodemon -x npm run backend --ignore ./frontend",
     "backend": "node ./bin/www",
     "build": "webpack --env production",
-    "test": "mocha tests"
+    "test": "mocha --timeout 10000 tests"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
