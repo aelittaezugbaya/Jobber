@@ -52,7 +52,7 @@ class MenuSide extends React.Component{
             return null;
         }
 
-        console.log(content)
+      
 
         return(
           <ul id={id} className={`side-nav ${id==='filter_menu' ? 'right-aligned' : ''} `}>

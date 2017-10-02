@@ -1,6 +1,9 @@
 import React from 'react';
-import Header from './Header'
 import {connect} from 'react-redux'
+import Header from './Header'
+import Tabs from './Tabs';
+import FilterButtons from './FilterButtons';
+
 
 const background ={
   position: 'fixed',
@@ -12,18 +15,17 @@ class MainView extends React.Component{
 
 
     render() {
-
-      // -- This is placeholder images for the map
-      let image = "/assets/img/map_selling.png";
-
-      if(this.props.openTab === 'Buying'){
-        image = "/assets/img/map_buying.png";
-      }
-
       return(
         <div>
-          <Header/>
-          <img src={image} style={background}></img>
+          <Header
+            tabs={
+              <Tabs className="tabs-style tabs-fixed-width" tabs={['Buying', 'Selling']}/>
+            }
+            actionButtons={
+              <FilterButtons/>
+            }
+          />
+
         </div>
       )
     }
