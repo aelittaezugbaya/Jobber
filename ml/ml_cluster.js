@@ -6,9 +6,8 @@ const ASYNC = require('async');
 module.exports = function()
 {
   return {
+    // -- Get Data from DB
     GetDataML : function(id, lat, lon, callback) {
-      // -- Get Data from DB
-
       // -- Get User Object
       let userObject;
     
@@ -43,6 +42,7 @@ module.exports = function()
               let weights = [
                 1, 0.5, 10, 10
               ]
+              // -- call calculation function for categories
               callback(null, Calculate(newObject, otherObjects, limits, weights, categories));
             }
           );
@@ -177,7 +177,7 @@ var GetAge = function (dateOfBirth) {
 
 var GetGender = function(gender) {
   // -- Get gender variable (0= Male, 1= Female)
-  if(gender === "Male")
+  if(gender === "male")
     return '0';
   else
     return '1';

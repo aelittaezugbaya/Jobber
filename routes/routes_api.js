@@ -19,62 +19,6 @@ const ML = require('../ml/ml_cluster');
  * Feedback          |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
-// -- Get Category ML
-ROUTER.get('/auth/ml/:id/:lat/:lon', function(req, res, next) {
-
-  // -- Get Data from DB
-
-  // -- Get User Object
-  let userObject;
-
-  new Promise(function(resolve, reject) {
-    MODELS.User.find({ _id: req.params.id }, function (err, user) {
-      if(err)
-        reject("Error finding User with ID " + req.params.id + ".");
-      resolve(user);
-    })
-  }).then(function(user){
-    let newObject = { parameters: [ML.GetAge(user[0].DateOfBirth), ML.GetGender(user[0].Gender), req.params.lat, req.params.lon] }
-    let otherObjects = [];
-    let categories = [];
-
-    // -- Get Service Information
-    let i = 0;
-    MODELS.Service.find({}, function (err, service) {               
-      ASYNC.whilst(
-        function() { return i < service.length; },
-        function (callback) {
-          MODELS.User.find({ _id: service[0].UserOwnerID }, function (err, item) {
-            otherObjects.push({ parameters: [ML.GetAge(item[0].DateOfBirth), ML.GetGender(item[0].Gender), service[0].Location.coordinates[0], service[0].Location.coordinates[1]], category: service[0].Category});
-            categories.indexOf(service[0].Category) === -1 ? categories.push(service[0].Category) : console.log("Category already in array.");
-            i++;
-            callback(null);
-          });
-        },
-        function(err) {   
-          console.log(otherObjects[0]);
-          console.log(otherObjects[1]);
-          console.log(otherObjects[2]);
-          
-          let limits = [
-            [10, 80], [0, 1], [-90, 90], [-180, 180]
-          ]
-          let weights = [
-            1, 0.5, 10, 10
-          ]
-      
-          ML.Calculate(newObject, otherObjects, limits, weights, categories);
-          res.send();
-        }
-      );
-    });
-  }).catch(function(reason){
-    console.log("Server error: " + reason);
-    res.status(500);
-    res.send(reason);
-  })
-});
-
 // -- Middleware (token check)
 ROUTER.all(/^(?!.*\/auth).*/, function(req, res, next) {
   console.log("API requested");
@@ -104,7 +48,7 @@ ROUTER.post('/auth/register', function(req, res, next) {
       PreferredCategory: ""
     });
     newUser.save(function(err, user) {
-      let result = ML.GetDataML(user._id, req.body.lat, req.body.lon, function(err, category){
+      let result = ML.GetDataML(user._id, req.body.Lat, req.body.Lon, function(err, category){
         console.log(category);
         newUser.set({ PreferredCategory: category });
         newUser.save();
@@ -229,7 +173,6 @@ ROUTER.put('/user/:id', function(req, res, next) {
   },
   {
     FullName: req.body.FullName,
-    Email:req.body.Email,
     DateOfBirth: req.body.DateOfBirth,
     Gender: req.body.Gender,
     Description: req.body.Description
