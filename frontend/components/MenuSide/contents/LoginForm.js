@@ -30,6 +30,7 @@ class LoginForm extends React.Component {
         // let base64Url = data.split('.')[1];
         // let base64 = base64Url.replace('-', '+').replace('_', '/');
         // console.log(JSON.parse(window.atob(base64)))
+        console.log(data)
         const user = jwt_decode(data);
         window.localStorage.accessToken = data;
         if (this.props.onSuccessfulLogin)
@@ -41,6 +42,7 @@ class LoginForm extends React.Component {
 
   onLoginFormSubmit(ev) {
     ev.preventDefault();
+
     this.loginAPI(this.username.value, this.password.value)
   }
 
