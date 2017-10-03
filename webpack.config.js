@@ -80,7 +80,7 @@ const developmentConfig = () => {
       host: process.env.HOST, // Defaults to `localhost`
       port: process.env.PORT, // Defaults to 8080
       proxy: {
-        '/api/**': "http://192.168.0.101:3000/"
+        '/api/**': "http://localhost:3000/"
       }
     },
   };
