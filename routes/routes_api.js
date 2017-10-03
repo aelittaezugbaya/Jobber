@@ -169,7 +169,7 @@ ROUTER.post('/feedback', function(req, res, next) {
 // -- User - Get - ID
 ROUTER.get('/user/:id', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    MDOELS.User.find({ _id: req.params.id }, function (err, user) {
+    MODELS.User.find({ _id: req.params.id }, function (err, user) {
       if(err)
         return reject("Error finding User with ID " + req.params.id + ".");
       return resolve(user);

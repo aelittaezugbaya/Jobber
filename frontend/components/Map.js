@@ -22,12 +22,12 @@ export default class Map extends React.Component{
   }
 
   renderMap(){
-    const coords = { lat: 60.221061, lng: 24.805008 };
+    const metropolia = { lat: 60.221061, lng: 24.805008 };
     let map, infoWindow;
     // create map instance
     map=new google.maps.Map(this.refs.mapContainer, {
       zoom: 16,
-      center: coords
+      center: metropolia
     });
     infoWindow = new google.maps.InfoWindow;
 
@@ -38,7 +38,7 @@ export default class Map extends React.Component{
           lng: position.coords.longitude
         };
 
-        new google.maps.Marker({
+        let myLocation=new google.maps.Marker({
           position: pos,
           map: map,
           icon:'http://i.stack.imgur.com/orZ4x.png'
@@ -52,11 +52,20 @@ export default class Map extends React.Component{
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
+    let content='<h4>Metropolia</h4>';
 
-    new google.maps.Marker({
-      position: coords,
+    var infowindow = new google.maps.InfoWindow({
+      content: content
+    });
+    let marker=new google.maps.Marker({
+      position: metropolia,
       map: map
     });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
+
   }
 
   componentDidMount(){
