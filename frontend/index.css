@@ -1,11 +1,15 @@
-body{
+html,body{
     font-family: 'Roboto', sans-serif;
     background-color: #FFFFFB;
+    height: 100%;
+    margin: 0;
 }
 
 .header-container{
     padding-left: 0 !important;
     padding-right: 0 !important;
+    height: 6%;
+    min-height: 60px;
 }
 
 .header {
@@ -281,4 +285,43 @@ span{
 }
 .back{
     margin-top: 0.6rem;
+}
+
+#map{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+#root{
+    height: 100%;
+    margin: 0;
+
+}
+.main-view{
+    height: 100%;
+    margin: 0;
+
+}
+.map-holder {
+  height: 94%;
+}
+@media screen and (max-width: 540px) {
+    .map-holder {
+        height: 88%;
+    }
+    .header-container{
+        height: 12%;
+    }
+}
+
+@media screen and (min-width: 540px) and (max-width: 780px) {
+    .map-holder {
+        height: 94%;
+    }
+    .header-container{
+        height: 6%;
+
+    }
 }

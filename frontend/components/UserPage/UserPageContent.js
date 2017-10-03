@@ -27,7 +27,8 @@ export default class UserPageContent extends React.Component {
   componentDidMount(){
     $('.modal').modal({
       startingTop: '4%', // Starting top style attribute
-      endingTop: '10%'});
+      endingTop: '10%'
+    });
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -117,7 +118,7 @@ export default class UserPageContent extends React.Component {
           </div>
         </div>
         <div className="col s12 m8">
-          <FeedbackList id={this.state.user._id} onFeedbackSubmit={() => this.fetchUserData()}/>
+          <FeedbackList id={_id} onFeedbackSubmit={() => this.fetchUserData()}/>
         </div>
       </div>
     )

@@ -5,7 +5,6 @@ const ASYNC = require('async');
 // --
 module.exports = function()
 {
-  console.log("Getting ML Library");
   return {
     GetDataML : function(id, lat, lon, callback) {
       // -- Get Data from DB

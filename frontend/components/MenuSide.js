@@ -30,10 +30,7 @@ class MenuSide extends React.Component{
     }
 
     componentDidMount(){
-        $(document).ready(function(){
-
-            $('.modal').modal();
-        });
+      $('.modal').modal();
     }
 
     loginAPI(email,password){
