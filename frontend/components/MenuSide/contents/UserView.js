@@ -7,6 +7,11 @@ class UserView extends React.Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.onModalOpenClick = this.onModalOpenClick.bind(this);
+
+    this.state = {
+      modalPurpose: 'buying'
+    }
   }
 
   logout(){
@@ -15,13 +20,19 @@ class UserView extends React.Component {
       this.props.onLogout();
   };
 
+  onModalOpenClick(ev) {
+    this.setState({
+      modalPurpose: ev.target.value
+    })
+  }
+
   render() {
     const {
       FullName,
       Email,
       _id
     } = this.props.currentUser;
-    console.log(this.props)
+
     return(
       <div>
         <li>
@@ -35,14 +46,13 @@ class UserView extends React.Component {
           </div>
         </li>
 
-        <li><a className="waves-effect" href="#!">Add new offer</a></li>
-        <li><div className="divider"></div></li>
-        <li><a className="waves-effect" href="#!">Add new request</a></li>
-        <li><div className="divider"></div></li>
+        <li><a className="waves-effect modal-trigger" href="#offer-request-modal" value="buying" onClick={this.onModalOpenClick}>Add new offer</a></li>
+        <li><div className="divider"/></li>
+        <li><a className="waves-effect modal-trigger" href="#offer-request-modal" value="selling" onClick={this.onModalOpenClick}>Add new request</a></li>
+        <li><div className="divider"/></li>
         <li><a className="waves-effect" href="#!">Saved Request/Offers</a></li>
-        <li><div className="divider"></div></li>
-        <li className="log_out"><a className="waves-effect" onClick={this.logout} href="#!">Log out</a><div className="divider"></div></li>
-
+        <li><div className="divider"/></li>
+        <li className="log_out"><a className="waves-effect" onClick={this.logout} href="#!">Log out</a><div className="divider"/></li>
       </div>
     )
   }
