@@ -18,14 +18,13 @@ export default class RegistrationModal extends React.Component{
               lat: position.coords.latitude,
               lon: position.coords.longitude
             };
-            
             let data = 'FullName=' + encodeURIComponent(fullName)
             +'&Email=' + encodeURIComponent(email)
             +'&Password=' + encodeURIComponent(password)
             +'&DateOfBirth=' + encodeURIComponent(dateOfBirth)
             +'&Gender=' + encodeURIComponent(gender)
-            +'&Lat=' + pos.lat
-            +'&Lon=' + pos.lon
+            +'&Lat=' + encodeURIComponent(pos.lat)
+            +'&Lon=' + encodeURIComponent(pos.lon)
         fetch('/api/auth/register',
             {
                 method:'POST',
