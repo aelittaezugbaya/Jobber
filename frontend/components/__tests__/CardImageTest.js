@@ -1,20 +1,20 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import RadioButton from '../RadioButton';
+import CardImage from '../CardImage';
 import Adapter from 'enzyme-adapter-react-15';
 import Enzyme from 'enzyme';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-test('Test for RadioButton component props', () => {
+test('Test for CardImage component props', () => {
   const renderer = new ShallowRenderer();
-  renderer.render(<RadioButton id="female" text="Female" />);
+  renderer.render(<CardImage title="Bob" src="Bob.png"/>);
   const result = renderer.getRenderOutput();
 
-  expect(result.type).toBe('p');
+  expect(result.type).toBe('div');
   expect(result.props.children).toEqual([
-    <input name="gender" type="radio" id="female" />,
-    <label htmlFor="female">Female</label>
+      <img src="Bob.png"/>,
+        <span className="card-title">Bob</span>
   ]);
 });

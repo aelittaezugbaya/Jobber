@@ -8,7 +8,9 @@ export default class HeaderText extends React.Component{
   render(){
     const props = this.props;
     return(
-      <h5 className="center">{this.props.text}</h5>
+      <div>
+        <h5 className="center">{this.props.text}</h5>        
+      </div>
     );
   }
 }

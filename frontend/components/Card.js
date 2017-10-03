@@ -15,10 +15,10 @@ export default class Card extends React.Component{
         <div className="card-content">
           <ul>
             <li><i className="material-icons">star</i><i className="material-icons">star</i><i className="material-icons">star</i></li>
-            <li><strong>Email:</strong> {this.props.email}</li>
-            <li><strong>Age:</strong> {this.props.age}</li>
-            <li><strong>Gender:</strong> {this.props.gender}</li>
-            <li><strong>Additional information:</strong> {this.props.additionalInfo}</li>
+            <li><strong>Email: </strong>{this.props.email}</li>
+            <li><strong>Age: </strong>{this.props.age}</li>
+            <li><strong>Gender: </strong>{this.props.gender}</li>
+            <li><strong>Additional information: </strong>{this.props.additionalInfo}</li>
           </ul>
         </div>
       </div>
