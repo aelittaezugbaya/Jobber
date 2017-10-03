@@ -2,7 +2,7 @@
  * Created by aelittaezugbaa on 02/10/2017.
  */
 import React from 'react'
-
+import InfoMarkerMap from './InfoMarkerMap'
 export default class Map extends React.Component{
 
   constructor(props){
@@ -19,6 +19,14 @@ export default class Map extends React.Component{
       console.log("we're good to go!!");
       this.renderMap();
     }
+  }
+
+  setMarkers(map){
+    console.log(this.props.markers)
+    this.props.markers.forEach(function(marker) {
+      <InfoMarkerMap lat={marker.latitude} lon={marker.longitude} desc={marker.title} map={map} />;
+    }.bind(this));
+
   }
 
   renderMap(){
@@ -52,6 +60,7 @@ export default class Map extends React.Component{
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
+    this.setMarkers(map);
     let content='<h4>Metropolia</h4>';
 
     var infowindow = new google.maps.InfoWindow({
