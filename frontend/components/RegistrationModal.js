@@ -13,11 +13,19 @@ export default class RegistrationModal extends React.Component{
     }
 
     registerApi(fullName,email,password,dateOfBirth,gender){
-        let data = 'FullName=' + encodeURIComponent(fullName)
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude
+            };
+            
+            let data = 'FullName=' + encodeURIComponent(fullName)
             +'&Email=' + encodeURIComponent(email)
             +'&Password=' + encodeURIComponent(password)
             +'&DateOfBirth=' + encodeURIComponent(dateOfBirth)
             +'&Gender=' + encodeURIComponent(gender)
+            +'&Lat=' + pos.lat
+            +'&Lon=' + pos.lon
         fetch('/api/auth/register',
             {
                 method:'POST',
@@ -28,6 +36,7 @@ export default class RegistrationModal extends React.Component{
             })
             .then(data => data.text())
             .catch(err => console.log(err));
+        });
     }
 
     render(){

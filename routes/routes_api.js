@@ -48,7 +48,7 @@ ROUTER.post('/auth/register', function(req, res, next) {
       PreferredCategory: ""
     });
     newUser.save(function(err, user) {
-      let result = ML.GetDataML(user._id, req.body.lat, req.body.lon, function(err, category){
+      let result = ML.GetDataML(user._id, req.body.Lat, req.body.Lon, function(err, category){
         console.log(category);
         newUser.set({ PreferredCategory: category });
         newUser.save();
