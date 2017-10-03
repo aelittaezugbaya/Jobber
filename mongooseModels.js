@@ -24,6 +24,7 @@ Object List
    DateOfBirth
    Gender
    Status -> Active, Blocked, Deleted
+   PreferredCategory
 
  - Feedback
    ID
@@ -63,7 +64,8 @@ module.exports.User = MONGOOSE.model('User',
       Salt: String,
       DateOfBirth: Date,
       Gender: String,
-      Status: String
+      Status: String,
+      PreferredCategory: String
     }),
     'User');
 
