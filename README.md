@@ -54,6 +54,9 @@ If you run `npm start` and `npm run backend`/`npm run backend-dev` then requests
   - Email
   - DateOfBirth
   - Gender
+  - Password
+  - Lat
+  - Lon
 
 ### Feedback Object
 *GET* /api/feedback/:ReceiverId
