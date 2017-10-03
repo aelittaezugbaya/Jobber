@@ -34,6 +34,13 @@ function jobber(state = initialState, action) {
         action.payload
       );
       break;
+    case 'SAVE_NEAR_SERVICES':
+      return Object.assign(
+        {},
+        state,
+        action.payload
+      );
+      break;
     default:
       return state;
   }

@@ -34,9 +34,19 @@ const saveReceiverUser=(receiver)=>{
   }
 }
 
+const saveNearServices = (nearServices)=>{
+  return{
+    type:'SAVE_NEAR_SERVICES',
+    payload:{
+      nearServices
+    }
+  }
+}
+
 export default {
   changeTab,
   addCurrentUser,
   logout,
-  saveReceiverUser
+  saveReceiverUser,
+  saveNearServices
 };
