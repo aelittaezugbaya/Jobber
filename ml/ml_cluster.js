@@ -177,7 +177,7 @@ var GetAge = function (dateOfBirth) {
 
 var GetGender = function(gender) {
   // -- Get gender variable (0= Male, 1= Female)
-  if(gender === "Male")
+  if(gender === "male")
     return '0';
   else
     return '1';
