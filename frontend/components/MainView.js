@@ -12,6 +12,24 @@ const background ={
   zIndex: '-1'
 };
 
+let data = [
+  {
+    'title' : "marker1",
+    'latitude' : "21.883851754",
+    'longitude' : "-159.465845879"
+  },
+  {
+    'title' : "marker2",
+    'latitude' : "22.1640990399",
+    'longitude' : "-159.310355405"
+  },
+  {
+    'title' : "marker3",
+    'latitude' : "22.0855947129",
+    'longitude' : "-159.344410728"
+  }
+];
+
 class MainView extends React.Component{
 
 
@@ -26,7 +44,7 @@ class MainView extends React.Component{
               <FilterButtons/>
             }
           />
-          <Map/>
+          <Map markers={data}/>
 
         </div>
       )

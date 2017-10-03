@@ -47,7 +47,7 @@ export default class RegistrationModal extends React.Component{
                     </div>
                     <div className="input-field ">
                         <i className="material-icons prefix">lock</i>
-                        <input id="Password" type="text" className="validate "/>
+                        <input id="Password" type="password"  className="validate "/>
                         <label htmlFor="Password" className="">Password</label>
                     </div>
                     <div className="input-field ">
