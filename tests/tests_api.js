@@ -34,31 +34,39 @@ describe('MachineLearningTest', function() {
   });
 });
 
-describe('GetUserTest', function() {
-  it('Test that we can get a user.', async function() {
-    let user = await MODELS.User.findOne({ _id: "59c6796e21cc7a18b276bc22" });
-    EXPECT(user.Email).to.equal("sergey@gmail.com");
+describe('GetUserTest', () => {
+  it('Test that we can get a user.', function() {
+    return MODELS.User.findOne({ _id: "59c6796e21cc7a18b276bc22" })
+      .then(user => {
+        EXPECT(user.Email).to.equal("sergey@gmail.com");
+      });
   });
 });
 
-describe('GetServiceTest', function() {
-  it('Test that we can get a service.', async function() {
-    let service = await MODELS.Service.findOne({ _id: "59ba40426d3bfd0274f0e0b7" });
-    EXPECT(service.Category).to.equal("Dog walking");
+describe('GetServiceTest', () => {
+  it('Test that we can get a service.', function() {
+    return MODELS.Service.findOne({ _id: "59ba40426d3bfd0274f0e0b7" })
+      .then(service => {
+        EXPECT(service.Category).to.equal("Dog walking");
+      });
   });
 });
 
-describe('GetFeedbackTest', function() {
-  it('Test that we can get a feedback.', async function() {
-    let feedback = await MODELS.Feedback.findOne({ _id: "59ce8582d3b60b3938a61345" });
-    EXPECT(feedback.Rating).to.equal(5);
+describe('GetFeedbackTest', () => {
+  it('Test that we can get a feedback.', function() {
+    return MODELS.Feedback.findOne({ _id: "59ce8582d3b60b3938a61345" })
+      .then(feedback => {
+        EXPECT(feedback.Rating).to.equal(5);
+      });
   });
 });
 
-describe('CountFeedbackTest', function() {
-  it('Test that the correct number of feedback items is returned.', async function() {
-    let feedbacks = await MODELS.Feedback.find({ UserReceiverID: "59c6796e21cc7a18b276bc22" });
-    EXPECT(feedbacks.length).to.equal(5);
+describe('CountFeedbackTest', () => {
+  it('Test that the correct number of feedback items is returned.', function() {
+    return MODELS.Feedback.find({ UserReceiverID: "59c6796e21cc7a18b276bc22" })
+      .then(feedbacks => {
+        EXPECT(feedbacks.length).to.equal(5);
+      });
   });
 });
 
