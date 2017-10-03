@@ -1,4 +1,4 @@
-# Jobber
+# Jobber [![Build Status](https://travis-ci.org/aelittaezugbaya/Jobber.svg?branch=master)](https://travis-ci.org/aelittaezugbaya/Jobber)
 
 ## Preparations(if you haven't already)
 
