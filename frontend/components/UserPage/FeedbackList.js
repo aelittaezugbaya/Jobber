@@ -13,13 +13,17 @@ class FeedbackList extends React.Component {
       UserSourceID: jwt_decode(window.localStorage.accessToken)._id, // TODO: GET FROM REDUX
       feedbacks: [],
       loading: true
-    }
+    };
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   componentWillMount() {
     this.fetchFeedbacks();
-    setInterval(this.fetchFeedbacks.bind(this), 1000);
+    this.refreshInterval = setInterval(this.fetchFeedbacks.bind(this), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshInterval);
   }
 
   // shouldComponentUpdate(nextProps, nextState) {

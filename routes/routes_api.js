@@ -2,6 +2,7 @@ const EXPRESS = require('express');
 const ROUTER = EXPRESS.Router();
 const MONGOOSE = require('mongoose');
 const MODELS = require('../mongooseModels');
+const ASYNC = require('async');
 
 const CRYPTO = require('crypto');
 const JWT = require('jsonwebtoken');
@@ -18,30 +19,60 @@ const ML = require('../ml/ml_cluster');
  * Feedback          |  Post (Cache Update Hook) | ReceiverID: Get  |
 */
 
-// -- Dummy Get Category ML
-ROUTER.get('/auth/ml', function(req, res, next) {
+// -- Get Category ML
+ROUTER.get('/auth/ml/:id/:lat/:lon', function(req, res, next) {
 
-  // -- Example Data TODO: Get correct data from DB
-  let newObject = { parameters: [23, 1, 50, 27] }
-  let otherObjects = [
-    // age , gender, lat, lon
-    { parameters: [23, 1, 49, 26], category: "HouseWork" },
-    { parameters: [11, 0, 0, 0], category: "HouseWork" },
-    { parameters: [11, 0, 0, 0], category: "Beauty" },
-    { parameters: [23, 1, -34, 129], category: "Beauty" }
-  ]
-  let limits = [
-    [10, 80], [0, 1], [-90, 90], [-180, 180]
-  ]
-  let weights = [
-    1, 0.5, 10, 10
-  ]
-  let categories = [
-    "HouseWork", "Beauty", "AnimalCare"
-  ]
+  // -- Get Data from DB
 
-  ML.Calculate(newObject, otherObjects, limits, weights, categories);
-  res.send();
+  // -- Get User Object
+  let userObject;
+
+  new Promise(function(resolve, reject) {
+    MODELS.User.find({ _id: req.params.id }, function (err, user) {
+      if(err)
+        reject("Error finding User with ID " + req.params.id + ".");
+      resolve(user);
+    })
+  }).then(function(user){
+    let newObject = { parameters: [ML.GetAge(user[0].DateOfBirth), ML.GetGender(user[0].Gender), req.params.lat, req.params.lon] }
+    let otherObjects = [];
+    let categories = [];
+
+    // -- Get Service Information
+    let i = 0;
+    MODELS.Service.find({}, function (err, service) {               
+      ASYNC.whilst(
+        function() { return i < service.length; },
+        function (callback) {
+          MODELS.User.find({ _id: service[0].UserOwnerID }, function (err, item) {
+            otherObjects.push({ parameters: [ML.GetAge(item[0].DateOfBirth), ML.GetGender(item[0].Gender), service[0].Location.coordinates[0], service[0].Location.coordinates[1]], category: service[0].Category});
+            categories.indexOf(service[0].Category) === -1 ? categories.push(service[0].Category) : console.log("Category already in array.");
+            i++;
+            callback(null);
+          });
+        },
+        function(err) {   
+          console.log(otherObjects[0]);
+          console.log(otherObjects[1]);
+          console.log(otherObjects[2]);
+          
+          let limits = [
+            [10, 80], [0, 1], [-90, 90], [-180, 180]
+          ]
+          let weights = [
+            1, 0.5, 10, 10
+          ]
+      
+          ML.Calculate(newObject, otherObjects, limits, weights, categories);
+          res.send();
+        }
+      );
+    });
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.send(reason);
+  })
 });
 
 // -- Middleware (token check)
@@ -69,9 +100,17 @@ ROUTER.post('/auth/register', function(req, res, next) {
       Salt: salt,
       DateOfBirth: req.body.DateOfBirth,
       Gender: req.body.Gender,
-      Status: "Active"
+      Status: "Active",
+      PreferredCategory: ""
     });
-    newUser.save();
+    newUser.save(function(err, user) {
+      let result = ML.GetDataML(user._id, req.body.lat, req.body.lon, function(err, category){
+        console.log(category);
+        newUser.set({ PreferredCategory: category });
+        newUser.save();
+      });
+      
+    });
 
     return resolve(newUser);
   }).then(function(newUser){

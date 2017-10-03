@@ -10,9 +10,15 @@ import { Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
   componentWillMount(){
-    if(window.localStorage.accessToken !== undefined) {
-      this.props.initUser(window.localStorage.accessToken)
+    const token = window.localStorage.accessToken;
+    const currentDate = new Date().getTime().toString().substring(0, 10);
+
+    if(token !== undefined) {
+      if(jwt_decode(token).exp > currentDate)
+       return this.props.initUser(token);
     }
+
+    this.props.history.push('/');
   }
 
   render() {
