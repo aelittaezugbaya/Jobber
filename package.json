@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development --host 0.0.0.0\"",
     "backend-dev": "nodemon -x npm run backend --ignore ./frontend",
     "backend": "node ./bin/www",
     "build": "webpack --env production",
