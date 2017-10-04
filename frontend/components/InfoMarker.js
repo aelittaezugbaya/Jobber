@@ -10,6 +10,31 @@ export default class InfoMarker extends React.Component {
     }
   }
 
+  componentDidMount(){
+    this.getUserData();
+  }
+
+  getUserData(){
+    window.fetch(`/api/user/${this.props.service.UserOwnerID}`,
+      {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>data[0])
+      .then(data=>{
+
+        this.setState({
+          _id:data._id,
+          name:data.FullName
+        })
+        console.log(this.state)
+      })
+  }
+
   onToggleOpen() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -29,7 +54,12 @@ export default class InfoMarker extends React.Component {
       >
         { this.state.isOpen && (
           <InfoWindow onCloseClick={this.onToggleOpen}>
-            <h4>{service.Category}</h4>
+            <div><h6>{service.Subject}</h6><br/>
+              <strong>User: </strong><a href={`/user/${this.state._id}`}>{this.state.name}</a><br/>
+              <strong>Category: </strong>{service.Category}<br/>
+              <strong>Type: </strong>{service.IsRequest? 'Request':'Offer'}<br/>
+              <strong>Description: </strong>{service.Description}<br/>
+            </div>
           </InfoWindow>
         )}
       </Marker>

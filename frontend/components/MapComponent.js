@@ -71,9 +71,10 @@ export const Map = compose(
   withGoogleMap
 )(props =>
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 60.220877, lng: 24.805051 }}
+    defaultZoom={12}
+    defaultCenter={{ lat: props.pos.lat, lng: props.pos.lon }}
   >
+    <Marker position={{ lat: props.pos.lat,lng:props.pos.lon }} icon="http://www.davidstanleychevrolet.com/assets/d499/img/header-icon-direction.png"/>
     {renderMarkers(props)}
   </GoogleMap>
 );
