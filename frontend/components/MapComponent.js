@@ -8,6 +8,7 @@ import { compose, withProps, withStateHandlers, lifecycle} from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import Actions from '../common/actions';
 import InfoMarker from './InfoMarker';
+import fetch from 'utils/fetch';
 
 const spec = {
   componentDidMount() {
@@ -20,10 +21,9 @@ const spec = {
       this.setState({
         pos
       });
-      window.fetch(`/api/service/${pos.lat}/${pos.lon}/100000`,{
-        method: 'GET',
+      console.log(pos)
+      fetch(`/api/service/${pos.lat}/${pos.lon}/100000`,{
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           'Authorization':window.localStorage.accessToken
         }
       }).then(res=>res.json())
@@ -72,9 +72,9 @@ export const Map = compose(
 )(props =>
   <GoogleMap
     defaultZoom={12}
-    defaultCenter={{ lat: props.pos.lat, lng: props.pos.lon }}
+    center={props.pos ? { lat: props.pos.lat,lng:props.pos.lon } : { lat: -34.397, lng: 150.644 }}
   >
-    <Marker position={{ lat: props.pos.lat,lng:props.pos.lon }} icon="http://www.davidstanleychevrolet.com/assets/d499/img/header-icon-direction.png"/>
+    {props.pos && <Marker position={{ lat: props.pos.lat,lng:props.pos.lon }} icon="http://www.davidstanleychevrolet.com/assets/d499/img/header-icon-direction.png"/>}
     {renderMarkers(props)}
   </GoogleMap>
 );

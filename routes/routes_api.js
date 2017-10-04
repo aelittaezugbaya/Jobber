@@ -69,14 +69,14 @@ ROUTER.post('/auth/register', function(req, res, next) {
 // -- User - Post - Login
 ROUTER.post('/auth/login', function(req, res, next) {
   new Promise(function(resolve, reject) {
-    MODELS.User.find({ Email: req.body.Email}, function(err, user) {
+    MODELS.User.findOne({ Email: req.body.Email}, function(err, user) {
       if(err)
         return reject("Error finding User with Email " + req.params.Email + ".");
       return resolve(user);
     })
   }).then(function(user){
-    let hash = CRYPTO.pbkdf2Sync(req.body.Password, user[0].Salt, 1000, 64, 'sha1').toString('hex');
-    if(hash !== user[0].Hash) {
+    let hash = CRYPTO.pbkdf2Sync(req.body.Password, user.Salt, 1000, 64, 'sha1').toString('hex');
+    if(hash !== user.Hash) {
       console.log("Authentication error");
 
       res.status("Authentication error");
@@ -90,9 +90,9 @@ ROUTER.post('/auth/login', function(req, res, next) {
     expiry.setMinutes(expiry.getMinutes() + 30);
 
     let jwttoken = JWT.sign({
-      _id: user[0]._id,
-      Email: user[0].Email,
-      FullName: user[0].FullName,
+      _id: user._id,
+      Email: user.Email,
+      FullName: user.FullName,
       exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
 
@@ -108,6 +108,7 @@ ROUTER.post('/auth/login', function(req, res, next) {
 ROUTER.get('/feedback/:UserReceiverID', function(req, res, next) {
   new Promise(function(resolve, reject) {
     MODELS.Feedback.find({ UserReceiverID: req.params.UserReceiverID }, function (err, feedback) {
+      console.log(err, feedback)
       if (err)
         return reject("Error finding Feedback with UserReceiverID " + req.params.UserReceiverID + ".");
       return resolve(feedback);

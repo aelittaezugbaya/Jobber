@@ -2,6 +2,7 @@ import React from 'react';
 import Stars from './Stars';
 import { withRouter } from 'react-router';
 import Loading from '../Loading';
+import fetch from 'utils/fetch';
 
 class FeedbackListItem extends React.Component {
   constructor(props) {
@@ -23,11 +24,9 @@ class FeedbackListItem extends React.Component {
   }
 
   getUserData() {
-    window.fetch(`/api/user/${this.props.feedback.UserSourceID}`,
+    fetch(`/api/user/${this.props.feedback.UserSourceID}`,
       {
-        method: 'GET',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           'Authorization':window.localStorage.accessToken
         }
       })

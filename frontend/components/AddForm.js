@@ -2,6 +2,7 @@ import React from 'react';
 import Checkbox from'./Checkbox';
 import InputField from './InputField'
 import Button from './Button'
+import fetch from '../common/utils/fetch';
 
 export default class AddForm extends React.Component{
   constructor(props) {
@@ -19,9 +20,6 @@ export default class AddForm extends React.Component{
     fetch('/api/auth/register',
       {
         method:'POST',
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
         body: data
       })
       .then(data => data.text())

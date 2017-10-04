@@ -6,6 +6,7 @@ import React from 'react';
 import FeedbackList from './FeedbackList';
 import Stars from './Stars';
 import EditModal from './EditModal'
+import fetch from 'utils/fetch';
 
 export default class UserPageContent extends React.Component {
   constructor(props) {
@@ -47,11 +48,9 @@ export default class UserPageContent extends React.Component {
   }
 
   fetchUserData() {
-    window.fetch(`/api/user/${this.props.id}`,
+    fetch(`/api/user/${this.props.id}`,
       {
-        method: 'GET',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           'Authorization':window.localStorage.accessToken
         }
       })

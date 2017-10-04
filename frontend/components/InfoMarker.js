@@ -1,5 +1,6 @@
 import React from 'react';
 import { Marker, InfoWindow } from "react-google-maps";
+import fetch from 'utils/fetch';
 
 export default class InfoMarker extends React.Component {
   constructor(props){
@@ -15,11 +16,9 @@ export default class InfoMarker extends React.Component {
   }
 
   getUserData(){
-    window.fetch(`/api/user/${this.props.service.UserOwnerID}`,
+   fetch(`/api/user/${this.props.service.UserOwnerID}`,
       {
-        method: 'GET',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           'Authorization':window.localStorage.accessToken
         }
       })
