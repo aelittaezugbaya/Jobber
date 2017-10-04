@@ -3,7 +3,7 @@ import Actions from '../common/actions';
 import jwt_decode from 'jwt-decode';
 import {connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
+import fetch from 'utils/fetch'
 import UserPage from './UserPage/UserPage';
 import MainView from './MainView';
 import { Switch, Route } from 'react-router-dom';
@@ -37,7 +37,27 @@ const mapDispatchToProps = (dispatch) => {
   return {
     initUser: (token) => {
       let user = jwt_decode(token);
-      dispatch(Actions.addCurrentUser(user));
+      fetch(`/api/user/${user._id}`,
+      {
+        headers: {
+          'Authorization':window.localStorage.accessToken
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>data[0])
+      .then(data=>{
+        const {
+          FullName,
+          Email,
+          DateOfBirth,
+          Gender,
+          Rating,
+          Description,
+          _id
+        } = data;
+        dispatch(Actions.addCurrentUser(data));
+      });
+      
 
     }
   }

@@ -227,7 +227,7 @@ ROUTER.put('/service/:id', function(req, res, next) {
 
 // -- Service - Post
 ROUTER.post('/service', function(req, res, next) {
-  var newService = models.Service({
+  var newService = MODELS.Service({
     UserOwnerID: req.body.UserOwnerID,
     IsRequest: req.body.IsRequest,
     Subject: req.body.Subject,

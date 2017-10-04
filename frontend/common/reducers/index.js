@@ -41,6 +41,13 @@ function jobber(state = initialState, action) {
         action.payload
       );
       break;
+    case 'SET_CHOSEN_POSITION':
+      return Object.assign(
+        {},
+        state,
+        action.payload
+      );
+      break;
     default:
       return state;
   }

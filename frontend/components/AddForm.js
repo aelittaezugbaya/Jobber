@@ -3,23 +3,33 @@ import Checkbox from'./Checkbox';
 import InputField from './InputField'
 import Button from './Button'
 import fetch from '../common/utils/fetch';
+import Select from './Select';
+import { connect } from 'react-redux';
 
-export default class AddForm extends React.Component{
+class AddForm extends React.Component{
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  serviceApi(_id,isRequest,subject,category,lon,lat,gender,description,price){
-    let data = 'FullName=' + encodeURIComponent(fullName)
-      +'&Email=' + encodeURIComponent(email)
-      +'&Password=' + encodeURIComponent(password)
-      +'&DateOfBirth=' + encodeURIComponent(dateOfBirth)
+  
+  serviceApi(userId,isRequest,subject,category,lon,lat,gender,description,price){
+    debugger;
+    let data = 'UserOwnerID=' + encodeURIComponent(userId)
+      +'&isRequest=' + encodeURIComponent(isRequest)
+      +'&Subject=' + encodeURIComponent(subject)
+      +'&Category=' + encodeURIComponent(category)
       +'&Gender=' + encodeURIComponent(gender)
-      +'&Lat=' + encodeURIComponent(pos.lat)
-      +'&Lon=' + encodeURIComponent(pos.lon)
-    fetch('/api/auth/register',
+      +'&Lat=' + encodeURIComponent(lat)
+      +'&Lon=' + encodeURIComponent(lon)
+      +'&Description' + encodeURIComponent(description)
+      +'&Price' + encodeURIComponent(price);
+
+    fetch('/api/service',
       {
         method:'POST',
+        headers: {
+          'Authorization':window.localStorage.accessToken          
+        },
         body: data
       })
       .then(data => data.text())
@@ -28,50 +38,109 @@ export default class AddForm extends React.Component{
   }
   onSubmit(ev){
     ev.preventDefault();
-    console.log(this.subject.value)
+    const {
+      props,
+      subject,
+      price,
+      category,
+      lat,
+      lng,
+      description
+    } = this;
+
+    const {
+      user,
+      openTab,
+    } = props;
+
+    this.serviceApi(
+      user._id,
+      openTab === 'buying',
+      subject.value,
+      category.value,
+      lng.value,
+      lat.value,
+      user.Gender,
+      description.value,
+      price.value
+    )
   }
 
   render() {
+    const {
+      chosenPosition
+    } = this.props;
+
     return (
       <div id='form' className="modal modal-fixed-footer">
-          <form className="col m12 s12" onSubmit={this.onSubmit}>
-
-        <div className="modal-content">
-          <h4>{this.props.purpose == 'Buying' ? 'New request' : 'New Offer'}</h4>
-            <div className="row">
-              <InputField  ref={ref=>this.subject=ref} className="input-field col m6 s12" id="subject" type="text" inputClass="validate  " text="Subject"/>
-              <InputField className="input-field col m6 s12" id="price" type="text" inputClass="validate " text="Price"/>
-            </div>
-            <div className="divider"></div>
-            <div className="row">
-              <div className="col m4">
-                <h5>Category</h5>
-                <div>
-                  <Checkbox id="pet_careM" text="Pet Care"/>
-                  <Checkbox id="house_repairM" text="House repair"/>
-                  <Checkbox id="children_careM" text="Children care"/>
-                  <Checkbox id="beautyM" text="Beauty"/>
-                  <Checkbox id="cleaningM" text="Cleaning"/>
-                  <Checkbox id="otherM" text='Other'/>
+        <form className="col m12 s12" onSubmit={this.onSubmit}>
+          <div className="modal-content">
+            <h4>{this.props.purpose == 'Buying' ? 'New request' : 'New Offer'}</h4>
+              <div className="row">
+                <InputField required ref={ref=>this.subject=ref} className="input-field col m6 s12" id="subject" type="text" inputClass="validate  " text="Subject"/>
+                <InputField required ref={ref=>this.price=ref} className="input-field col m6 s12" id="price" type="text" inputClass="validate " text="Price"/>
+              </div>
+                <div className="row">
+                  <div className="input-field col m4">
+                    <Select ref={ref=>this.category=ref} 
+                      label="Select category"
+                      options={[
+                        { 
+                          value:"pet_care",
+                          text:"Pet Care"
+                        },
+                        { 
+                          value:"house_repair",
+                          text:"House repair"
+                        },
+                        { 
+                          value:"children_care",
+                          text:"Children care"
+                        },
+                        {
+                          value:"beauty",
+                          text:"Beauty"
+                        },
+                        { 
+                          value:"cleaning",
+                          text:"Cleaning"
+                        },
+                        { 
+                          value:"other",
+                          text:'Other'
+                        }
+                      ]}
+                    />
+                </div>
+                <div className="col m8">
+                  <InputField required ref={ref=>this.lat=ref} className="input-field col m12 s12" id="lat" type="text" inputClass="validate" value={chosenPosition && chosenPosition.lat} text="Lat"/>
+                  <InputField required ref={ref=>this.lng=ref} className="input-field col m12 s12" id="lon" type="text" inputClass="validate" value={chosenPosition && chosenPosition.lng} text="Lon"/>
+                  <div className="input-field col m12 s12">
+                    <textarea required id="info" ref={ref=>this.description=ref} type="text" className="validate materialize-textarea"/>
+                    <label htmlFor="info">Description</label>
+                  </div>
                 </div>
               </div>
-              <div className="col m8">
-                <InputField className="input-field col m12 s12" id="lat" type="text" inputClass="validate " text="Lat"/>
-                <InputField className="input-field col m12 s12" id="lon" type="text" inputClass="validate " text="Lon"/>
-                <div className="input-field col m12 s12">
-                  <textarea id="info" type="text" className="validate materialize-textarea"/>
-                  <label htmlFor="info">Additional info</label>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div className="modal-footer">
-          <Button href="#!"  className="modal-action modal-close waves-effect waves-green btn-flat">Disagree</Button>
-          <Button href="#!" type="submit" className=" waves-effect waves-green btn-flat ">Agree</Button>
+          </div>
+          <div className="modal-footer">
+            <Button href="#!"  className="modal-action modal-close waves-effect waves-green btn-flat">Disagree</Button>
+            <Button href="#!" type="submit" className=" waves-effect waves-green btn-flat ">Agree</Button>
 
-        </div>
-          </form>
+          </div>
+        </form>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({chosenPosition, user, openTab}) => {
+  return {
+    chosenPosition,
+    user,
+    openTab
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(AddForm);

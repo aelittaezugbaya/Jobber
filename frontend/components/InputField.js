@@ -13,7 +13,7 @@ export default class InputField extends React.Component{
     return(
       <div className={this.props.className}>
         {this.props.icon? <i className="material-icons prefix">{this.props.icon}</i>:''}
-          <input ref={ref => this.input = ref} id={this.props.id} type={this.props.type} className={this.props.inputClass}/>
+          <input required={this.props.required} ref={ref => this.input = ref} name={props.name} id={this.props.id} type={this.props.type} className={this.props.inputClass} value={this.props.value}/>
           <label htmlFor={this.props.id}>{this.props.text}</label>
       </div>
     );

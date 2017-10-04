@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Header from './Header'
 import Tabs from './Tabs';
 import FilterButtons from './FilterButtons';
-import {Map} from './MapComponent'
+import Map from './Map/MapComponent'
 
 
 const background ={
