@@ -21,8 +21,8 @@ class AddForm extends React.Component{
       +'&Gender=' + encodeURIComponent(gender)
       +'&Lat=' + encodeURIComponent(lat)
       +'&Lon=' + encodeURIComponent(lon)
-      +'&Description' + encodeURIComponent(description)
-      +'&Price' + encodeURIComponent(price);
+      +'&Description=' + encodeURIComponent(description)
+      +'&Price=' + encodeURIComponent(price);
 
     fetch('/api/service',
       {

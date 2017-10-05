@@ -18,8 +18,11 @@ export default class ServiceMarker extends InfoMarker {
   getUserData(){
    fetch(`/api/user/${this.props.service.UserOwnerID}`,
       {
+        method: 'GET',
         headers: {
-          'Authorization':window.localStorage.accessToken
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization':window.localStorage.accessToken,
+          "Accept": "application/json"
         }
       })
       .then(res=>res.json())
@@ -29,7 +32,9 @@ export default class ServiceMarker extends InfoMarker {
           _id:data._id,
           name:data.FullName
         })
+
       })
+
   }
 
   getInfoWindowContent() {
