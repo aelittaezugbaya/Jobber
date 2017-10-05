@@ -3,6 +3,9 @@ const EXPECT = CHAI.expect;
 const ML = require('../ml/ml_cluster');
 
 require('dotenv').config()
+
+console.log('mongo_user: ' + process.env.mongo_user);
+
 const MONGOOSE = require('mongoose');
 MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
 const MODELS = require('../mongooseModels');
