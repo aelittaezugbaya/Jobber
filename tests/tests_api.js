@@ -4,7 +4,7 @@ const ML = require('../ml/ml_cluster');
 
 require('dotenv').config()
 
-console.log('mongo_user: ' + process.env.mongo_user);
+console.log('mongo_user: ' + process.env.mongo_user.length);
 
 const MONGOOSE = require('mongoose');
 MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
