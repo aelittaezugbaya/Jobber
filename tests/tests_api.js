@@ -4,8 +4,6 @@ const ML = require('../ml/ml_cluster');
 
 require('dotenv').config()
 
-console.log('mongo_user: ' + process.env.mongo_user.length);
-
 const MONGOOSE = require('mongoose');
 MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
 const MODELS = require('../mongooseModels');
@@ -70,7 +68,7 @@ describe('CountFeedbackTest', () => {
   it('Test that the correct number of feedback items is returned.', function() {
     return MODELS.Feedback.find({ UserReceiverID: "59c6796e21cc7a18b276bc22" })
       .then(feedbacks => {
-        EXPECT(feedbacks.length).to.equal(5);
+        EXPECT(feedbacks.length).to.equal(6);
       });
   });
 });
