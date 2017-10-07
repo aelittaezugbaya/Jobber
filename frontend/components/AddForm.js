@@ -124,7 +124,7 @@ class AddForm extends React.Component{
           </div>
           <div className="modal-footer">
             <Button href="#!"  className="modal-action modal-close waves-effect waves-green btn-flat">Disagree</Button>
-            <Button href="#!" type="submit" className=" waves-effect waves-green btn-flat ">Agree</Button>
+            <Button href="#!" type="submit" className="modal-action modal-close waves-effect waves-green btn-flat ">Agree</Button>
 
           </div>
         </form>

@@ -40,8 +40,8 @@ class LoginForm extends React.Component {
 
   onLoginFormSubmit(ev) {
     ev.preventDefault();
+    this.loginAPI(this.username.value, this.password.value);
 
-    this.loginAPI(this.username.value, this.password.value)
   }
 
   render() {
