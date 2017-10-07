@@ -3,7 +3,8 @@ import FeedbackListItem from './FeedbackListItem';
 import Stars from './Stars';
 import jwt_decode from 'jwt-decode';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router'
+import {withRouter} from 'react-router';
+import fetch from 'utils/fetch';
 import Loading from '../Loading';
 
 class FeedbackList extends React.Component {
@@ -31,20 +32,22 @@ class FeedbackList extends React.Component {
   // }
 
   fetchFeedbacks() {
-    window.fetch(`/api/feedback/${this.props.id}`,
-      {
-        method: 'GET',
+    console.log(this.props.id)
+    if(this.props.id){
+      fetch(`/api/feedback/${this.props.id}`, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          'Authorization':window.localStorage.accessToken
+          'Authorization': window.localStorage.accessToken
         }
       })
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({
-          feedbacks:data,
+        .then(res=>res.json())
+        .then(data=>{
+          this.setState({
+            feedbacks:data,
+          })
         })
-      })
+        .catch(err => clearInterval(this.refreshInterval));
+    }
+
   }
 
   onFeedbackItemLoad(){
@@ -63,11 +66,10 @@ class FeedbackList extends React.Component {
       +'&Comment='+encodeURIComponent(this.comment.value)
       +'&Rating='+encodeURIComponent(this.ratingSelector.value)
 
-    window.fetch('/api/feedback/',
+    fetch('/api/feedback/',
       {
         method: 'POST',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           'Authorization':window.localStorage.accessToken
         },
         body:info
@@ -87,10 +89,15 @@ class FeedbackList extends React.Component {
       feedbacks,
       loading
     } = this.state;
+    let feedbackItems = null;
 
-    const feedbackItems = feedbacks.map(feedback => (
-      <FeedbackListItem feedback={feedback} key={feedback._id} onLoad={() => this.onFeedbackItemLoad()}/>
-    ));
+    if(feedbacks && feedbacks.length === 0) {
+      this.onFeedbackItemLoad();
+    } else {
+      feedbackItems = feedbacks.map(feedback => (
+        <FeedbackListItem feedback={feedback} key={feedback._id} onLoad={() => this.onFeedbackItemLoad()}/>
+      ));
+    }
 
     return (
       <div className="card">

@@ -25,7 +25,7 @@ const logout = ()=>{
   }
 };
 
-const saveReceiverUser=(receiver)=>{
+const saveReceiverUser= (receiver)=>{
   return{
     type:'SAVE_RECEIVER_USER',
     payload:{
@@ -34,9 +34,29 @@ const saveReceiverUser=(receiver)=>{
   }
 }
 
+const saveNearServices = (nearServices)=>{
+  return{
+    type:'SAVE_NEAR_SERVICES',
+    payload:{
+      nearServices
+    }
+  }
+}
+
+const setChosenPosition = (chosenPosition) => {
+  return {
+    type: 'SET_CHOSEN_POSITION',
+    payload: {
+      chosenPosition
+    }
+  }
+}
+
 export default {
   changeTab,
   addCurrentUser,
   logout,
-  saveReceiverUser
+  saveReceiverUser,
+  saveNearServices,
+  setChosenPosition
 };

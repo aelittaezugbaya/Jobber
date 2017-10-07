@@ -5,6 +5,7 @@ const FAVICON = require('serve-favicon');
 const LOGGER = require('morgan');
 const COOKIE_PARSER = require('cookie-parser');
 const BODY_PARSER = require('body-parser');
+const fallback =require('express-history-api-fallback');
 
 const MONGOOSE = require('mongoose');
 MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
@@ -20,6 +21,7 @@ APP.use(BODY_PARSER.json());
 APP.use(BODY_PARSER.urlencoded({ extended: false }));
 APP.use(COOKIE_PARSER());
 APP.use(EXPRESS.static(PATH.join(__dirname, 'public')));
+APP.use(fallback('index.html', { root: PATH.join(__dirname, 'public') }));
 
 APP.use('/', ROUTES_INDEX);
 APP.use('/api', ROUTES_API);

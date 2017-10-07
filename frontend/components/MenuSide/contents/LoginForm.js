@@ -3,6 +3,7 @@ import {withRouter} from 'react-router';
 import jwt_decode from 'jwt-decode';
 import {connect} from 'react-redux';
 import Actions from '../../../common/actions/index';
+import fetch from 'utils/fetch';
 
 import Button from '../../Button';
 
@@ -17,12 +18,9 @@ class LoginForm extends React.Component {
     const data = 'Email=' + encodeURIComponent(email) +
       '&Password=' + encodeURIComponent(password);
 
-    window.fetch('/api/auth/login',
+    fetch('/api/auth/login',
       {
         method: 'POST',
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
         body: data
       })
       .then(data => data.text())
@@ -42,8 +40,8 @@ class LoginForm extends React.Component {
 
   onLoginFormSubmit(ev) {
     ev.preventDefault();
+    this.loginAPI(this.username.value, this.password.value);
 
-    this.loginAPI(this.username.value, this.password.value)
   }
 
   render() {

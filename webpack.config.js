@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const PATHS = {
   frontend: path.join(__dirname, 'frontend'),
@@ -28,6 +29,11 @@ const commonConfig = {
       to: 'assets/img'
     }])
   ],
+  resolve: {
+    alias: {
+      utils: path.join(PATHS.frontend, 'common', 'utils')
+    }
+  },
   module: {
     rules: [
       {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Header from './Header'
 import Tabs from './Tabs';
 import FilterButtons from './FilterButtons';
-import Map from './Map'
+import Map from './Map/MapComponent'
 
 
 const background ={
@@ -44,8 +44,11 @@ class MainView extends React.Component{
               <FilterButtons/>
             }
           />
-          <Map markers={data}/>
-
+          <Map isMarkerShown
+               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDY28-8DfcxGFrxCp-qumpzaWz0ot1uG0&v=3.exp&libraries=geometry,drawing,places"
+               loadingElement={<div className="preHold" style={{ height: `100%` }} />}
+               containerElement={<div className="map-holder"/>}
+               mapElement={<div id="map"/>}/>
         </div>
       )
     }

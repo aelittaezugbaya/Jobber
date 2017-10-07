@@ -2,8 +2,14 @@ import React from 'react';
 import RadioButton from './RadioButton';
 import InputField from './InputField';
 import HeaderText from './HeaderText';
+import Button from './Button';
 
 export default class RegistrationModal extends React.Component{
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
     componentDidMount(){
       $('.datepicker').pickadate({
           selectMonths: true, // Creates a dropdown to control month
@@ -41,64 +47,34 @@ export default class RegistrationModal extends React.Component{
         });
     }
 
+    onSubmit(ev){
+      ev.preventDefault();
+      let gender= this.Male.value?'Male':'Female';
+      this.registerApi(this.FullName.value,this.Email.value,this.Password.value,this.DateOfBirth.value,gender )
+    }
+
     render(){
         return(
-            <div id="registration" className="modal modal-fixed-footer">
-                <div className="modal-content">
-
-/*
-
-<h4>Registration</h4>
-<div className="input-field">
-    <i className="material-icons prefix">face</i>
-    <input id="FullName" type="text" className="validate  "/>
-    <label htmlFor="FullName" className="">Full Name</label>
-</div>
-<div className="input-field ">
-    <i className="material-icons prefix">email</i>
-    <input id="Email" type="text" className="validate "/>
-    <label htmlFor="Email" className="">Email</label>
-</div>
-<div className="input-field ">
-    <i className="material-icons prefix">lock</i>
-    <input id="Password" type="text" className="validate "/>
-    <label htmlFor="Password" className="">Password</label>
-</div>
-<div className="input-field ">
-    <i className="material-icons prefix">date_range</i>
-    <input type="text" className="datepicker" id="DateOfBirth"/>
-    <label htmlFor="DateOfBirth" className="">Date Of Birth</label>
-</div>
-
-<p><i className="material-icons prefix">wc</i> Gender</p>
-
-*/
-
-                    <HeaderText text="Registration" />
-                    { /* }<h4>Registration</h4> */ }
-                    <InputField className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
-                    <InputField className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
-                    <InputField className="input-field" icon="lock" id="Password" type="password"" inputClass="validate" text="Password" />
-                    <InputField className="input-field" icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
-                    <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
-                    <div className="row">
-                        <RadioButton id="male" text="Male" />
-                        <RadioButton id="female" text="Female" />
-                    </div>
-
-                </div>
-                <div className="modal-footer">
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat " type="reset">Cancel</a>
-                    <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat"
-                       onClick={()=>this.registerApi(
-                           document.getElementById('FullName').value,
-                           document.getElementById('Email').value,
-                           document.getElementById('Password').value,
-                           document.getElementById('DateOfBirth').value,
-                           document.getElementById('male').checked ? 'male': 'female'
-                       )}>Register</a>
+          <div id="registration" className="modal modal-fixed-footer">
+            <form onSubmit={this.onSubmit}>
+              <div className="modal-content">
+                <HeaderText text="Registration" />
+                <InputField className="input-field" ref={ref=>this.FullName=ref} icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
+                <InputField className="input-field" ref={ref=>this.Email=ref} icon="email" id="Email" type="text" inputClass="validate" text="Email" />
+                <InputField className="input-field" ref={ref=>this.Password=ref} icon="lock" id="Password" type="password" inputClass="validate" text="Password" />
+                <InputField className="input-field" ref={ref=>this.DateOfBirth=ref} icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
+                <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
+                <div className="row">
+                  <RadioButton id="male" ref={ref=>this.Male=ref} text="Male" />
+                  <RadioButton id="female" text="Female" />
                 </div>
             </div>
+            <div className="modal-footer">
+              <Button href="#!" className="modal-action modal-close waves-effect waves-green btn-flat " type="reset">Cancel</Button>
+              <Button href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" type="submit">Register</Button>
+              </div>
+            </form>
+          </div>
         )
     }
 }
