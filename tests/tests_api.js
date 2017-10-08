@@ -8,7 +8,6 @@ const MONGOOSE = require('mongoose');
 MONGOOSE.connect('mongodb://' + process.env.mongo_user + ':' + process.env.mongo_pass + '@ds133054.mlab.com:33054/jobber');
 const MODELS = require('../mongooseModels');
 
-/*
 describe('MachineLearningTest', function() {
   it('Calculate should return a String with a category.', function() {
 
@@ -35,7 +34,6 @@ describe('MachineLearningTest', function() {
     EXPECT(result).to.equal("HouseWork");
   });
 });
-*/
 
 describe('GetUserTest', () => {
   it('Test that we can get a user.', function() {
