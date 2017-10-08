@@ -19,7 +19,6 @@
     "dotenv": "^4.0.0",
     "express": "~4.15.2",
     "font-awesome": "^4.7.0",
-    "jade": "~1.11.0",
     "jsonwebtoken": "^8.0.1",
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.19.1",

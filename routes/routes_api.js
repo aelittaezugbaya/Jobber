@@ -35,7 +35,7 @@ ROUTER.post('/auth/register', function(req, res, next) {
     let hash = CRYPTO.pbkdf2Sync(req.body.Password, salt, 1000, 64, 'sha1').toString('hex');
     // TODO User name check in FRONTEND!
 
-    var newUser = MODELS.User({
+    let newUser = MODELS.User({
       Rating: 0,
       FullName: req.body.FullName,
       Email: req.body.Email,
@@ -53,7 +53,7 @@ ROUTER.post('/auth/register', function(req, res, next) {
         newUser.set({ PreferredCategory: category });
         newUser.save();
       });
-      
+
     });
 
     return resolve(newUser);
@@ -123,7 +123,7 @@ ROUTER.get('/feedback/:UserReceiverID', function(req, res, next) {
 
 // -- Feedback - Post
 ROUTER.post('/feedback', function(req, res, next) {
-  var newFeedback = MODELS.Feedback({
+  let newFeedback = MODELS.Feedback({
     UserSourceID: req.body.UserSourceID,
     UserReceiverID: req.body.UserReceiverID,
     Comment: req.body.Comment,
@@ -226,7 +226,7 @@ ROUTER.put('/service/:id', function(req, res, next) {
 
 // -- Service - Post
 ROUTER.post('/service', function(req, res, next) {
-  var newService = models.Service({
+  let newService = models.Service({
     UserOwnerID: req.body.UserOwnerID,
     IsRequest: req.body.IsRequest,
     Subject: req.body.Subject,

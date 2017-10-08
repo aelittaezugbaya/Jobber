@@ -10,7 +10,7 @@ module.exports = function()
     GetDataML : function(id, lat, lon, callback) {
       // -- Get User Object
       let userObject;
-    
+
       new Promise(function(resolve, reject) {
         MODELS.User.find({ _id: id }, function (err, user) {
           if(err)
@@ -21,10 +21,10 @@ module.exports = function()
         let newObject = { parameters: [GetAge(user[0].DateOfBirth), GetGender(user[0].Gender), lat, lon] }
         let otherObjects = [];
         let categories = [];
-    
+
         // -- Get Service Information
         let i = 0;
-        MODELS.Service.find({}, function (err, service) {               
+        MODELS.Service.find({}, function (err, service) {
           ASYNC.whilst(
             function() { return i < service.length; },
             function (callback) {
@@ -35,7 +35,7 @@ module.exports = function()
                 callback(null);
               });
             },
-            function(err) {   
+            function(err) {
               let limits = [
                 [10, 80], [0, 1], [-90, 90], [-180, 180]
               ]
