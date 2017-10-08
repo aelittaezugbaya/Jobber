@@ -36,7 +36,7 @@ Object List
 */
 
 // -- Service Object
-var serviceSchema = new MONGOOSE.Schema({
+let serviceSchema = new MONGOOSE.Schema({
   UserOwnerID: String,
   IsRequest: Boolean,
   Subject: String,

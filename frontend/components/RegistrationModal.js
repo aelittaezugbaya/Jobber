@@ -17,7 +17,7 @@ export default class RegistrationModal extends React.Component{
 
     registerApi(fullName,email,password,dateOfBirth,gender){
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            let pos = {
               lat: position.coords.latitude,
               lon: position.coords.longitude
             };
