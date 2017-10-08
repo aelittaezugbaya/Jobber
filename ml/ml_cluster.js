@@ -55,7 +55,7 @@ module.exports = function()
 }();
 
 // -- Returns string of most suitable category
-var Calculate = function (newObject, otherObjects, limits, weights, categories) {
+let Calculate = function (newObject, otherObjects, limits, weights, categories) {
   console.log("Calculating");
   /*
 
@@ -168,14 +168,14 @@ var Calculate = function (newObject, otherObjects, limits, weights, categories) 
   return categories[winnerIndex];
 }
 
-var GetAge = function (dateOfBirth) {
+let GetAge = function (dateOfBirth) {
   // -- Calculate Age of user birth date
   let ageDifMs = Date.now() - dateOfBirth.getTime();
   let ageDate = new Date(ageDifMs);
   return (Math.abs(ageDate.getUTCFullYear() - 1970)).toString();
 }
 
-var GetGender = function(gender) {
+let GetGender = function(gender) {
   // -- Get gender variable (0= Male, 1= Female)
   if(gender === "male")
     return '0';

@@ -63,7 +63,7 @@ export default class Map extends React.Component{
     this.setMarkers(map);
     let content='<h4>Metropolia</h4>';
 
-    var infowindow = new google.maps.InfoWindow({
+    let infowindow = new google.maps.InfoWindow({
       content: content
     });
     let marker=new google.maps.Marker({
