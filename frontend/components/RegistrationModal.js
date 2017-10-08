@@ -78,7 +78,7 @@ export default class RegistrationModal extends React.Component{
                     { /* }<h4>Registration</h4> */ }
                     <InputField className="input-field" icon="face" id="FullName" type="text" inputClass="validate" text="Full Name" />
                     <InputField className="input-field" icon="email" id="Email" type="text" inputClass="validate" text="Email" />
-                    <InputField className="input-field" icon="lock" id="Password" type="password"" inputClass="validate" text="Password" />
+                    <InputField className="input-field" icon="lock" id="Password" type="password" inputClass="validate" text="Password" />
                     <InputField className="input-field" icon="date_range" id="DateOfBirth" type="text" inputClass="datepicker" text="Date Of Birth" />
                     <p><i className="material-icons prefix">wc</i> Gender</p><hr/>
                     <div className="row">

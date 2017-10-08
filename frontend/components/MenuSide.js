@@ -98,8 +98,8 @@ class MenuSide extends React.Component{
                     <img src="/assets/img/background.jpg"/>
                 </div>
                 <a href={`/user/${this.state.user._id}`}><img className="circle" src="/assets/img/avatar.jpg"/></a>
-                <a href="#!name"><span className="white-text name">{this.props.name}</span></a>
-                <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
+                <a href={`/user/${this.state.user._id}`}><span className="white-text name">{this.props.name}</span></a>
+                <a href={`/user/${this.state.user._id}`}><span className="white-text email">{this.props.email}</span></a>
             </div></li>
 
             <li><a className="waves-effect" href="#!">Add new offer</a></li>
